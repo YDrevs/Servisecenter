@@ -33,7 +33,14 @@ lives in the database, not in Git.
      — from the MySQL service's connection vars. Keep `WORDPRESS_TABLE_PREFIX=wp_` for a
      fresh install.
    - `WORDPRESS_CONFIG_EXTRA` — set `WP_HOME` and `WP_SITEURL` to the public URL, plus the
-     eight auth salts (generate at <https://api.wordpress.org/secret-key/1.1/salt/>).
+     eight auth salts (generate at <https://api.wordpress.org/secret-key/1.1/salt/>), plus the
+     proxy line below. Railway terminates TLS and forwards plain HTTP, so without it WordPress
+     thinks the request is insecure, emits `http://` URLs and can redirect-loop on login:
+     ```php
+     if ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' ) {
+         $_SERVER['HTTPS'] = 'on';
+     }
+     ```
    - `LEADERAUTO_CONTACT_EMAIL`, and optionally `LEADERAUTO_TELEGRAM_TOKEN` /
      `LEADERAUTO_TELEGRAM_CHAT_ID` for the contact form.
    - SMTP vars for outbound mail (Railway has no local MTA — configure `easy-wp-smtp` or a
