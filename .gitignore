@@ -8,6 +8,7 @@
 Thumbs.db
 .idea/
 .vscode/
+.obsidian/
 *.code-workspace
 
 # === Dependencies / build output ===
