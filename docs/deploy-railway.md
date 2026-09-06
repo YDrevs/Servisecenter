@@ -19,20 +19,16 @@ lives in the database, not in Git.
 
 ## One-time setup
 
-1. **Build assets, then commit them** (the image expects `assets/dist/` to exist):
-   ```bash
-   npm --prefix app/build ci
-   npm --prefix app/build run build
-   git add -f app/wp-content/themes/leaderauto/assets/dist
-   ```
-   > `assets/dist/` is git-ignored by default. Either force-add it (simple), or add a
-   > Railway build step that runs the npm build before `docker build`.
+> **Assets need no host-side step.** The Dockerfile's first stage runs `npm ci &&
+> npm run build` inside the image, so `assets/dist/` stays git-ignored and Railway,
+> which builds straight from the repo, produces it during the build. Never commit
+> `assets/dist/` or force-add it.
 
-2. **Create the Railway project** and add two services:
+1. **Create the Railway project** and add two services:
    - **MySQL** (Railway's managed plugin).
    - **Web** — deploy from this GitHub repo; Railway reads `railway.json`.
 
-3. **Set environment variables** on the Web service (values from `app/.env.example`):
+2. **Set environment variables** on the Web service (values from `app/.env.example`):
    - `WORDPRESS_DB_HOST`, `WORDPRESS_DB_NAME`, `WORDPRESS_DB_USER`, `WORDPRESS_DB_PASSWORD`
      — from the MySQL service's connection vars. Keep `WORDPRESS_TABLE_PREFIX=wp_` for a
      fresh install.
@@ -43,16 +39,16 @@ lives in the database, not in Git.
    - SMTP vars for outbound mail (Railway has no local MTA — configure `easy-wp-smtp` or a
      transactional provider, or rely on Telegram only).
 
-4. **Add a volume** on the Web service mounted at `/var/www/html/wp-content/uploads`
+3. **Add a volume** on the Web service mounted at `/var/www/html/wp-content/uploads`
    (`ARCH.md` §15) — otherwise uploaded media is lost on every redeploy.
 
-5. **First deploy**, then choose a content path:
+4. **First deploy**, then choose a content path:
    - **Fresh:** `railway run --service <web> wp --allow-root core install --url="$WP_HOME" --title="LeaderAuto" --admin_user=admin --admin_password='…' --admin_email='you@example.com'`
    - **From the reference dump:** `gunzip -c wp-content/uploads/wp-file-manager-pro/fm_backup/*-db.sql.gz | railway run --service <web> wp --allow-root db import -`
      then `wp --allow-root search-replace 'http://matede01.wp-box.com' "$WP_HOME" --all-tables --skip-columns=guid`.
      Note the dump's prefix is `wpQsD69K_`, so set `WORDPRESS_TABLE_PREFIX=wpQsD69K_` to use it.
 
-6. **Activate:** `railway run --service <web> bash /usr/local/bin/leaderauto-postdeploy`
+5. **Activate:** `railway run --service <web> bash /usr/local/bin/leaderauto-postdeploy`
 
 ## Environments
 
