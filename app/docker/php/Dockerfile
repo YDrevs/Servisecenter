@@ -46,9 +46,18 @@ RUN chmod +x /usr/local/bin/leaderauto-postdeploy /usr/local/bin/leaderauto-entr
 RUN test -f /var/www/html/wp-content/themes/leaderauto/assets/dist/.vite/manifest.json \
  || (echo 'ERROR: asset stage produced no manifest' && exit 1)
 
-# Apache accepts exactly one MPM; the base image enables mpm_prefork alone. Assert
-# it here so a bad *image* fails the build with a readable message instead of
-# crash-looping at run time with "AH00534: More than one MPM loaded."
+# Apache accepts exactly one MPM, and mod_php requires mpm_prefork. A fresh
+# wordpress:php8.3-apache enables prefork alone, but the image Railway actually
+# ran had mpm_event.load symlinked in as well, so Apache refused to start:
+#   AH00534: apache2: Configuration error: More than one MPM loaded.
+# Pin the MPM explicitly instead of trusting the inherited state, whatever put
+# it there (stale build-cache layer, a differently-resolved base image, builder
+# tooling). a2dismod exits non-zero when a module is already off — hence || true.
+RUN a2dismod mpm_event mpm_worker >/dev/null 2>&1 || true; \
+    a2enmod mpm_prefork >/dev/null 2>&1 || true
+
+# …then prove it, so a bad image fails the build with a readable message rather
+# than crash-looping at run time.
 RUN n="$(ls /etc/apache2/mods-enabled/mpm_*.load 2>/dev/null | wc -l)"; \
     if [ "$n" -ne 1 ]; then \
       echo "ERROR: expected exactly one MPM, found $n:"; \
