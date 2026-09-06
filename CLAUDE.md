@@ -101,7 +101,12 @@ Only **three plugins** exist, per the backup zip: `easy-wp-smtp` 2.15.0 (active)
 
 ## Known debt and traps
 
-- **The site was built from Divi's "Car Detailing" premade layout pack and the demo content was never stripped.** `hello@divicardetailing.com` is **not a real address**. `detailing-02.png` … `detailing-21.jpg` and `handyman_04–06.jpg` in `uploads/2025/11/` are stock demo photos, not client work. Do not carry any of it into the rebuild.
+- **The site was built from Divi's "Car Detailing" premade layout pack and the demo text was never stripped.** `hello@divicardetailing.com` is **not a real address** — never present it as one.
+- **The layout-pack images ARE licensed and stay.** `detailing-02.png` … `detailing-21.jpg` and
+  `handyman_04–06.jpg` are paid assets the client bought, committed deliberately in `Images/`
+  (`9800c56`). They are **placeholders the client will swap for their own photos over the coming
+  days**, not junk to strip. Do not delete them, do not "clean them up", and do not treat their
+  presence as a mistake. Only the demo *copy* (addresses, names) is fake.
 - **Real client assets are only in `wp-content/uploads/2026/05/`:** `ЛОГО.png` (the actual logo), `BYD.jpg`, `CAR-Lider-Avto-2.mp4`, `Sea-Lion-08-Дебют.mp4`, `1w.jpg`, `icon.jpg` — plus generated size variants. That's the whole real media library. `uploads/2026/06`, `07`, `08` exist but are empty; `uploads/et_temp/` is Divi scratch space.
 - **Copy is Ukrainian, but the archive's page slugs are legacy Russian** (`главная`, `контакты`, `о-нас`) and `permalink_structure` is **empty** (plain `?page_id=` URLs). The rebuild uses deliberate Latin slugs — `/`, `/dealer/`, `/about/`, `/contacts/` — and pretty permalinks. There is no redirect plugin, so any old inbound links are unprotected; see `docs/deploy-railway.md`.
 - `wp-content/languages/` carries both `uk` (71 files) and `ru_RU` (80 files). The `ru_RU` set is dead weight from the earlier config.
@@ -172,7 +177,7 @@ Decided and in effect. `docs/architecture.md` is the authoritative version; summ
 | Assets | Vite in `app/build`. `npm --prefix app/build run build` → `assets/dist/` (git-ignored) + manifest; `inc/enqueue.php` reads it, with a dev-server (`:5173`) fallback. |
 | i18n | `uk` only. Text domain `leaderauto` / `leaderauto-core` is wired; copy is inline Ukrainian for now — no second locale planned. |
 | Forms | `POST /wp-json/leaderauto/v1/contact` in `leaderauto-core` → validate → `wp_mail` + optional Telegram. Targets via env constants first, then a Settings screen. |
-| Media | Real files copied into `app/wp-content/themes/leaderauto/assets/images/`. Stock "Car Detailing" photos never used. |
+| Media | Real files in `app/wp-content/themes/leaderauto/assets/images/`. The client's licensed layout-pack images live in `Images/` and are in play as placeholders until their own photos land. |
 | Hosting | Railway, Dockerfile build (`app/docker/php/Dockerfile`). `develop`→staging, `main`→prod. `uploads/` on a volume. See `docs/deploy-railway.md`. Not provisioned yet. |
 | AI context | This file. No separate `AI_CONTEXT.md` (ARCH.md §17 suggested one; folded in here). |
 
