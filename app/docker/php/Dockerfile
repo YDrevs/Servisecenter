@@ -31,16 +31,29 @@ COPY --from=wordpress:cli-php8.3 /usr/local/bin/wp /usr/local/bin/wp
 COPY app/wp-content/themes/leaderauto   /var/www/html/wp-content/themes/leaderauto
 COPY app/wp-content/plugins/leaderauto-core /var/www/html/wp-content/plugins/leaderauto-core
 COPY app/docker/php/postdeploy.sh       /usr/local/bin/leaderauto-postdeploy
+COPY app/docker/php/entrypoint.sh       /usr/local/bin/leaderauto-entrypoint
 
 # Built assets come from stage 1, never from the context — this also overwrites
 # a stale dist/ that a local build may have left in the theme directory.
 COPY --from=assets /repo/app/wp-content/themes/leaderauto/assets/dist \
                    /var/www/html/wp-content/themes/leaderauto/assets/dist
 
-RUN chmod +x /usr/local/bin/leaderauto-postdeploy \
+RUN chmod +x /usr/local/bin/leaderauto-postdeploy /usr/local/bin/leaderauto-entrypoint \
  && chown -R www-data:www-data /var/www/html/wp-content/themes/leaderauto \
                                /var/www/html/wp-content/plugins/leaderauto-core
 
 # Sanity check that stage 1 actually produced a manifest for inc/enqueue.php to read.
 RUN test -f /var/www/html/wp-content/themes/leaderauto/assets/dist/.vite/manifest.json \
  || (echo 'ERROR: asset stage produced no manifest' && exit 1)
+
+# Apache accepts exactly one MPM; the base image enables mpm_prefork alone. Assert
+# it here so a bad *image* fails the build with a readable message instead of
+# crash-looping at run time with "AH00534: More than one MPM loaded."
+RUN n="$(ls /etc/apache2/mods-enabled/mpm_*.load 2>/dev/null | wc -l)"; \
+    if [ "$n" -ne 1 ]; then \
+      echo "ERROR: expected exactly one MPM, found $n:"; \
+      ls -l /etc/apache2/mods-enabled/; exit 1; \
+    fi
+
+ENTRYPOINT ["/usr/local/bin/leaderauto-entrypoint"]
+CMD ["apache2-foreground"]
