@@ -1,0 +1,9 @@
+/* Small shared section bits not big enough for their own file. */
+.media-split__media img {
+	width: 100%;
+	border-radius: var(--radius-card);
+	border: 1px solid var(--c-line);
+}
+.section--dark .media-split__media img { border-color: rgba(255, 255, 255, 0.2); }
+
+.band__body > * + * { margin-top: 0.5rem; }

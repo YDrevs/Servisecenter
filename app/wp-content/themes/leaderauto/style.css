@@ -1,0 +1,17 @@
+/*
+Theme Name: LeaderAuto
+Theme URI: https://github.com/YDrevs/Servisecenter
+Author: LeaderAuto
+Description: Bespoke theme for LeaderAuto — an EV service shop and BYD dealer in the Chernivtsi region. Presentation only; business logic (contact form, integrations) lives in the leaderauto-core plugin. Assets are built with Vite into assets/dist.
+Version: 0.1.0
+Requires at least: 6.5
+Tested up to: 7.1
+Requires PHP: 8.1
+License: proprietary
+Text Domain: leaderauto
+*/
+
+/*
+ * Real styles are bundled by Vite from assets/src/css/ and enqueued via inc/enqueue.php.
+ * This file exists only to carry the theme header. Do not add styles here.
+ */

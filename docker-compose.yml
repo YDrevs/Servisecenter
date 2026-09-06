@@ -1,0 +1,126 @@
+# Local REFERENCE environment for the existing LeaderAuto (Divi) site.
+# This is disposable scaffolding: it boots the old site from the DB dump so we can
+# read its real content and design while rebuilding it in ./app.
+#
+#   ./app/reference/bin/prepare-reference.sh   # one-time: unpack dump + plugins
+#   docker compose up -d                       # http://localhost:8080
+#
+# Nothing here is a production artifact. Production lives in ./app/docker + railway.json.
+
+name: leaderauto-ref
+
+services:
+  db:
+    image: mariadb:11
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: matede01_20260503_095713
+      MARIADB_USER: wordpress
+      MARIADB_PASSWORD: wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+      # First-boot import. prepare-reference.sh drops the decompressed dump here.
+      - ./app/db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  wordpress:
+    image: wordpress:php8.3-apache
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: matede01_20260503_095713
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_TABLE_PREFIX: wpQsD69K_
+      WORDPRESS_CONFIG_EXTRA: |
+        define('WP_HOME', 'http://localhost:8080');
+        define('WP_SITEURL', 'http://localhost:8080');
+        define('WP_DEBUG', true);
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', false);
+        define('FS_METHOD', 'direct');
+        define('DISALLOW_FILE_MODS', true);
+    volumes:
+      # WordPress core lives here, populated by the image on first boot, shared with wpcli.
+      - wp_html:/var/www/html
+      # --- frozen reference archive (read-only) ---
+      - ./wp-content/themes/Divi:/var/www/html/wp-content/themes/Divi:ro
+      - ./wp-content/uploads:/var/www/html/wp-content/uploads
+      # --- plugins were never copied into the repo; prepare-reference.sh unpacks them here ---
+      - ./app/reference/plugins:/var/www/html/wp-content/plugins
+      # --- dev-only: route mail to Mailpit so the contact form is testable locally ---
+      - ./app/reference/mu-plugins:/var/www/html/wp-content/mu-plugins:ro
+      # --- the new build, live-mounted so edits show immediately ---
+      - ./app/wp-content/themes/leaderauto:/var/www/html/wp-content/themes/leaderauto
+      - ./app/wp-content/plugins/leaderauto-core:/var/www/html/wp-content/plugins/leaderauto-core
+
+  # `docker compose run --rm wpcli wp <args>`  (see `make wp`)
+  wpcli:
+    image: wordpress:cli-php8.3
+    profiles: ["cli"]
+    user: "33:33"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: matede01_20260503_095713
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_TABLE_PREFIX: wpQsD69K_
+    volumes:
+      - wp_html:/var/www/html
+      - ./wp-content/themes/Divi:/var/www/html/wp-content/themes/Divi:ro
+      - ./wp-content/uploads:/var/www/html/wp-content/uploads
+      - ./app/reference/plugins:/var/www/html/wp-content/plugins
+      - ./app/wp-content/themes/leaderauto:/var/www/html/wp-content/themes/leaderauto
+      - ./app/wp-content/plugins/leaderauto-core:/var/www/html/wp-content/plugins/leaderauto-core
+
+  # Catches all outgoing mail from WordPress. Web UI: http://localhost:8025
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - "8025:8025"
+
+  # Builds the theme's Vite assets without needing Node on the host.
+  #   docker compose run --rm node          -> one-off production build
+  #   docker compose run --rm node npm run dev  (with 5173 published) -> HMR
+  node:
+    image: node:22-alpine
+    profiles: ["build"]
+    working_dir: /app/build
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./app:/app
+      # Container gets its own (linux) node_modules — keeps it off the host's (darwin) copy.
+      - node_modules:/app/build/node_modules
+    command: sh -c "npm ci && npm run build"
+
+  # Optional DB browser: `docker compose --profile tools up -d adminer` -> http://localhost:8081
+  adminer:
+    image: adminer:5
+    profiles: ["tools"]
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+
+volumes:
+  db_data:
+  wp_html:
+  node_modules:

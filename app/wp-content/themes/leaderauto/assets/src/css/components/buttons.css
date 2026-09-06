@@ -1,0 +1,32 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.85rem 1.6rem;
+	font-family: var(--font-heading);
+	font-weight: 700;
+	font-size: 0.95rem;
+	text-decoration: none;
+	border: 2px solid var(--c-brand);
+	background: var(--c-brand);
+	color: var(--c-white);
+	border-radius: var(--radius);
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover { background: var(--c-brand-bright); border-color: var(--c-brand-bright); }
+.btn:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+
+.btn--light {
+	background: var(--c-white);
+	color: var(--c-brand);
+	border-color: var(--c-white);
+}
+.btn--light:hover { background: #eef1ff; border-color: #eef1ff; }
+
+.btn--ghost {
+	background: transparent;
+	color: currentColor;
+	border-color: currentColor;
+}
+.btn--ghost:hover { background: rgba(255, 255, 255, 0.12); }

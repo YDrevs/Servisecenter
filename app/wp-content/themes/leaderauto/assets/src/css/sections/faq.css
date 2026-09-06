@@ -1,0 +1,22 @@
+.faq { display: grid; gap: 0.5rem; max-width: 46rem; }
+
+.faq__item {
+	border: 1px solid var(--c-line);
+	background: var(--c-white);
+}
+.faq__q {
+	cursor: pointer;
+	list-style: none;
+	padding: 1rem 1.25rem;
+	font-family: var(--font-heading);
+	font-weight: 600;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+}
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q::after { content: "+"; color: var(--c-brand); font-size: 1.25rem; line-height: 1; }
+.faq__item[open] .faq__q::after { content: "\2212"; }
+.faq__a { padding: 0 1.25rem 1.15rem; color: var(--c-muted); }
+
+.faq__contacts { margin-top: 1.5rem; font-weight: 600; }

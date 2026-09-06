@@ -1,0 +1,13 @@
+{
+  "name": "leaderauto-assets",
+  "private": true,
+  "type": "module",
+  "description": "Vite build for the LeaderAuto theme's CSS/JS. Output lands in app/wp-content/themes/leaderauto/assets/dist.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  }
+}

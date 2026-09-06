@@ -1,0 +1,65 @@
+<?php
+/**
+ * Template Name: Автодилер (Dealer)
+ *
+ * Reference page 15 was ~90% untranslated Divi "Car Detailing" demo (Lorem ipsum,
+ * "Wheel Protection", "Quick Links", …) — none of that is carried over. This is a
+ * minimal real page: BYD sales / test drive + real media + a CTA to the form.
+ * TODO(content): real model list, prices, availability — pending client input.
+ *
+ * @package LeaderAuto
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+get_header();
+
+$contacts = get_page_by_path( 'contacts' );
+$cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
+?>
+<article class="page-shell">
+	<header class="page-shell__head">
+		<div class="page-shell__inner">
+			<h1 class="page-shell__title"><?php esc_html_e( 'Автодилер', 'leaderauto' ); ?></h1>
+			<p class="page-shell__lead"><?php esc_html_e( 'Обери свою серед наявних — офіційний підхід до продажу та тест-драйву електромобілів BYD.', 'leaderauto' ); ?></p>
+		</div>
+	</header>
+
+	<section class="section">
+		<div class="section__inner media-split">
+			<div class="media-split__media">
+				<img src="<?php echo esc_url( leaderauto_img( 'byd-1.jpg' ) ); ?>" alt="<?php esc_attr_e( 'Електромобіль BYD', 'leaderauto' ); ?>" loading="lazy">
+			</div>
+			<div class="media-split__body">
+				<h2 class="section__title"><?php esc_html_e( 'BYD у наявності та під замовлення', 'leaderauto' ); ?></h2>
+				<p><?php esc_html_e( 'Підбір моделі під ваш бюджет і задачі, допомога з оформленням, підготовка авто перед видачею та подальше сервісне обслуговування в одному місці.', 'leaderauto' ); ?></p>
+				<p class="section__actions">
+					<a class="btn" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Записатись на тест-драйв', 'leaderauto' ); ?></a>
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section section--surface">
+		<div class="section__inner">
+			<h2 class="section__title"><?php esc_html_e( 'BYD Sea Lion 08 — дебют', 'leaderauto' ); ?></h2>
+			<video class="video" controls preload="metadata" poster="<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>">
+				<source src="<?php echo esc_url( leaderauto_img( 'sea-lion-08-debut.mp4' ) ); ?>" type="video/mp4">
+			</video>
+		</div>
+	</section>
+
+	<section class="section section--dark cta-band">
+		<div class="section__inner">
+			<h2 class="section__title"><?php esc_html_e( 'Цікавить конкретна модель?', 'leaderauto' ); ?></h2>
+			<p class="cta-band__row">
+				<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Залишити заявку', 'leaderauto' ); ?></a>
+				<a class="btn btn--ghost" href="<?php echo esc_attr( leaderauto_phone_href() ); ?>"><?php echo esc_html( leaderauto_phone() ); ?></a>
+			</p>
+		</div>
+	</section>
+</article>
+<?php
+get_footer();

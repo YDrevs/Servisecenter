@@ -1,0 +1,47 @@
+# === Secrets / env ===
+.env
+.env.*
+!.env.example
+
+# === OS / IDE ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.code-workspace
+
+# === Dependencies / build output ===
+node_modules/
+vendor/
+/app/build/node_modules/
+/app/wp-content/themes/leaderauto/assets/dist/
+
+# === Logs ===
+*.log
+
+# === Reference archive: never commit the dump or the 88 MB of backups ===
+wp-content/uploads/
+*.sql
+*.sql.gz
+*.zip
+
+# === Local reference environment working dirs ===
+/app/db/init/*
+!/app/db/init/.gitkeep
+/app/db/data/
+/app/reference/plugins/
+/app/reference/pages/
+
+# === Frozen reference archive — root only, NOT app/wp-content/ ===
+# WordPress 7.0.2 core, the stock Divi/Extra/default themes and the uk|ru_RU
+# language packs: ~250 MB of vendor code, byte-for-byte recoverable from
+# wordpress.org and ElegantThemes. Kept on disk as source material, never pushed.
+# The leading slash anchors these to the repo root so the rebuild under
+# app/wp-content/ is unaffected.
+/wp-admin/
+/wp-includes/
+/wp-content/
+
+# === Not part of this project ===
+# Unrelated "Accurly ERP" monorepo + agent files that were copied in here.
+/claude/

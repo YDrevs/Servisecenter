@@ -1,0 +1,23 @@
+# Keep the build context small. The production image needs only app/ code.
+.git
+.github
+claude/
+wp-admin/
+wp-includes/
+wp-content/
+ARCH.md
+docs/
+*.md
+!app/**/*.md
+
+app/db/
+app/reference/
+app/build/node_modules/
+
+**/.DS_Store
+**/node_modules
+*.sql
+*.sql.gz
+*.zip
+.env
+.env.*

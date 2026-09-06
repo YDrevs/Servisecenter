@@ -1,0 +1,33 @@
+.hero {
+	background: var(--grad-hero);
+	color: var(--c-white);
+	padding-block: clamp(3.5rem, 12vw, 8rem);
+}
+.hero__inner {
+	width: min(100% - 2 * var(--gutter), var(--container));
+	margin-inline: auto;
+	max-width: 60ch;
+}
+.hero__eyebrow {
+	color: rgba(255, 255, 255, 0.75);
+	margin-bottom: 1rem;
+}
+.hero__title {
+	color: var(--c-white);
+	font-size: clamp(2.5rem, 8vw, 4.5rem);
+	line-height: 1.05;
+}
+.hero__lead {
+	margin-top: 1.25rem;
+	font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+}
+.hero__sub {
+	margin-top: 0.75rem;
+	color: rgba(255, 255, 255, 0.8);
+}
+.hero__actions {
+	margin-top: 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+}

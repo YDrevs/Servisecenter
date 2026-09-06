@@ -1,0 +1,26 @@
+.cards {
+	display: grid;
+	gap: clamp(1rem, 3vw, 1.75rem);
+}
+.cards--3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+.card {
+	border: 1px solid var(--c-line);
+	border-radius: var(--radius-card);
+	padding: 1.5rem;
+	background: var(--c-white);
+}
+.card__title {
+	font-size: 1.1rem;
+	margin-bottom: 0.85rem;
+	padding-bottom: 0.85rem;
+	border-bottom: 2px solid var(--c-brand);
+}
+.card__list { display: grid; gap: 0.5rem; }
+.card__list li { position: relative; padding-left: 1.1rem; color: var(--c-body); }
+.card__list li::before {
+	content: "";
+	position: absolute; left: 0; top: 0.6em;
+	width: 6px; height: 6px;
+	background: var(--c-brand);
+}

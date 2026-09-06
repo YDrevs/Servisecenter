@@ -1,0 +1,87 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"layout": {
+			"contentSize": "760px",
+			"wideSize": "1200px"
+		},
+		"color": {
+			"custom": true,
+			"customGradient": true,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"palette": [
+				{ "slug": "brand", "color": "#1700be", "name": "Brand indigo" },
+				{ "slug": "brand-bright", "color": "#326bff", "name": "Brand bright" },
+				{ "slug": "accent", "color": "#ff6900", "name": "Accent orange" },
+				{ "slug": "ink", "color": "#1c1c22", "name": "Ink" },
+				{ "slug": "body", "color": "#333333", "name": "Body text" },
+				{ "slug": "muted", "color": "#666666", "name": "Muted" },
+				{ "slug": "line", "color": "#dddddd", "name": "Hairline" },
+				{ "slug": "surface", "color": "#f5f6f9", "name": "Surface" },
+				{ "slug": "white", "color": "#ffffff", "name": "White" },
+				{ "slug": "black", "color": "#000000", "name": "Black" }
+			],
+			"gradients": [
+				{
+					"slug": "hero",
+					"name": "Hero",
+					"gradient": "linear-gradient(180deg, #000000 0%, #1700be 100%)"
+				}
+			]
+		},
+		"typography": {
+			"customFontSize": true,
+			"lineHeight": true,
+			"fontFamilies": [
+				{
+					"slug": "heading",
+					"name": "Kanit",
+					"fontFamily": "'Kanit', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+				},
+				{
+					"slug": "body",
+					"name": "Open Sans",
+					"fontFamily": "'Open Sans', 'Segoe UI', Roboto, Arial, sans-serif"
+				}
+			],
+			"fontSizes": [
+				{ "slug": "small", "size": "0.875rem", "name": "Small" },
+				{ "slug": "medium", "size": "1rem", "name": "Medium" },
+				{ "slug": "large", "size": "1.375rem", "name": "Large" },
+				{ "slug": "x-large", "size": "2rem", "name": "X-Large" },
+				{ "slug": "xx-large", "size": "clamp(2.5rem, 6vw, 4rem)", "name": "Display" }
+			]
+		},
+		"spacing": {
+			"customSpacingSize": true,
+			"units": [ "px", "rem", "em", "vw", "%" ]
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "#ffffff",
+			"text": "#333333"
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--body)",
+			"fontSize": "1rem",
+			"lineHeight": "1.6"
+		},
+		"elements": {
+			"heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--heading)",
+					"fontWeight": "700",
+					"lineHeight": "1.15"
+				},
+				"color": { "text": "#1c1c22" }
+			},
+			"link": {
+				"color": { "text": "var(--wp--preset--color--brand)" }
+			}
+		}
+	}
+}
