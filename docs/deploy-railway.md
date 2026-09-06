@@ -50,9 +50,13 @@ lives in the database, not in Git.
    (`ARCH.md` §15) — otherwise uploaded media is lost on every redeploy.
 
 4. **First deploy**, then choose a content path:
-   - **Fresh:** `railway run --service <web> wp --allow-root core install --url="$WP_HOME" --title="LeaderAuto" --admin_user=admin --admin_password='…' --admin_email='you@example.com'`
+   > `WP_HOME`/`WP_SITEURL` are PHP constants defined inside `WORDPRESS_CONFIG_EXTRA`, **not**
+   > shell variables — `"$WP_HOME"` expands to nothing in these commands. Pass the URL
+   > literally (or add `WP_HOME` as a plain Railway variable as well).
+
+   - **Fresh:** `railway run --service <web> wp --allow-root core install --url='https://<your-domain>' --title="LeaderAuto" --admin_user=admin --admin_password='…' --admin_email='you@example.com'`
    - **From the reference dump:** `gunzip -c wp-content/uploads/wp-file-manager-pro/fm_backup/*-db.sql.gz | railway run --service <web> wp --allow-root db import -`
-     then `wp --allow-root search-replace 'http://matede01.wp-box.com' "$WP_HOME" --all-tables --skip-columns=guid`.
+     then `wp --allow-root search-replace 'http://matede01.wp-box.com' 'https://<your-domain>' --all-tables --skip-columns=guid`.
      Note the dump's prefix is `wpQsD69K_`, so set `WORDPRESS_TABLE_PREFIX=wpQsD69K_` to use it.
 
 5. **Activate:** `railway run --service <web> bash /usr/local/bin/leaderauto-postdeploy`
