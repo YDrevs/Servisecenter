@@ -22,10 +22,18 @@ $steps = array(
 	__( 'Видача авто', 'leaderauto' ),
 );
 
+/*
+ * Values as they settle on the reference (100% / 24/7 / 275+). The written spec
+ * recorded 78 / 19 / 213 because Divi counts these up on scroll and the reading
+ * was taken mid-animation. Labels are the reference's own, in Ukrainian — its
+ * mobile build already used "Виконаних сервісів" for the third.
+ * TODO(content): confirm the towing claim — CLAUDE.md does not list towing
+ * among LeaderAuto's services.
+ */
 $stats = array(
-	array( 'n' => '500+', 'label' => __( 'Обслугованих електромобілів', 'leaderauto' ) ),
-	array( 'n' => '5',    'label' => __( 'Років у сервісі EV', 'leaderauto' ) ),
-	array( 'n' => 'BYD',  'label' => __( 'Профільний бренд', 'leaderauto' ) ),
+	array( 'n' => '100%', 'label' => __( 'Задоволених клієнтів', 'leaderauto' ) ),
+	array( 'n' => '24/7', 'label' => __( 'Послуги евакуації', 'leaderauto' ) ),
+	array( 'n' => '275+', 'label' => __( 'Виконаних сервісів', 'leaderauto' ) ),
 );
 
 $contacts = get_page_by_path( 'contacts' );
