@@ -17,8 +17,16 @@ function leaderauto_phone_href(): string {
 	return 'tel:+380950662921';
 }
 
-function leaderauto_messenger(): string {
+function leaderauto_viber(): string {
 	return '(095) 066 29 21';
+}
+
+function leaderauto_telegram(): string {
+	return '@V_P_97';
+}
+
+function leaderauto_telegram_href(): string {
+	return 'https://t.me/V_P_97';
 }
 
 function leaderauto_address(): string {

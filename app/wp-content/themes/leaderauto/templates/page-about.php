@@ -63,7 +63,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 		</div>
 	</section>
 
-	<section class="section section--surface">
+	<section class="section section--dark section--divided">
 		<div class="section__inner">
 			<h2 class="section__title"><?php esc_html_e( 'Як ми працюємо', 'leaderauto' ); ?></h2>
 			<ol class="steps">
@@ -74,6 +74,13 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 					</li>
 				<?php endforeach; ?>
 			</ol>
+		</div>
+		<?php /* The reference's one real Divi shape divider: a 140px white triangle
+		         closing the section into the white block below. Decorative. */ ?>
+		<div class="section__divider" aria-hidden="true">
+			<svg viewBox="0 0 1280 140" preserveAspectRatio="none" focusable="false">
+				<path d="M0 0v140h1280L0 0z"></path>
+			</svg>
 		</div>
 	</section>
 

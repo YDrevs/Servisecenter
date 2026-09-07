@@ -60,7 +60,12 @@ get_header();
 				<div class="contacts__block">
 					<h2 class="contacts__title"><?php esc_html_e( 'Дзвоніть нам', 'leaderauto' ); ?></h2>
 					<p><a href="<?php echo esc_attr( leaderauto_phone_href() ); ?>"><?php echo esc_html( leaderauto_phone() ); ?></a></p>
-					<p><?php printf( esc_html__( 'Viber / Telegram: %s', 'leaderauto' ), esc_html( leaderauto_messenger() ) ); ?></p>
+					<p><?php printf( esc_html__( 'Viber: %s', 'leaderauto' ), esc_html( leaderauto_viber() ) ); ?></p>
+			<p><?php printf(
+				'Telegram: <a href="%1$s">%2$s</a>',
+				esc_url( leaderauto_telegram_href() ),
+				esc_html( leaderauto_telegram() )
+			); ?></p>
 				</div>
 			</aside>
 		</div>

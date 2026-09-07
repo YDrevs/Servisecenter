@@ -97,3 +97,18 @@
 .section--guarantee h1,
 .section--guarantee h2,
 .section--guarantee h3 { color: var(--c-white); }
+
+/* The reference's single genuine shape divider (path M0 0v140h1280L0 0z,
+   viewBox 0 0 1280 140): a white triangle at the section's foot, ~6.25deg,
+   blending into the white section that follows. */
+.section--divided { position: relative; }
+.section--divided { padding-bottom: clamp(6rem, 14vw, 13rem); }
+.section__divider {
+	position: absolute;
+	inset: auto 0 0 0;
+	height: clamp(60px, 10vw, 140px);
+	line-height: 0;
+	pointer-events: none;
+}
+.section__divider svg { width: 100%; height: 100%; display: block; }
+.section__divider path { fill: var(--c-white); }

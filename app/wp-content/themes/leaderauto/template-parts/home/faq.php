@@ -49,9 +49,13 @@ $faq = array(
 		</div>
 
 		<p class="faq__contacts">
+			<?php esc_html_e( 'Швидке питання?', 'leaderauto' ); ?>
+			<?php printf( esc_html__( 'Viber: %s', 'leaderauto' ), esc_html( leaderauto_viber() ) ); ?>
+			<span aria-hidden="true">·</span>
 			<?php printf(
-				esc_html__( 'Швидке питання? Пишіть у Viber або Telegram: %s', 'leaderauto' ),
-				esc_html( leaderauto_messenger() )
+				'Telegram: <a href="%1$s">%2$s</a>',
+				esc_url( leaderauto_telegram_href() ),
+				esc_html( leaderauto_telegram() )
 			); ?>
 		</p>
 	</div>
