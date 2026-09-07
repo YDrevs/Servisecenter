@@ -35,7 +35,7 @@ $offers = array(
 );
 ?>
 <article class="page-shell">
-	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>');">
+	<header class="page-shell__head page-shell__head--plain" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>');">
 		<div class="page-shell__inner">
 			<h1 class="page-shell__title"><?php esc_html_e( 'Автодилер', 'leaderauto' ); ?></h1>
 			<p class="page-shell__lead"><?php esc_html_e( 'Обери свою серед наявних — офіційний підхід до продажу та тест-драйву електромобілів BYD.', 'leaderauto' ); ?></p>

@@ -112,3 +112,17 @@
 }
 .section__divider svg { width: 100%; height: 100%; display: block; }
 .section__divider path { fill: var(--c-white); }
+
+/* Dealer banner. The reference shows BYD.jpg clean — no blue overlay — with dark
+   copy sitting on the pale sky above the cars, so the text colour flips here.
+   The other page headers keep the overlay because their photos are busy. */
+.page-shell__head--plain {
+	background-image: var(--page-bg);
+	background-position: 50% 0%;
+	color: var(--c-ink);
+	min-height: clamp(240px, 33vw, 475px);
+	display: flex;
+	align-items: center;
+}
+.page-shell__head--plain .page-shell__title { color: var(--c-ink); }
+.page-shell__head--plain .page-shell__lead { color: var(--c-body); opacity: 1; }
