@@ -1,8 +1,11 @@
 .faq { display: grid; gap: 0.5rem; max-width: 46rem; }
 
+/* Sets its own text colour: this card carries a white background, so it must
+   not inherit the white that .section--dark puts on the section. */
 .faq__item {
 	border: 1px solid var(--c-line);
 	background: var(--c-white);
+	color: var(--c-ink);
 }
 .faq__q {
 	cursor: pointer;
@@ -20,6 +23,8 @@
 .faq__a { padding: 0 1.25rem 1.15rem; color: var(--c-muted); }
 
 .faq__contacts { margin-top: 1.5rem; font-weight: 600; }
+/* p a is brand blue, which disappears on the dark section. */
+.faq__contacts a { color: var(--c-white); }
 
 /* Reference: oversized letters F A Q in #E02B20 layered behind the white
    heading. Purely decorative — the markup marks it aria-hidden. */
