@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $groups = array(
 	array(
 		'title' => __( 'Програмний ремонт та діагностика', 'leaderauto' ),
+		'image' => 'detailing-21.jpg',
 		'items' => array(
 			__( 'Комп’ютерна діагностика', 'leaderauto' ),
 			__( 'Оновлення програмного забезпечення', 'leaderauto' ),
@@ -21,6 +22,7 @@ $groups = array(
 	),
 	array(
 		'title' => __( 'Технічне обслуговування', 'leaderauto' ),
+		'image' => 'detailing-08.jpg',
 		'items' => array(
 			__( 'Заміна мастил та технічних рідин', 'leaderauto' ),
 			__( 'Обслуговування редуктора', 'leaderauto' ),
@@ -32,6 +34,7 @@ $groups = array(
 	),
 	array(
 		'title' => __( 'Запчастини та комплектуючі', 'leaderauto' ),
+		'image' => 'detailing-10.jpg',
 		'items' => array(
 			__( 'Замовлення оригінальних запчастин', 'leaderauto' ),
 			__( 'Аналоги перевірених брендів', 'leaderauto' ),
@@ -48,6 +51,7 @@ $groups = array(
 		<div class="cards cards--3">
 			<?php foreach ( $groups as $group ) : ?>
 				<article class="card">
+					<img class="card__media" src="<?php echo esc_url( leaderauto_img( $group['image'] ) ); ?>" alt="<?php echo esc_attr( $group['title'] ); ?>" loading="lazy">
 					<h3 class="card__title"><?php echo esc_html( $group['title'] ); ?></h3>
 					<ul class="card__list">
 						<?php foreach ( $group['items'] as $item ) : ?>

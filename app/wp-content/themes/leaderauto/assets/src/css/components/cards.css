@@ -24,3 +24,12 @@
 	width: 6px; height: 6px;
 	background: var(--c-brand);
 }
+
+.card__media {
+	display: block;
+	width: 100%;
+	aspect-ratio: 3 / 2;
+	object-fit: cover;
+	border-radius: calc(var(--radius-card) - 4px);
+	margin-bottom: 1.25rem;
+}

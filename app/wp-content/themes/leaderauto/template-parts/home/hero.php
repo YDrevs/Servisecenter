@@ -25,4 +25,8 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 			<a class="btn btn--ghost" href="#services"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></a>
 		</p>
 	</div>
+	<div class="hero__media">
+		<img src="<?php echo esc_url( leaderauto_img( 'detailing-06.png' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="eager">
+		<img src="<?php echo esc_url( leaderauto_img( 'detailing-07.png' ) ); ?>" alt="<?php esc_attr_e( 'Діагностика електромобіля', 'leaderauto' ); ?>" loading="lazy">
+	</div>
 </section>

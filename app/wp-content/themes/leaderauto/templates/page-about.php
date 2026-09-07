@@ -69,6 +69,13 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 		</div>
 	</section>
 
+	<section class="section">
+		<div class="section__inner media-pair">
+			<img src="<?php echo esc_url( leaderauto_img( 'detailing-14.png' ) ); ?>" alt="<?php esc_attr_e( 'Робота з електромобілем у сервісі', 'leaderauto' ); ?>" loading="lazy">
+			<img src="<?php echo esc_url( leaderauto_img( 'detailing-15.png' ) ); ?>" alt="<?php esc_attr_e( 'Обладнання сервісу LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+		</div>
+	</section>
+
 	<section class="section section--dark cta-band">
 		<div class="section__inner">
 			<h2 class="section__title"><?php esc_html_e( 'Потрібна діагностика або ремонт електромобіля?', 'leaderauto' ); ?></h2>
