@@ -3,6 +3,10 @@
 .env.*
 !.env.example
 
+# === Local scratch: screenshots and short notes the user drops in ===
+# Deliberately local-only. Design docs that should be shared live in "Planned work/".
+/To do now/
+
 # === OS / IDE ===
 .DS_Store
 Thumbs.db
