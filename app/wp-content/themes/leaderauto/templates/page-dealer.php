@@ -35,7 +35,7 @@ $offers = array(
 );
 ?>
 <article class="page-shell">
-	<header class="page-shell__head">
+	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>');">
 		<div class="page-shell__inner">
 			<h1 class="page-shell__title"><?php esc_html_e( 'Автодилер', 'leaderauto' ); ?></h1>
 			<p class="page-shell__lead"><?php esc_html_e( 'Обери свою серед наявних — офіційний підхід до продажу та тест-драйву електромобілів BYD.', 'leaderauto' ); ?></p>
@@ -72,7 +72,7 @@ $offers = array(
 		</div>
 	</section>
 
-	<section class="section">
+	<section class="section section--guarantee" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-02.png' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div class="media-split__media">
 				<img src="<?php echo esc_url( leaderauto_img( 'detailing-19.png' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи LeaderAuto', 'leaderauto' ); ?>" loading="lazy">

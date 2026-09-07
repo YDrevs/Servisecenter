@@ -1,7 +1,7 @@
 body {
 	font-family: var(--font-body);
 	font-size: 1rem;
-	line-height: 1.6;
+	line-height: 1.8; /* reference: 16px / 28.8px */
 	color: var(--c-body);
 	background: var(--c-white);
 	-webkit-font-smoothing: antialiased;
@@ -14,9 +14,12 @@ h1, h2, h3, h4, h5, h6 {
 	color: var(--c-ink);
 }
 
-h1 { font-size: clamp(2rem, 5vw, 3rem); }
-h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); }
-h3 { font-size: 1.25rem; }
+/* Reference scale @1440px: page H1 60–80px, section H2 48px/57.6px,
+   card H4 24px/33.6px. Mobile floors come from the 390px measurements
+   (H1 42px, H2 30px/36px). */
+h1 { font-size: clamp(2.625rem, 4.6vw, 5rem); }
+h2 { font-size: clamp(1.875rem, 3.4vw, 3rem); line-height: 1.2; }
+h3 { font-size: 1.5rem; line-height: 1.4; }
 
 p a {
 	color: var(--c-brand);

@@ -30,9 +30,14 @@ $faq = array(
 	),
 );
 ?>
-<section class="section" id="faq">
+<section class="section section--dark" id="faq">
 	<div class="section__inner">
-		<h2 class="section__title"><?php esc_html_e( 'Поширені запитання', 'leaderauto' ); ?></h2>
+		<?php /* Reference stacks oversized red F A Q behind the heading; aria-hidden
+		         because it is decoration, not content a screen reader should read. */ ?>
+		<div class="faq__head">
+			<span class="faq__mark" aria-hidden="true">FAQ</span>
+			<h2 class="section__title faq__title"><?php esc_html_e( 'Поширені запитання', 'leaderauto' ); ?></h2>
+		</div>
 
 		<div class="faq">
 			<?php foreach ( $faq as $row ) : ?>

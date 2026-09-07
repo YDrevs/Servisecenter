@@ -1,7 +1,15 @@
+/* Values from the reference (getComputedStyle @1440px): background photo under a
+   blue overlay that thickens downward, H1 at 94.88px/1, and a second row whose
+   background is a black -45deg wedge with the line set right. */
 .hero {
-	background: var(--grad-hero);
+	background-image:
+		linear-gradient(rgba(23, 0, 190, 0.3) 0%, rgba(23, 0, 190, 0.9) 64%, rgba(23, 0, 190, 0.9) 100%),
+		var(--hero-bg);
+	background-size: cover;
+	background-position: 50% 50%;
 	color: var(--c-white);
-	padding-block: clamp(3.5rem, 12vw, 8rem);
+	padding-top: clamp(2.5rem, 8vw, 7.4rem);
+	padding-bottom: 0;
 }
 .hero__inner {
 	width: min(100% - 2 * var(--gutter), var(--container));
@@ -14,16 +22,13 @@
 }
 .hero__title {
 	color: var(--c-white);
-	font-size: clamp(2.5rem, 8vw, 4.5rem);
-	line-height: 1.05;
+	font-size: clamp(2.6rem, 6.6vw, 5.93rem);
+	line-height: 1;
 }
 .hero__lead {
 	margin-top: 1.25rem;
-	font-size: clamp(1.05rem, 2.5vw, 1.35rem);
-}
-.hero__sub {
-	margin-top: 0.75rem;
-	color: rgba(255, 255, 255, 0.8);
+	font-size: 1rem;
+	line-height: 1.8;
 }
 .hero__actions {
 	margin-top: 2rem;
@@ -32,26 +37,16 @@
 	gap: 0.75rem;
 }
 
-.hero__media {
-	/* sibling of .hero__inner, so it needs the container width itself — but not
-	   the 60ch text cap: the images are meant to run wider than the copy. */
+.hero__band {
+	margin-top: clamp(2rem, 6vw, 4.5rem);
+	background-image: linear-gradient(-45deg, var(--c-black) 64%, transparent 64%);
+	padding-block: clamp(2rem, 7vw, 5rem);
+}
+.hero__band-text {
 	width: min(100% - 2 * var(--gutter), var(--container));
 	margin-inline: auto;
-	margin-top: clamp(2rem, 5vw, 3.5rem);
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: clamp(1rem, 3vw, 1.75rem);
-}
-.hero__media img {
-	display: block;
-	width: 100%;
-	aspect-ratio: 16 / 10;
-	object-fit: cover;
-	border-radius: var(--radius-card);
-}
-
-.hero__video {
-	width: min(100% - 2 * var(--gutter), var(--container));
-	margin-inline: auto;
-	margin-top: clamp(1rem, 3vw, 1.75rem);
+	text-align: right;
+	color: var(--c-white);
+	font-size: clamp(1.25rem, 2.1vw, 1.875rem);
+	line-height: 1.2;
 }

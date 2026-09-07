@@ -20,3 +20,26 @@
 .faq__a { padding: 0 1.25rem 1.15rem; color: var(--c-muted); }
 
 .faq__contacts { margin-top: 1.5rem; font-weight: 600; }
+
+/* Reference: oversized letters F A Q in #E02B20 layered behind the white
+   heading. Purely decorative — the markup marks it aria-hidden. */
+.faq__head {
+	position: relative;
+	display: grid;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+.faq__mark,
+.faq__title { grid-area: 1 / 1; }
+.faq__mark {
+	font-family: var(--font-heading);
+	font-weight: 700;
+	font-size: clamp(3.5rem, 11vw, 7.5rem);
+	line-height: 1;
+	letter-spacing: clamp(0.5rem, 3vw, 2.5rem);
+	color: #e02b20;
+	opacity: 0.85;
+	user-select: none;
+	pointer-events: none;
+}
+.faq__title { margin-bottom: 0; position: relative; }

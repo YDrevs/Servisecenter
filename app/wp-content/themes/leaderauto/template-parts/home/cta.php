@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
-<section class="section section--dark cta-band" id="contact">
+<section class="section section--dark cta-band cta-band--wedge" id="contact">
 	<div class="section__inner">
 		<h2 class="section__title"><?php esc_html_e( 'Потрібна діагностика або ремонт електромобіля?', 'leaderauto' ); ?></h2>
 		<p class="cta-band__row">

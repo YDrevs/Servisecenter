@@ -32,14 +32,14 @@ $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
 <article class="page-shell">
-	<header class="page-shell__head">
+	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-13.jpg' ) ); ?>');">
 		<div class="page-shell__inner">
 			<h1 class="page-shell__title"><?php esc_html_e( 'Про нас', 'leaderauto' ); ?></h1>
 			<p class="page-shell__lead"><?php esc_html_e( 'Експертний сервіс для сучасних електромобілів.', 'leaderauto' ); ?></p>
 		</div>
 	</header>
 
-	<section class="section">
+	<section class="section section--wedge-tr">
 		<div class="section__inner">
 			<p>
 				<?php esc_html_e( 'Ми спеціалізуємось на обслуговуванні та ремонті електромобілів, з акцентом на BYD та інші сучасні EV-платформи. Працюємо як з технічною частиною, так і з програмною — від діагностики до кодування блоків.', 'leaderauto' ); ?>

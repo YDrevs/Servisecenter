@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 ?>
 <article class="page-shell">
-	<header class="page-shell__head">
+	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-12.jpg' ) ); ?>');">
 		<div class="page-shell__inner">
 			<h1 class="page-shell__title"><?php esc_html_e( 'Залишити заявку', 'leaderauto' ); ?></h1>
 			<p class="page-shell__lead"><?php esc_html_e( 'Опишіть коротко задачу — і ми зв’яжемось для діагностики та розрахунку.', 'leaderauto' ); ?></p>

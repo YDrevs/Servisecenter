@@ -20,3 +20,80 @@
 	object-fit: cover;
 	border-radius: var(--radius-card);
 }
+
+/* Services row 1 on the reference: one wide still, then a narrower still with
+   the debut clip under it. */
+.services__intro {
+	display: grid;
+	gap: clamp(1rem, 3vw, 1.75rem);
+	margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+@media (min-width: 900px) {
+	.services__intro { grid-template-columns: 1.6fr 1fr; align-items: start; }
+}
+.services__shot,
+.services__aside img {
+	display: block;
+	width: 100%;
+	object-fit: cover;
+}
+.services__aside { display: grid; gap: clamp(1rem, 3vw, 1.75rem); }
+.section__title--center { text-align: center; }
+
+/* Photo-backed section: blue overlay fading downward, per the reference's
+   "автопілот" block. --sec-bg is set inline by the template. */
+.section--photo {
+	background-image:
+		linear-gradient(var(--c-brand) 0%, rgba(23, 0, 190, 0) 100%),
+		var(--sec-bg);
+	background-size: cover;
+	background-position: 50% 50%;
+	color: var(--c-white);
+}
+.section--photo h1,
+.section--photo h2,
+.section--photo h3 { color: var(--c-white); }
+
+/* Reference: Kanit 80px, letter-spacing 12px, uppercase, centred. */
+.section__title--display {
+	text-align: center;
+	text-transform: uppercase;
+	font-size: clamp(2.375rem, 5.6vw, 5rem);
+	line-height: 1.2;
+	letter-spacing: clamp(2px, 0.85vw, 12px);
+}
+
+/* Page headers carry the same treatment as the hero, one photo each. */
+.page-shell__head {
+	background-image:
+		linear-gradient(rgba(23, 0, 190, 0.3) 0%, rgba(23, 0, 190, 0.9) 100%),
+		var(--page-bg);
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+/* Reference: linear-gradient(135deg, transparent 36%, #1700BE 36%) on the row —
+   a blue wedge cutting in from the right. */
+.cta-band--wedge {
+	background-image:
+		linear-gradient(135deg, rgba(23, 0, 190, 0) 36%, var(--c-brand) 36%, var(--c-brand) 100%),
+		var(--grad-hero);
+}
+
+/* Reference: linear-gradient(-135deg, #1700BD 16%, #fff 16%) — a blue corner
+   wedge at the top right, the rest white. */
+.section--wedge-tr {
+	background-image: linear-gradient(-135deg, var(--c-brand) 16%, var(--c-white) 16%, var(--c-white) 100%);
+}
+
+/* Dealer guarantee band: photo sitting on the black-to-blue gradient. */
+.section--guarantee {
+	background-image: var(--sec-bg), var(--grad-hero);
+	background-repeat: no-repeat;
+	background-size: contain, cover;
+	background-position: 50% 0%, 50% 50%;
+	color: var(--c-white);
+}
+.section--guarantee h1,
+.section--guarantee h2,
+.section--guarantee h3 { color: var(--c-white); }

@@ -3,10 +3,10 @@
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	padding: 0.85rem 1.6rem;
+	padding: 15px 40px; /* reference */
 	font-family: var(--font-heading);
 	font-weight: 700;
-	font-size: 0.95rem;
+	font-size: 1.25rem; /* reference: 20px */
 	text-decoration: none;
 	border: 2px solid var(--c-brand);
 	background: var(--c-brand);

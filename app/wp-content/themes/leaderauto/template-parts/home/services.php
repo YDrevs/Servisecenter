@@ -47,7 +47,18 @@ $groups = array(
 ?>
 <section class="section" id="services">
 	<div class="section__inner">
-		<h2 class="section__title"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></h2>
+		<?php /* Reference row 1: two stills on the left, the debut clip on the right. */ ?>
+		<div class="services__intro">
+			<img class="services__shot" src="<?php echo esc_url( leaderauto_img( 'detailing-06.png' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+			<div class="services__aside">
+				<img src="<?php echo esc_url( leaderauto_img( 'detailing-07.png' ) ); ?>" alt="<?php esc_attr_e( 'Діагностика електромобіля', 'leaderauto' ); ?>" loading="lazy">
+				<video class="video" controls preload="metadata" poster="<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>">
+					<source src="<?php echo esc_url( leaderauto_img( 'sea-lion-08-debut.mp4' ) ); ?>" type="video/mp4">
+				</video>
+			</div>
+		</div>
+
+		<h2 class="section__title section__title--center"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></h2>
 		<div class="cards cards--3">
 			<?php foreach ( $groups as $group ) : ?>
 				<article class="card">

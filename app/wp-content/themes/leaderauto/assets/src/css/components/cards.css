@@ -17,7 +17,13 @@
 	border-bottom: 2px solid var(--c-brand);
 }
 .card__list { display: grid; gap: 0.5rem; }
-.card__list li { position: relative; padding-left: 1.1rem; color: var(--c-body); }
+.card__list li {
+	position: relative;
+	padding-left: 1.1rem;
+	color: var(--c-muted);
+	font-size: 0.875rem; /* reference: 14px / 26px */
+	line-height: 1.857;
+}
 .card__list li::before {
 	content: "";
 	position: absolute; left: 0; top: 0.6em;
