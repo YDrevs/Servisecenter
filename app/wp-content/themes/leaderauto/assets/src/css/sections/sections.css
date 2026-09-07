@@ -122,7 +122,10 @@
 	color: var(--c-ink);
 	min-height: clamp(240px, 33vw, 475px);
 	display: flex;
-	align-items: center;
+	/* The reference sets the line at roughly a third of the banner's height, above
+	   the cars' bonnets — not centred, which would collide with them. */
+	align-items: flex-start;
+	padding-top: clamp(2.5rem, 10vw, 9rem);
 }
 .page-shell__head--plain .page-shell__title { color: var(--c-ink); }
 .page-shell__head--plain .page-shell__lead { color: var(--c-body); opacity: 1; }
