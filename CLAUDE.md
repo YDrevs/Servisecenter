@@ -19,6 +19,7 @@ the `ARCH.md` direction, now decided and underway. Full detail in `docs/architec
 | `wp-admin/`, `wp-includes/`, `wp-content/`, `ARCH.md` | Frozen reference archive / historical proposal. Read to learn what the site was. Never edit, never port wholesale. |
 | `app/` | The new build. Theme `app/wp-content/themes/leaderauto`, plugin `app/wp-content/plugins/leaderauto-core`, Vite in `app/build`, prod Dockerfile in `app/docker`, local-env helpers in `app/reference`. |
 | `docker-compose.yml`, `Makefile`, `railway.json`, `docs/` | Build & deploy tooling for the rebuild. |
+| `Planed work/` | Design source of truth for matching the old site: `leaderauto-design-spec.md` (measured `getComputedStyle()` values from the live reference, captured via the browser) and `leaderauto-design-plan.md` (the worklist derived from it). Read the spec before changing section layout, type scale or colours. Note its counter figures (78/19/213) were read mid-animation — the settled values are 100% / 24/7 / 275+. |
 
 Run it (needs only Docker — Node/PHP/MySQL are containerised). Full guide: `README.md`.
 
