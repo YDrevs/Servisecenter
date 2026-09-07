@@ -25,8 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php if ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
-				<a class="site-header__title" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<?php bloginfo( 'name' ); ?>
+				<?php /* Ships with the theme, so a fresh install shows the real mark without a Customizer step. */ ?>
+				<a class="site-header__home" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+					<img src="<?php echo esc_url( leaderauto_img( 'logo.png' ) ); ?>"
+					     alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
+					     width="1096" height="357">
 				</a>
 			<?php endif; ?>
 		</div>

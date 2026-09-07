@@ -12,15 +12,9 @@
 	min-height: 68px;
 }
 .site-header__brand { flex: none; }
+.site-header__home { display: block; line-height: 0; }
 .site-header__brand img,
 .custom-logo { max-height: 40px; width: auto; }
-.site-header__title {
-	font-family: var(--font-heading);
-	font-weight: 700;
-	font-size: 1.25rem;
-	text-decoration: none;
-	color: var(--c-brand);
-}
 
 .site-nav { margin-left: auto; }
 .site-nav .menu {
