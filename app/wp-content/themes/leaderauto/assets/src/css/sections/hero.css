@@ -49,3 +49,9 @@
 	object-fit: cover;
 	border-radius: var(--radius-card);
 }
+
+.hero__video {
+	width: min(100% - 2 * var(--gutter), var(--container));
+	margin-inline: auto;
+	margin-top: clamp(1rem, 3vw, 1.75rem);
+}
