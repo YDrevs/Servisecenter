@@ -11,8 +11,14 @@
 	padding-top: clamp(2.5rem, 8vw, 7.4rem);
 	padding-bottom: 0;
 }
-.hero__inner {
-	width: min(100% - 2 * var(--gutter), var(--container));
+/* The reference's hero row is `max-width: none !important` on Divi's 80% row —
+   i.e. 80% of the viewport with no cap, unlike its other rows which stop at
+   1080px. That is why its copy starts at 10% of the window at every width; our
+   fixed 1200px container drifted against it in both directions. */
+.hero__inner,
+.hero__band-inner {
+	width: 80%;
+	max-width: none;
 	margin-inline: auto;
 }
 .hero__title {
@@ -31,13 +37,13 @@
 .hero__band-inner {
 	position: relative;
 	z-index: 1;
-	width: min(100% - 2 * var(--gutter), var(--container));
-	margin-inline: auto;
 	display: grid;
 	gap: clamp(1.5rem, 4vw, 3rem);
 	padding-block: clamp(2rem, 5vw, 3.5rem);
 }
 .hero__lead {
+	/* Reference: .et_pb_text_1 { max-width:600px; font-size:16px; line-height:1.8em } */
+	max-width: 600px;
 	font-size: 1rem;
 	line-height: 1.8;
 }
