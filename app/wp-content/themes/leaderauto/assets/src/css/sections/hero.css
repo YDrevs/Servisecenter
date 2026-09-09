@@ -1,6 +1,6 @@
-/* Values from the reference (getComputedStyle @1440px): background photo under a
-   blue overlay that thickens downward, H1 at 94.88px/1, and a second row whose
-   background is a black -45deg wedge with the line set right. */
+/* Values from the measured reference: background photo under a blue overlay that
+   thickens downward, H1 at 94.88px/1, then a row where the pitch sits on the blue
+   and the service line on a black wedge cutting in from the right. */
 .hero {
 	background-image:
 		linear-gradient(rgba(23, 0, 190, 0.3) 0%, rgba(23, 0, 190, 0.9) 64%, rgba(23, 0, 190, 0.9) 100%),
@@ -16,17 +16,26 @@
 	margin-inline: auto;
 	max-width: 60ch;
 }
-.hero__eyebrow {
-	color: rgba(255, 255, 255, 0.75);
-	margin-bottom: 1rem;
-}
 .hero__title {
 	color: var(--c-white);
 	font-size: clamp(2.6rem, 6.6vw, 5.93rem);
 	line-height: 1;
 }
+
+.hero__band {
+	position: relative;
+	margin-top: clamp(2rem, 6vw, 4.5rem);
+}
+.hero__band-inner {
+	position: relative;
+	z-index: 1;
+	width: min(100% - 2 * var(--gutter), var(--container));
+	margin-inline: auto;
+	display: grid;
+	gap: clamp(1.5rem, 4vw, 3rem);
+	padding-block: clamp(2rem, 5vw, 3.5rem);
+}
 .hero__lead {
-	margin-top: 1.25rem;
 	font-size: 1rem;
 	line-height: 1.8;
 }
@@ -36,17 +45,37 @@
 	flex-wrap: wrap;
 	gap: 0.75rem;
 }
-
-.hero__band {
-	margin-top: clamp(2rem, 6vw, 4.5rem);
-	background-image: linear-gradient(-45deg, var(--c-black) 64%, transparent 64%);
-	padding-block: clamp(2rem, 7vw, 5rem);
-}
-.hero__band-text {
-	width: min(100% - 2 * var(--gutter), var(--container));
-	margin-inline: auto;
-	text-align: right;
+.hero__note {
 	color: var(--c-white);
+	text-align: center;
 	font-size: clamp(1.25rem, 2.1vw, 1.875rem);
 	line-height: 1.2;
+}
+
+/* Narrow: no wedge — the two halves stack, so the service line carries its own
+   black block instead of a diagonal that would cut across the text. */
+@media (max-width: 899px) {
+	.hero__note {
+		background: var(--c-black);
+		margin-inline: calc(-1 * var(--gutter));
+		padding: clamp(1.5rem, 6vw, 2.5rem) var(--gutter);
+	}
+}
+
+@media (min-width: 900px) {
+	.hero__band-inner {
+		grid-template-columns: 1fr 1fr;
+		align-items: center;
+	}
+	/* The wedge. Its edge runs from 46% of the width at the band's top to 26% at
+	   the bottom, which is where the reference's diagonal sits; the untouched
+	   left side lets the hero's blue overlay show through. */
+	.hero__band::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		background: var(--c-black);
+		clip-path: polygon(46% 0, 100% 0, 100% 100%, 26% 100%);
+	}
 }
