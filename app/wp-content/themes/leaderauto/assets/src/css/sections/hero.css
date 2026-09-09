@@ -14,11 +14,13 @@
 .hero__inner {
 	width: min(100% - 2 * var(--gutter), var(--container));
 	margin-inline: auto;
-	max-width: 60ch;
 }
 .hero__title {
 	color: var(--c-white);
-	font-size: clamp(2.6rem, 6.6vw, 5.93rem);
+	/* The reference sets this at a flat 8vw with no ceiling, dropping to 42px on
+	   phones. max() keeps both ends and rides through the middle smoothly, rather
+	   than jumping 61px -> 42px at its 767px breakpoint. */
+	font-size: max(2.625rem, 8vw);
 	line-height: 1;
 }
 
