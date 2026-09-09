@@ -122,10 +122,18 @@
 	color: var(--c-ink);
 	min-height: clamp(240px, 33vw, 475px);
 	display: flex;
-	/* The reference sets the line at roughly a third of the banner's height, above
-	   the cars' bonnets — not centred, which would collide with them. */
 	align-items: flex-start;
-	padding-top: clamp(2.5rem, 10vw, 9rem);
+	/* Narrow viewports: `cover` crops the banner's right edge and takes the BYD
+	   wordmark with it, so there is nothing to align to — just give the heading room. */
+	padding-top: 2rem;
+}
+@media (min-width: 900px) {
+	/* Sit the heading on the BYD wordmark baked into byd.jpg. The mark's centre is
+	   at y=60 of the image's 576px, the image is top-aligned, and `cover` scales it
+	   by max(100vw/1792, height/576) — so the mark lands at 60 x that scale below
+	   the banner's top. Minus half the h1's line box, the gap works out at ~0.8vw
+	   from 900px to 1920px, which is why this is proportional and not a fixed px. */
+	.page-shell__head--plain { padding-top: 0.8vw; }
 }
 .page-shell__head--plain .page-shell__title { color: var(--c-ink); }
 .page-shell__head--plain .page-shell__lead { color: var(--c-body); opacity: 1; }
