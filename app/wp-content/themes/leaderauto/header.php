@@ -22,7 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <header class="site-header">
 	<div class="site-header__inner">
 		<div class="site-header__brand">
-			<?php if ( has_custom_logo() ) : ?>
+			<?php if ( is_front_page() ) : ?>
+				<?php /* Placeholder standing in for the ЛІДЕР-АВТО mark until the client's BYD-Center logo lands. Home only for now. */ ?>
+				<a class="site-header__home site-header__wordmark" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">BYD-Center</a>
+			<?php elseif ( has_custom_logo() ) : ?>
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
 				<?php /* Ships with the theme, so a fresh install shows the real mark without a Customizer step. */ ?>

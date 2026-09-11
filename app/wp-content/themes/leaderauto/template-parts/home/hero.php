@@ -12,7 +12,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
 <section class="hero" id="hero" style="--hero-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-05.jpg' ) ); ?>');">
 	<div class="hero__inner">
-		<h1 class="hero__title">LeaderAuto — Service &amp; Dealer</h1>
+		<h1 class="hero__title">BYD-Center<br>Service &amp; Dealer</h1>
 	</div>
 
 	<?php /* Reference row 2: the pitch sits on the blue overlay at the left, the
