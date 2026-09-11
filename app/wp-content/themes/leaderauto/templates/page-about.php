@@ -31,9 +31,9 @@ $steps = array(
  * the client the 24/7 figure means being reachable.
  */
 $stats = array(
-	array( 'n' => '100%', 'label' => __( 'Задоволених клієнтів', 'leaderauto' ) ),
+	array( 'n' => '100%', 'from' => 55, 'label' => __( 'Задоволених клієнтів', 'leaderauto' ) ),
 	array( 'n' => '24/7', 'label' => __( 'На зв’язку', 'leaderauto' ) ),
-	array( 'n' => '275+', 'label' => __( 'Виконаних сервісів', 'leaderauto' ) ),
+	array( 'n' => '275+', 'from' => 199, 'label' => __( 'Виконаних сервісів', 'leaderauto' ) ),
 );
 
 $contacts = get_page_by_path( 'contacts' );
@@ -55,7 +55,8 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 			<div class="stats">
 				<?php foreach ( $stats as $stat ) : ?>
 					<div class="stats__item">
-						<span class="stats__n"><?php echo esc_html( $stat['n'] ); ?></span>
+						<?php /* 'from' opts the tile into the count-up; 24/7 is not a quantity. */ ?>
+						<span class="stats__n"<?php echo isset( $stat['from'] ) ? ' data-count-from="' . esc_attr( (string) $stat['from'] ) . '"' : ''; ?>><?php echo esc_html( $stat['n'] ); ?></span>
 						<span class="stats__label"><?php echo esc_html( $stat['label'] ); ?></span>
 					</div>
 				<?php endforeach; ?>

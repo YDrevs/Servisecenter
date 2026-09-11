@@ -7,6 +7,18 @@
 .section--dark .media-split__media img { border-color: rgba(255, 255, 255, 0.2); }
 
 .band__body > * + * { margin-top: 0.5rem; }
+/* Pushed to the far end of the loyalty band, opposite the 10% figure. The PNG is
+   transparent around a black frame, which reads on this section's dark gradient;
+   the code carries its own blue quiet zone, so it needs no plate behind it. */
+.band__qr {
+	margin-left: auto;
+	/* Nudged in off the container's right edge. CSS cm is a fixed 37.8px, not a
+	   physical centimetre, so this is a flat ~76px at every width. */
+	margin-right: 2cm;
+	flex: none;
+	width: clamp(7rem, 11vw, 10rem);
+	height: auto;
+}
 
 .media-pair {
 	display: grid;

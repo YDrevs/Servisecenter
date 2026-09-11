@@ -14,5 +14,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<h2 class="section__title"><?php esc_html_e( 'Програма лояльності', 'leaderauto' ); ?></h2>
 			<p><?php esc_html_e( 'Знижка 10% на замовлення будь-якої деталі.', 'leaderauto' ); ?></p>
 		</div>
+		<img class="band__qr" src="<?php echo esc_url( leaderauto_img( 'qr.png' ) ); ?>"
+		     alt="<?php esc_attr_e( 'QR-код: скануй, щоб перейти на сайт', 'leaderauto' ); ?>"
+		     width="3000" height="3889" loading="lazy">
 	</div>
 </section>
