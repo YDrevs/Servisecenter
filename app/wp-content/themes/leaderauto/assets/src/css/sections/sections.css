@@ -38,6 +38,25 @@
 	object-fit: cover;
 }
 .services__aside { display: grid; gap: clamp(1rem, 3vw, 1.75rem); }
+@media (min-width: 900px) {
+	/* Reference: .et_pb_image_0 { margin-top: -14vw; margin-left: -10vw } on a 80vw
+	   row — the shot breaks out to the viewport's left edge and rides up over the
+	   hero, under the CTA. Our container is centred and capped, so the bleed is the
+	   gutter left of .section__inner rather than a flat 10vw. */
+	.services__shot {
+		/* Paints over the hero's black wedge (z-index 0) so its tail is hidden, but
+		   still under .hero__band-inner (z-index 1), which keeps the CTA on top. */
+		position: relative;
+		--shot-bleed: calc((100vw - min(100vw - 2 * var(--gutter), var(--container))) / 2);
+		/* Without this the widened shot feeds its own column's auto minimum and the
+		   1.6fr / 1fr split collapses. */
+		min-width: 0;
+		margin-top: calc(4.5rem - 14vw);
+		margin-left: calc(-1 * var(--shot-bleed));
+		width: calc(100% + var(--shot-bleed));
+		max-width: none; /* the reset's img { max-width: 100% } would clip the bleed */
+	}
+}
 .section__title--center { text-align: center; }
 
 /* Photo-backed section: blue overlay fading downward, per the reference's
