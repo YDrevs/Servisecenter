@@ -45,5 +45,44 @@
 .contact-form__status.is-error { border-left-color: #c0392b; }
 .contact-form__status.is-ok { border-left-color: #2e7d32; }
 
-.contacts__info { display: grid; gap: 1.5rem; }
-.contacts__title { font-size: 1.05rem; margin-bottom: 0.35rem; }
+/* Reference (.et_pb_column_2): the info column is a blue panel cut diagonally at
+   the bottom right, floated up over the page header —
+   `linear-gradient(135deg,#1700bd 70%,transparent 70%)`, padding 80/40/300,
+   `position: absolute; top: -325px; right: 0`. Ours anchors to .page-shell
+   instead, so the offset is measured from the header's own top edge. */
+.contacts__info {
+	display: grid;
+	gap: 2rem;
+	background-image: linear-gradient(135deg, var(--c-brand) 70%, transparent 70% 100%);
+	color: var(--c-white);
+	padding: 2rem 2rem 6rem;
+}
+.contacts__info a { color: var(--c-white); }
+.contacts__title {
+	color: var(--c-white);
+	font-size: 1.5rem; /* reference: Kanit 700 24px */
+	margin-bottom: 0.35rem;
+}
+.contacts__block p { line-height: 1.8; } /* reference: .et_pb_blurb_description */
+
+.contacts__badge {
+	display: grid;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	margin-bottom: 1rem;
+	border-radius: 50%;
+	background: var(--c-white);
+	color: var(--c-brand);
+}
+
+@media (min-width: 820px) {
+	.page-shell--contacts { position: relative; }
+	.contacts__info {
+		position: absolute;
+		top: 3.75rem;
+		right: max(var(--gutter), calc((100vw - var(--container)) / 2));
+		width: min(24rem, 40%);
+		padding: 5rem 2.5rem 18.75rem;
+	}
+}
