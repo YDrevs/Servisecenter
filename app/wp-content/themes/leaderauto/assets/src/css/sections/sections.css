@@ -32,17 +32,39 @@
 	.services__intro { grid-template-columns: 1.6fr 1fr; align-items: start; }
 }
 .services__shot,
-.services__aside img {
+.services__shot-over {
 	display: block;
 	width: 100%;
 	object-fit: cover;
 }
 .services__aside { display: grid; gap: clamp(1rem, 3vw, 1.75rem); }
+/* A 9:16 clip filling the column would stand taller than detailing-06 and take
+   over the row's height, which is what the centring below is measured against.
+   Keeping it narrower leaves the big still in charge of the row. */
+.video--portrait {
+	width: min(100%, 20vw);
+	margin-inline: auto;
+}
 @media (min-width: 900px) {
 	/* Reference: .et_pb_image_0 { margin-top: -14vw; margin-left: -10vw } on a 80vw
 	   row — the shot breaks out to the viewport's left edge and rides up over the
 	   hero, under the CTA. Our container is centred and capped, so the bleed is the
 	   gutter left of .section__inner rather than a flat 10vw. */
+	/* All three placed by hand: the overlay shares the shot's cell, so leaving any
+	   of them to auto-placement pushes the others into the wrong track. */
+	.services__intro { --shot-raise: calc(4.5rem - 14vw); }
+	.services__shot { grid-area: 1 / 1; }
+	.services__shot-over { grid-area: 1 / 1; }
+	/* The clip sits on detailing-06's bottom line, the same one detailing-07 is
+	   anchored to. Repeating the raise keeps this column's margin box shorter than
+	   the shot's, so the shot stays in charge of the row height and "row bottom"
+	   and "shot bottom" remain the same line. */
+	.services__aside {
+		grid-area: 1 / 2;
+		align-self: end;
+		margin-top: var(--shot-raise);
+	}
+
 	.services__shot {
 		/* Paints over the hero's black wedge (z-index 0) so its tail is hidden, but
 		   still under .hero__band-inner (z-index 1), which keeps the CTA on top. */
@@ -51,10 +73,22 @@
 		/* Without this the widened shot feeds its own column's auto minimum and the
 		   1.6fr / 1fr split collapses. */
 		min-width: 0;
-		margin-top: calc(4.5rem - 14vw);
+		margin-top: var(--shot-raise);
 		margin-left: calc(-1 * var(--shot-bleed));
 		width: calc(100% + var(--shot-bleed));
 		max-width: none; /* the reset's img { max-width: 100% } would clip the bleed */
+	}
+	/* The second still shares the shot's grid cell, so its right edge lands on the
+	   shot's own — the shot only bleeds leftward. It has to be positioned too, or
+	   the shot's position: relative would paint over it. */
+	.services__shot-over {
+		align-self: end;
+		position: relative;
+		/* 10% larger than its cell, grown from the bottom-right corner so both the
+		   right edge and the bottom line it shares with detailing-06 stay put. */
+		justify-self: end;
+		width: 110%;
+		max-width: none; /* the reset's img { max-width: 100% } would undo the 110% */
 	}
 }
 .section__title--center { text-align: center; }
