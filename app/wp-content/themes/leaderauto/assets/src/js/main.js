@@ -2,6 +2,7 @@ import '../css/main.css';
 import { initMenu } from './menu.js';
 import { initContactForm } from './form.js';
 import { initCounters } from './counters.js';
+import { initShowroom } from './showroom.js';
 
 const ready = (fn) =>
 	document.readyState !== 'loading'
@@ -12,4 +13,5 @@ ready(() => {
 	initMenu();
 	initContactForm();
 	initCounters();
+	initShowroom();
 });
