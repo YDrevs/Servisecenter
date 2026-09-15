@@ -50,8 +50,16 @@
 	width: 100%;
 	object-fit: cover;
 }
+/* The shot used to be detailing-06.png, whose top-right corner was cut away at
+   45° in the file's alpha. The photo now is opaque 3:2, so the same frame and
+   cut are set here: its box keeps the old 1000×788 shape (the row height and the
+   overlay/clip anchoring hang off it) and the diagonal continues the hero wedge. */
+.services__shot {
+	aspect-ratio: 1000 / 788;
+	clip-path: polygon(0 0, 52.7% 0, 100% 59.9%, 100% 100%, 0 100%);
+}
 .services__aside { display: grid; gap: clamp(1rem, 3vw, 1.75rem); }
-/* A 9:16 clip filling the column would stand taller than detailing-06 and take
+/* A 9:16 clip filling the column would stand taller than the shot and take
    over the row's height, which is what the centring below is measured against.
    Keeping it narrower leaves the big still in charge of the row. */
 .video--portrait {
@@ -68,7 +76,7 @@
 	.services__intro { --shot-raise: calc(4.5rem - 14vw); }
 	.services__shot { grid-area: 1 / 1; }
 	.services__shot-over { grid-area: 1 / 1; }
-	/* The clip sits on detailing-06's bottom line, the same one detailing-07 is
+	/* The clip sits on the shot's bottom line, the same one detailing-07 is
 	   anchored to. Repeating the raise keeps this column's margin box shorter than
 	   the shot's, so the shot stays in charge of the row height and "row bottom"
 	   and "shot bottom" remain the same line. */
@@ -98,7 +106,7 @@
 		align-self: end;
 		position: relative;
 		/* 10% larger than its cell, grown from the bottom-right corner so both the
-		   right edge and the bottom line it shares with detailing-06 stay put. */
+		   right edge and the bottom line it shares with the shot stay put. */
 		justify-self: end;
 		width: 110%;
 		max-width: none; /* the reset's img { max-width: 100% } would undo the 110% */
