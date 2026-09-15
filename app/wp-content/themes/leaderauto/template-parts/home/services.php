@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $groups = array(
 	array(
 		'title' => __( 'Програмний ремонт та діагностика', 'leaderauto' ),
-		'image' => 'detailing-21.jpg',
+		'image' => 'diagnostic-byd.webp',
 		'items' => array(
 			__( 'Комп’ютерна діагностика', 'leaderauto' ),
 			__( 'Оновлення програмного забезпечення', 'leaderauto' ),
@@ -22,7 +22,7 @@ $groups = array(
 	),
 	array(
 		'title' => __( 'Технічне обслуговування', 'leaderauto' ),
-		'image' => 'detailing-08.jpg',
+		'image' => 'tech-service.webp',
 		'items' => array(
 			__( 'Заміна мастил та технічних рідин', 'leaderauto' ),
 			__( 'Обслуговування редуктора', 'leaderauto' ),
