@@ -26,12 +26,13 @@
 	background: var(--c-surface);
 	overflow: hidden;
 }
-/* contain, not cover: byd-1.jpg is a collage and cover cuts it on the seams. */
+/* Model photos come in mixed ratios (4:3 … 2:1); cover fills the frame instead
+   of letterboxing, trimming the edges. */
 .showroom__media img,
 .showroom__thumb-media img {
 	width: 100%;
 	height: 100%;
-	object-fit: contain;
+	object-fit: cover;
 }
 
 .showroom__placeholder {

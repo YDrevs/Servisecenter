@@ -38,16 +38,14 @@ $offers = array(
  * Showroom models, in display order. No prices on purpose — availability only.
  * 'image' is relative to assets/images/; a missing file renders the striped
  * placeholder, so dropping vehicles/<slug>.webp in place is enough to show it.
- * Seagull uses byd-1.jpg, a 1000×1000 collage of three angles — it must stay
- * object-fit: contain, cover cuts it along the collage seams.
- * TODO(content): real photos and descriptions from the client.
+ * TODO(content): descriptions from the client.
  */
 $models = array(
 	array( 'slug' => 'seal',      'name' => 'Seal',      'type' => __( 'Седан', 'leaderauto' ),            'in_stock' => true,  'image' => 'vehicles/seal.webp',      'text' => __( 'Електричний седан для щоденних поїздок і траси.', 'leaderauto' ) ),
 	array( 'slug' => 'sealion-7', 'name' => 'Sealion 7', 'type' => __( 'Кросовер', 'leaderauto' ),         'in_stock' => false, 'image' => 'vehicles/sealion-7.webp', 'text' => __( 'Просторий електричний кросовер для сім\'ї та далеких поїздок.', 'leaderauto' ) ),
 	array( 'slug' => 'leopard',   'name' => 'Leopard',   'type' => __( 'Позашляховик', 'leaderauto' ),     'in_stock' => false, 'image' => 'vehicles/leopard.webp',   'text' => __( 'Рамний позашляховик для тих, кому потрібне авто поза асфальтом.', 'leaderauto' ) ),
 	array( 'slug' => 'song-plus', 'name' => 'Song +',    'type' => __( 'Кросовер, гібрид', 'leaderauto' ), 'in_stock' => true,  'image' => 'vehicles/song-plus.webp', 'text' => __( 'Гібридний кросовер: електротяга в місті й запас ходу для поїздок.', 'leaderauto' ) ),
-	array( 'slug' => 'seagull',   'name' => 'Seagull',   'type' => __( 'Хетчбек', 'leaderauto' ),          'in_stock' => true,  'image' => 'byd-1.jpg',               'text' => __( 'Компактний міський хетчбек, зручний для парковки й коротких маршрутів.', 'leaderauto' ) ),
+	array( 'slug' => 'seagull',   'name' => 'Seagull',   'type' => __( 'Хетчбек', 'leaderauto' ),          'in_stock' => true,  'image' => 'vehicles/seagull.webp',   'text' => __( 'Компактний міський хетчбек, зручний для парковки й коротких маршрутів.', 'leaderauto' ) ),
 	array( 'slug' => 'dolphin',   'name' => 'Dolphin',   'type' => __( 'Хетчбек', 'leaderauto' ),          'in_stock' => false, 'image' => 'vehicles/dolphin.webp',   'text' => __( 'Практичний хетчбек з місткою кабіною для міста та області.', 'leaderauto' ) ),
 );
 ?>
@@ -134,7 +132,7 @@ $models = array(
 	<section class="section section--guarantee" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-02.png' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div class="media-split__media">
-				<img src="<?php echo esc_url( leaderauto_img( 'detailing-19.png' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+				<img src="<?php echo esc_url( leaderauto_img( 'detailing-19.webp' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
 			</div>
 			<div class="media-split__body">
 				<h2 class="section__title"><?php esc_html_e( 'Відповідаємо за результат', 'leaderauto' ); ?></h2>
