@@ -103,8 +103,9 @@ token + chat id are set; if both channels fail → `502`. Delivery targets come 
 | Dealer | reference page 15 — **~90% Divi demo** | not carried over; minimal real page (BYD sales/test-drive + real media). **Needs real content from the client.** |
 | Contacts | reference page 13 — real | form → REST endpoint; demo e-mail `hello@divicardetailing.com` omitted |
 
-Real media copied into `assets/images/` (`logo.png`, `byd.jpg`, `byd-1.jpg`, `icon.jpg`,
-`promo.mp4`, `sea-lion-08-debut.mp4`). Stock "Car Detailing" photos are not used.
+Real media copied into `assets/images/` (`logo.png`, `byd.jpg`, `icon.jpg`,
+`promo.mp4`, `sea-lion-08-debut.mp4`). Dealer showroom model photos live in
+`assets/images/vehicles/<slug>.webp`. Stock "Car Detailing" photos are not used.
 
 ## Deploy
 

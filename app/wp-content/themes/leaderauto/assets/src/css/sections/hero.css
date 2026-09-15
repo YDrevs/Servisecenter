@@ -6,7 +6,10 @@
 		linear-gradient(rgba(23, 0, 190, 0.3) 0%, rgba(23, 0, 190, 0.9) 64%, rgba(23, 0, 190, 0.9) 100%),
 		var(--hero-bg);
 	background-size: cover;
-	background-position: 50% 50%;
+	/* Photo focus pulled below centre so the Song Plus body and wheel stay in frame
+	   instead of the showroom ceiling. Only matters on wide screens — on phones the
+	   photo is height-bound and crops sideways. */
+	background-position: 50% 70%;
 	color: var(--c-white);
 	padding-top: clamp(2.5rem, 8vw, 7.4rem);
 	padding-bottom: 0;

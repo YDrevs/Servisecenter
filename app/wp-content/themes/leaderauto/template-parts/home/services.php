@@ -49,7 +49,7 @@ $groups = array(
 	<div class="section__inner">
 		<?php /* Reference row 1: two stills on the left, the debut clip on the right. */ ?>
 		<div class="services__intro">
-			<img class="services__shot" src="<?php echo esc_url( leaderauto_img( 'detailing-06.png' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+			<img class="services__shot" src="<?php echo esc_url( leaderauto_img( 'detailing-19.webp' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
 			<img class="services__shot-over" src="<?php echo esc_url( leaderauto_img( 'detailing-07.png' ) ); ?>" alt="<?php esc_attr_e( 'Діагностика електромобіля', 'leaderauto' ); ?>" loading="lazy">
 			<div class="services__aside">
 				<?php /* Portrait 720x1280 clip — no poster, the first frame stands in. */ ?>

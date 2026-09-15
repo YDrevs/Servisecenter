@@ -1,0 +1,143 @@
+/* Dealer showroom: one model on stage, a rail of six thumbnails beneath.
+   showroom.js upgrades the rail to tabs and adds .is-ready; without it the
+   thumbnails are anchors and :target picks the panel. */
+
+.showroom__lead { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+
+.showroom__panel {
+	display: grid;
+	gap: clamp(1.5rem, 4vw, 3rem);
+	align-items: center;
+}
+@media (min-width: 800px) {
+	.showroom__panel { grid-template-columns: 1fr 1fr; }
+}
+
+/* No JS: first model shows, a thumbnail anchor swaps it via :target. */
+.showroom:not(.is-ready) .showroom__panel:not(:first-child) { display: none; }
+.showroom:not(.is-ready) .showroom__stage:has(:target) .showroom__panel { display: none; }
+.showroom:not(.is-ready) .showroom__stage .showroom__panel:target { display: grid; }
+
+.showroom__media {
+	position: relative;
+	aspect-ratio: 16 / 10;
+	max-width: 100%;
+	border-radius: var(--radius-card);
+	background: var(--c-surface);
+	overflow: hidden;
+}
+/* Model photos come in mixed ratios (4:3 … 2:1); cover fills the frame instead
+   of letterboxing, trimming the edges. */
+.showroom__media img,
+.showroom__thumb-media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.showroom__placeholder {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	background: repeating-linear-gradient(45deg, var(--c-surface) 0 12px, var(--c-line) 12px 24px);
+}
+.showroom__placeholder span {
+	padding: 0.35rem 0.75rem;
+	background: var(--c-white);
+	color: var(--c-muted);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.8125rem;
+	letter-spacing: 0.08em;
+}
+
+.showroom__arrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 2px solid var(--c-brand);
+	border-radius: var(--radius);
+	background: var(--c-white);
+	color: var(--c-brand);
+	font-family: var(--font-heading);
+	font-size: 1.75rem;
+	line-height: 1;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+.showroom__arrow--prev { left: 12px; }
+.showroom__arrow--next { right: 12px; }
+.showroom__arrow:hover { background: var(--c-brand); color: var(--c-white); }
+.showroom__arrow:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+
+.showroom__status {
+	font-family: var(--font-heading);
+	font-size: 0.8125rem; /* 13px */
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+}
+.showroom__status--in { color: var(--c-brand); }
+.showroom__status--order { color: var(--c-ink); }
+
+.showroom__name { margin-top: 0.25rem; }
+.showroom__type { margin-bottom: 0.75rem; color: var(--c-muted); }
+
+.showroom__actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.75rem;
+}
+.showroom__actions .btn { flex: 1 1 auto; }
+.showroom__actions .btn:first-child { flex-basis: 100%; }
+
+.showroom__rail {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	gap: 1rem;
+	margin-top: clamp(2rem, 5vw, 3rem);
+}
+@media (max-width: 899px) {
+	.showroom__rail {
+		grid-template-columns: none;
+		grid-auto-flow: column;
+		grid-auto-columns: minmax(8.5rem, 38%);
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		padding-bottom: 0.5rem;
+	}
+}
+
+.showroom__thumb {
+	display: grid;
+	gap: 0.5rem;
+	padding: 0 0 0.5rem;
+	border: 0;
+	border-bottom: 3px solid transparent;
+	background: none;
+	color: var(--c-ink);
+	text-align: center;
+	text-decoration: none;
+	scroll-snap-align: start;
+}
+.showroom__thumb[aria-selected="true"] { border-bottom-color: var(--c-brand); }
+.showroom__thumb:hover .showroom__thumb-name { color: var(--c-brand); }
+.showroom__thumb:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+
+.showroom__thumb-media {
+	position: relative;
+	display: block;
+	aspect-ratio: 3 / 2;
+	border-radius: var(--radius-card);
+	background: var(--c-surface);
+	overflow: hidden;
+}
+.showroom__thumb-name {
+	font-family: var(--font-heading);
+	font-weight: 500;
+}

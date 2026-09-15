@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
-<section class="hero" id="hero" style="--hero-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-05.jpg' ) ); ?>');">
+<section class="hero" id="hero" style="--hero-bg: url('<?php echo esc_url( leaderauto_img( 'main-byd-song-plus.webp' ) ); ?>');">
 	<div class="hero__inner">
 		<h1 class="hero__title">BYD-Center<br>Service &amp; Dealer</h1>
 	</div>
