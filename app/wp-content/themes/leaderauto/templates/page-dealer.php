@@ -59,7 +59,7 @@ $models = array(
 
 	<section class="section showroom" id="showroom">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'BYD у наявності та під замовлення', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php esc_html_e( 'Авто у наявності та під замовлення', 'leaderauto' ); ?></h2>
 			<p class="showroom__lead"><?php esc_html_e( 'Підбір моделі під ваш бюджет і задачі, допомога з оформленням, підготовка авто перед видачею та подальше сервісне обслуговування в одному місці.', 'leaderauto' ); ?></p>
 
 			<div class="showroom__stage">
