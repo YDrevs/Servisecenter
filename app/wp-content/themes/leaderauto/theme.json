@@ -39,8 +39,8 @@
 			"fontFamilies": [
 				{
 					"slug": "heading",
-					"name": "Kanit",
-					"fontFamily": "'Kanit', 'Helvetica Neue', Helvetica, Arial, sans-serif"
+					"name": "Exo 2",
+					"fontFamily": "'Exo 2', 'Helvetica Neue', Helvetica, Arial, sans-serif"
 				},
 				{
 					"slug": "body",

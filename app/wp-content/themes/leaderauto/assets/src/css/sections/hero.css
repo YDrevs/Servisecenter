@@ -33,6 +33,32 @@
 	line-height: 1;
 }
 
+/* Second title line: three words parted by small brand dots. Each dot is glued to
+   the word before it and the break opportunity is the space after, so a wrap never
+   leaves a dot stranded at the start of a line. vertical-align is a length, not
+   `middle`: `middle` centres on the x-height, which sits low against all-caps. */
+.hero__title-line {
+	display: block;
+	text-transform: uppercase;
+	/* This line is ~2.6x longer than "BYD-Center", so at the H1's own 8vw it would
+	   wrap. Sizing it in vw — the same unit its 80%-of-viewport container scales in
+	   — pins it to exactly one line at every width, with no breakpoints. The
+	   constant is measured against this string in the heading font; retune it if
+	   either changes. nowrap makes the one-line guarantee explicit. */
+	font-size: 4.8vw;   /* string measures 15.735em in Exo 2 700 -> 5.08vw max */
+	white-space: nowrap;
+}
+.hero__dot {
+	display: inline-block;
+	width: 0.14em;
+	height: 0.14em;
+	margin-left: 0.34em;
+	margin-right: 0.08em;
+	vertical-align: 0.3em;
+	border-radius: 50%;
+	background: var(--c-brand-bright);
+}
+
 .hero__band {
 	position: relative;
 	margin-top: clamp(2rem, 6vw, 4.5rem);
