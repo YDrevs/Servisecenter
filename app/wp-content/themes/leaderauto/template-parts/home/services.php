@@ -43,6 +43,27 @@ $groups = array(
 			__( 'Швидка доставка', 'leaderauto' ),
 		),
 	),
+	array(
+		'title' => __( 'Додаткові послуги', 'leaderauto' ),
+		'image' => 'detailing-08.jpg',
+		'items' => array(
+			__( 'Забір і доставка автомобіля від клієнта до СТО і назад', 'leaderauto' ),
+			__( 'Евакуатор', 'leaderauto' ),
+			__( 'Оренда підйомника або робочого місця для самостійного обслуговування', 'leaderauto' ),
+			__( 'Зберігання коліс', 'leaderauto' ),
+			__( 'Передпродажна перевірка', 'leaderauto' ),
+			// An item may carry its own nested list; the template renders it one level deep.
+			array(
+				'label' => __( 'Післяпродажний сервіс:', 'leaderauto' ),
+				'items' => array(
+					__( 'Антикорозійна обробка', 'leaderauto' ),
+					__( 'Тонування', 'leaderauto' ),
+					__( 'Антихром обробка', 'leaderauto' ),
+					__( 'Шумовіброізоляція', 'leaderauto' ),
+				),
+			),
+		),
+	),
 );
 ?>
 <section class="section" id="services">
@@ -60,14 +81,25 @@ $groups = array(
 		</div>
 
 		<h2 class="section__title section__title--center"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></h2>
-		<div class="cards cards--3">
+		<div class="cards cards--3 cards--wide">
 			<?php foreach ( $groups as $group ) : ?>
 				<article class="card">
 					<img class="card__media" src="<?php echo esc_url( leaderauto_img( $group['image'] ) ); ?>" alt="<?php echo esc_attr( $group['title'] ); ?>" loading="lazy">
 					<h3 class="card__title"><?php echo esc_html( $group['title'] ); ?></h3>
 					<ul class="card__list">
 						<?php foreach ( $group['items'] as $item ) : ?>
-							<li><?php echo esc_html( $item ); ?></li>
+							<?php if ( is_array( $item ) ) : ?>
+								<li>
+									<?php echo esc_html( $item['label'] ); ?>
+									<ul class="card__sublist">
+										<?php foreach ( $item['items'] as $sub ) : ?>
+											<li><?php echo esc_html( $sub ); ?></li>
+										<?php endforeach; ?>
+									</ul>
+								</li>
+							<?php else : ?>
+								<li><?php echo esc_html( $item ); ?></li>
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</ul>
 				</article>
