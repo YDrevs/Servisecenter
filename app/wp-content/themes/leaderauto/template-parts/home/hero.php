@@ -29,7 +29,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 			</div>
 
 			<p class="hero__note">
-				<?php esc_html_e( 'Діагностика, оновлення, кодування, заміна мастил, підбір та замовлення запчастин', 'leaderauto' ); ?>
+				<?php esc_html_e( 'Діагностика • Оновлення блоків • ТО • Підбір та замовлення запчастин • Офіційне обладнання', 'leaderauto' ); ?>
 			</p>
 		</div>
 	</div>
