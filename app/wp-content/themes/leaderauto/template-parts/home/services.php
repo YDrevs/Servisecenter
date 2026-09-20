@@ -82,7 +82,7 @@ $groups = array(
 		</div>
 
 		<h2 class="section__title section__title--center"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></h2>
-		<div class="cards cards--3 cards--wide">
+		<div class="cards cards--4 cards--wide">
 			<?php foreach ( $groups as $group ) : ?>
 				<article class="card">
 					<img class="card__media" src="<?php echo esc_url( leaderauto_img( $group['image'] ) ); ?>" alt="<?php echo esc_attr( $group['title'] ); ?>" loading="lazy">

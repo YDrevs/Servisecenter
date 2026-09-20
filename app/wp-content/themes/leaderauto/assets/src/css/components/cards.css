@@ -2,7 +2,22 @@
 	display: grid;
 	gap: clamp(1rem, 3vw, 1.75rem);
 }
-.cards--3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+/* Explicit column counts rather than auto-fit. auto-fit packed in as many tracks
+   as fitted, which split the dealer page's six cards into an ugly 4 + 2; naming
+   the count keeps each grid's rows even. */
+.cards--3,
+.cards--4 { grid-template-columns: 1fr; }
+@media (min-width: 620px) {
+	.cards--3,
+	.cards--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+	.cards--3 { grid-template-columns: repeat(3, 1fr); }
+}
+/* Four across only once each card clears ~260px, the width they had before. */
+@media (min-width: 1200px) {
+	.cards--4 { grid-template-columns: repeat(4, 1fr); }
+}
 
 /* A row that steps outside the 1200px container. The four service cards need
    ~357px each for their titles to hold one line, and the container only affords
