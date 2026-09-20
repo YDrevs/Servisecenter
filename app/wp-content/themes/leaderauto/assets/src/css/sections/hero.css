@@ -1,9 +1,9 @@
-/* Values from the measured reference: background photo under a blue overlay that
-   thickens downward, H1 at 94.88px/1, then a row where the pitch sits on the blue
+/* Values from the measured reference: background photo under a green overlay that
+   thickens downward, H1 at 94.88px/1, then a row where the pitch sits on the green
    and the service line on a black wedge cutting in from the right. */
 .hero {
 	background-image:
-		linear-gradient(rgba(23, 0, 190, 0.3) 0%, rgba(23, 0, 190, 0.9) 64%, rgba(23, 0, 190, 0.9) 100%),
+		linear-gradient(rgba(19, 122, 30, 0.3) 0%, rgba(19, 122, 30, 0.9) 64%, rgba(19, 122, 30, 0.9) 100%),
 		var(--hero-bg);
 	background-size: cover;
 	/* Photo focus pulled below centre so the Song Plus body and wheel stay in frame
@@ -64,10 +64,10 @@
 }
 
 /* Narrow: no wedge — the two halves stack, so the service line carries its own
-   black block instead of a diagonal that would cut across the text. */
+   asphalt block instead of a diagonal that would cut across the text. */
 @media (max-width: 899px) {
 	.hero__note {
-		background: var(--c-black);
+		background: var(--c-asphalt);
 		margin-inline: calc(-1 * var(--gutter));
 		padding: clamp(1.5rem, 6vw, 2.5rem) var(--gutter);
 	}
@@ -83,13 +83,13 @@
 	.hero__pitch { margin-left: -6vw; }
 	/* The wedge. Its edge runs from 46% of the width at the band's top to 26% at
 	   the bottom, which is where the reference's diagonal sits; the untouched
-	   left side lets the hero's blue overlay show through. */
+	   left side lets the hero's green overlay show through. */
 	.hero__band::before {
 		content: "";
 		position: absolute;
 		inset: 0;
 		z-index: 0;
-		background: var(--c-black);
+		background: var(--c-asphalt);
 		clip-path: polygon(46% 0, 100% 0, 100% 100%, 26% 100%);
 	}
 }

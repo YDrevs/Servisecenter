@@ -13,22 +13,23 @@
 			"defaultPalette": false,
 			"defaultGradients": false,
 			"palette": [
-				{ "slug": "brand", "color": "#1700be", "name": "Brand indigo" },
-				{ "slug": "brand-bright", "color": "#326bff", "name": "Brand bright" },
+				{ "slug": "brand", "color": "#137a1e", "name": "Brand green" },
+				{ "slug": "brand-bright", "color": "#66e338", "name": "Brand neon" },
 				{ "slug": "accent", "color": "#ff6900", "name": "Accent orange" },
 				{ "slug": "ink", "color": "#1c1c22", "name": "Ink" },
 				{ "slug": "body", "color": "#333333", "name": "Body text" },
 				{ "slug": "muted", "color": "#666666", "name": "Muted" },
 				{ "slug": "line", "color": "#dddddd", "name": "Hairline" },
-				{ "slug": "surface", "color": "#f5f6f9", "name": "Surface" },
+				{ "slug": "surface", "color": "#f4f8f4", "name": "Surface" },
 				{ "slug": "white", "color": "#ffffff", "name": "White" },
-				{ "slug": "black", "color": "#000000", "name": "Black" }
+				{ "slug": "black", "color": "#000000", "name": "Black" },
+				{ "slug": "asphalt", "color": "#3b3a3a", "name": "Wet asphalt" }
 			],
 			"gradients": [
 				{
 					"slug": "hero",
 					"name": "Hero",
-					"gradient": "linear-gradient(180deg, #000000 0%, #1700be 100%)"
+					"gradient": "linear-gradient(180deg, #000000 0%, #137a1e 100%)"
 				}
 			]
 		},

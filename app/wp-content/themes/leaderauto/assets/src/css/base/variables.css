@@ -1,18 +1,19 @@
 /* Tokens — derived from the reference site (see app/reference/NOTES.md). */
 :root {
-	--c-brand: #1700be;
-	--c-brand-bright: #326bff;
+	--c-brand: #137a1e;
+	--c-brand-bright: #66e338;
 	--c-accent: #ff6900;
 
 	--c-ink: #1c1c22;
 	--c-body: #333333;
 	--c-muted: #666666;
 	--c-line: #dddddd;
-	--c-surface: #f5f6f9;
+	--c-surface: #f4f8f4;
 	--c-white: #ffffff;
 	--c-black: #000000;
+	--c-asphalt: #3b3a3a;   /* wet-asphalt wedge behind the hero service line */
 
-	--grad-hero: linear-gradient(180deg, #000000 0%, #1700be 100%);
+	--grad-hero: linear-gradient(180deg, #000000 0%, #137a1e 100%);
 
 	--font-heading: 'Kanit', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	--font-body: 'Open Sans', 'Segoe UI', Roboto, Arial, sans-serif;
