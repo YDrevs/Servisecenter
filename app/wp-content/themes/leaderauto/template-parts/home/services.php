@@ -14,33 +14,55 @@ $groups = array(
 		'items' => array(
 			__( 'Комп’ютерна діагностика', 'leaderauto' ),
 			__( 'Оновлення програмного забезпечення', 'leaderauto' ),
-			__( 'Кодування та адаптація блоків', 'leaderauto' ),
-			__( 'Усунення помилок та збоїв', 'leaderauto' ),
-			__( 'Налаштування електронних систем', 'leaderauto' ),
-			__( 'Робота з батарейними системами', 'leaderauto' ),
+			__( 'Оновлення та адаптація блоків', 'leaderauto' ),
+			__( 'Усунення помилок та програмних збоїв', 'leaderauto' ),
+			__( 'Налаштування електронних систем безпеки', 'leaderauto' ),
+			__( 'Послуги автоелектрика', 'leaderauto' ),
+			__( 'Ремонт інверторів', 'leaderauto' ),
+			__( 'Обслуговування та ремонт високовольтних батарей', 'leaderauto' ),
 		),
 	),
 	array(
 		'title' => __( 'Технічне обслуговування', 'leaderauto' ),
 		'image' => 'tech-service.webp',
 		'items' => array(
+			__( 'Розвал-сходження для EV та HYBRID', 'leaderauto' ),
+			__( 'Вібростенд та ремонт ходової', 'leaderauto' ),
 			__( 'Заміна мастил та технічних рідин', 'leaderauto' ),
-			__( 'Обслуговування редуктора', 'leaderauto' ),
-			__( 'Заміна фільтрів', 'leaderauto' ),
-			__( 'Перевірка ходової частини', 'leaderauto' ),
-			__( 'Гальмівна система', 'leaderauto' ),
-			__( 'Обслуговування систем охолодження', 'leaderauto' ),
+			__( 'Шиномонтаж', 'leaderauto' ),
+			__( 'Заправка та ремонт кондиціонерів', 'leaderauto' ),
+			__( 'Перевірка усіх систем автомобіля', 'leaderauto' ),
 		),
 	),
 	array(
 		'title' => __( 'Запчастини та комплектуючі', 'leaderauto' ),
 		'image' => 'detailing-10.jpg',
 		'items' => array(
-			__( 'Замовлення оригінальних запчастин', 'leaderauto' ),
-			__( 'Аналоги перевірених брендів', 'leaderauto' ),
-			__( 'Пошук рідкісних деталей', 'leaderauto' ),
-			__( 'Допомога з підбором', 'leaderauto' ),
-			__( 'Швидка доставка', 'leaderauto' ),
+			__( 'Підбір та продаж запчастин', 'leaderauto' ),
+			__( 'Замовлення запчастин з Китаю', 'leaderauto' ),
+			__( 'Доставка по Україні', 'leaderauto' ),
+			__( 'Діючі програми лояльності', 'leaderauto' ),
+		),
+	),
+	array(
+		'title' => __( 'Додаткові послуги', 'leaderauto' ),
+		'image' => 'detailing-08.jpg',
+		'items' => array(
+			__( 'Забір і доставка автомобіля від клієнта до СТО і назад', 'leaderauto' ),
+			__( 'Евакуатор', 'leaderauto' ),
+			__( 'Оренда підйомника або робочого місця для самостійного обслуговування', 'leaderauto' ),
+			__( 'Зберігання коліс', 'leaderauto' ),
+			__( 'Передпродажна перевірка', 'leaderauto' ),
+			// An item may carry its own nested list; the template renders it one level deep.
+			array(
+				'label' => __( 'Післяпродажний сервіс:', 'leaderauto' ),
+				'items' => array(
+					__( 'Антикорозійна обробка', 'leaderauto' ),
+					__( 'Тонування', 'leaderauto' ),
+					__( 'Антихром обробка', 'leaderauto' ),
+					__( 'Шумовіброізоляція', 'leaderauto' ),
+				),
+			),
 		),
 	),
 );
@@ -60,14 +82,25 @@ $groups = array(
 		</div>
 
 		<h2 class="section__title section__title--center"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></h2>
-		<div class="cards cards--3">
+		<div class="cards cards--4 cards--wide">
 			<?php foreach ( $groups as $group ) : ?>
 				<article class="card">
 					<img class="card__media" src="<?php echo esc_url( leaderauto_img( $group['image'] ) ); ?>" alt="<?php echo esc_attr( $group['title'] ); ?>" loading="lazy">
 					<h3 class="card__title"><?php echo esc_html( $group['title'] ); ?></h3>
 					<ul class="card__list">
 						<?php foreach ( $group['items'] as $item ) : ?>
-							<li><?php echo esc_html( $item ); ?></li>
+							<?php if ( is_array( $item ) ) : ?>
+								<li>
+									<?php echo esc_html( $item['label'] ); ?>
+									<ul class="card__sublist">
+										<?php foreach ( $item['items'] as $sub ) : ?>
+											<li><?php echo esc_html( $sub ); ?></li>
+										<?php endforeach; ?>
+									</ul>
+								</li>
+							<?php else : ?>
+								<li><?php echo esc_html( $item ); ?></li>
+							<?php endif; ?>
 						<?php endforeach; ?>
 					</ul>
 				</article>

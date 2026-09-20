@@ -12,7 +12,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
 <section class="hero" id="hero" style="--hero-bg: url('<?php echo esc_url( leaderauto_img( 'main-byd-song-plus.webp' ) ); ?>');">
 	<div class="hero__inner">
-		<h1 class="hero__title">BYD-Center<br>Service &amp; Dealer</h1>
+		<h1 class="hero__title">BYD-Center<br><span class="hero__title-line">Продаж<span class="hero__dot"></span> Сервіс<span class="hero__dot"></span> Запчастини</span></h1>
 	</div>
 
 	<?php /* Reference row 2: the pitch sits on the blue overlay at the left, the
@@ -21,7 +21,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 		<div class="hero__band-inner">
 			<div class="hero__pitch">
 				<p class="hero__lead">
-					<?php esc_html_e( 'Програмний та технічний ремонт електромобілів BYD, Tesla, Zeekr, Volkswagen, Nissan та інших марок.', 'leaderauto' ); ?>
+					<?php esc_html_e( 'Ремонт та обслуговування усіх типів електромобілів і гібридів.', 'leaderauto' ); ?>
 				</p>
 				<p class="hero__actions">
 					<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Отримати консультацію', 'leaderauto' ); ?></a>
@@ -29,7 +29,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 			</div>
 
 			<p class="hero__note">
-				<?php esc_html_e( 'Діагностика, оновлення, кодування, заміна мастил, підбір та замовлення запчастин', 'leaderauto' ); ?>
+				<?php esc_html_e( 'Діагностика • Оновлення блоків • ТО • Підбір та замовлення запчастин • Офіційне обладнання', 'leaderauto' ); ?>
 			</p>
 		</div>
 	</div>

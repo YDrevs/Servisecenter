@@ -2,7 +2,35 @@
 	display: grid;
 	gap: clamp(1rem, 3vw, 1.75rem);
 }
-.cards--3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+/* Explicit column counts rather than auto-fit. auto-fit packed in as many tracks
+   as fitted, which split the dealer page's six cards into an ugly 4 + 2; naming
+   the count keeps each grid's rows even. */
+.cards--3,
+.cards--4 { grid-template-columns: 1fr; }
+@media (min-width: 620px) {
+	.cards--3,
+	.cards--4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 900px) {
+	.cards--3 { grid-template-columns: repeat(3, 1fr); }
+}
+/* Four across only once each card clears ~260px, the width they had before. */
+@media (min-width: 1200px) {
+	.cards--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* A row that steps outside the 1200px container. The four service cards need
+   ~357px each for their titles to hold one line, and the container only affords
+   279px. The negative margins are what break out: 100% here is the container, so
+   when the wide width exceeds it they go negative and re-centre the row; on
+   narrower screens the width collapses to the container's own and they reach 0,
+   so nothing overflows. Below ~1640px viewport the titles still wrap — that is
+   the width the copy needs, not a bug. */
+.cards--wide {
+	--cards-w: min(100vw - 2 * var(--gutter), 1560px);
+	width: var(--cards-w);
+	margin-inline: calc((100% - var(--cards-w)) / 2);
+}
 
 .card {
 	border: 1px solid var(--c-line);
@@ -29,6 +57,26 @@
 	position: absolute; left: 0; top: 0.6em;
 	width: 6px; height: 6px;
 	background: var(--c-brand);
+}
+
+/* One nested level under a list entry. The square marker is reused hollow so the
+   two levels read apart without a second colour. */
+.card__sublist {
+	display: grid;
+	gap: 0.35rem;
+	margin-top: 0.4rem;
+	padding-left: 0.25rem;
+}
+.card__sublist li {
+	padding-left: 0.95rem;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+}
+.card__sublist li::before {
+	top: 0.55em;
+	width: 5px; height: 5px;
+	background: none;
+	border: 1px solid var(--c-brand);
 }
 
 .card__media {

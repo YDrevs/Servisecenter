@@ -28,10 +28,12 @@ function leaderauto_is_dev(): bool {
 }
 
 add_action( 'wp_enqueue_scripts', static function () {
-	// Fonts (see app/reference/NOTES.md — Kanit for headings, Open Sans for body).
+	// Fonts. The reference used Kanit for headings, but Kanit ships no Cyrillic
+	// subset, so every Ukrainian heading silently fell back to Arial. Exo 2 is the
+	// closest face that carries both Latin and Cyrillic.
 	wp_enqueue_style(
 		'leaderauto-fonts',
-		'https://fonts.googleapis.com/css2?family=Kanit:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap',
 		array(),
 		null
 	);
