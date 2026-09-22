@@ -29,6 +29,10 @@ function leaderauto_telegram_href(): string {
 	return 'https://t.me/V_P_97';
 }
 
+function leaderauto_instagram_href(): string {
+	return 'https://www.instagram.com/lider_avto_/';
+}
+
 function leaderauto_address(): string {
 	return '60313, с. Магала, вул. Гр. Нандріша, 6';
 }
