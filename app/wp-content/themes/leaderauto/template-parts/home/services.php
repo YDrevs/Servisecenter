@@ -90,16 +90,17 @@ $groups = array(
 					<ul class="card__list">
 						<?php foreach ( $group['items'] as $item ) : ?>
 							<?php if ( is_array( $item ) ) : ?>
+								<?php /* The label heads the nested list; only the services under it link. */ ?>
 								<li>
 									<?php echo esc_html( $item['label'] ); ?>
 									<ul class="card__sublist">
 										<?php foreach ( $item['items'] as $sub ) : ?>
-											<li><?php echo esc_html( $sub ); ?></li>
+											<li><?php leaderauto_service_link( $sub ); ?></li>
 										<?php endforeach; ?>
 									</ul>
 								</li>
 							<?php else : ?>
-								<li><?php echo esc_html( $item ); ?></li>
+								<li><?php leaderauto_service_link( $item ); ?></li>
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</ul>
@@ -107,4 +108,13 @@ $groups = array(
 			<?php endforeach; ?>
 		</div>
 	</div>
+
+	<?php /* Opened by assets/src/js/service-modal.js; the links work without it. */ ?>
+	<dialog class="service-modal" id="service-modal" aria-labelledby="service-modal-title">
+		<form method="dialog" class="service-modal__dismiss">
+			<button class="service-modal__close" value="close" aria-label="<?php esc_attr_e( 'Закрити', 'leaderauto' ); ?>">&times;</button>
+		</form>
+		<h2 class="service-modal__title" id="service-modal-title"><?php esc_html_e( 'Залишити заявку', 'leaderauto' ); ?></h2>
+		<?php get_template_part( 'template-parts/contact-form', null, array( 'id' => 'leaderauto-contact-form-modal' ) ); ?>
+	</dialog>
 </section>
