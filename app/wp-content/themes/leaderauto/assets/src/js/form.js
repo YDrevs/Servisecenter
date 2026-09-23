@@ -1,7 +1,25 @@
 export function initContactForm() {
-	const form = document.getElementById('leaderauto-contact-form');
-	if (!form) return;
+	// Every .contact-form on the page: the Contacts page has one, the home page
+	// renders a second copy inside the services dialog.
+	document.querySelectorAll('.contact-form').forEach(bindForm);
+	prefillFromQuery();
+}
 
+/** Text put in the message box when a visitor arrives from a service link. */
+export function serviceMessage(name) {
+	return `Цікавить послуга: ${name}`;
+}
+
+/** A ?service= in the address means the visitor came from a service link. */
+function prefillFromQuery() {
+	const name = new URLSearchParams(window.location.search).get('service');
+	if (!name) return;
+
+	const field = document.querySelector('.contact-form [name="message"]');
+	if (field && !field.value) field.value = serviceMessage(name);
+}
+
+function bindForm(form) {
 	const cfg = window.LEADERAUTO || {};
 	const status = form.querySelector('.contact-form__status');
 	const button = form.querySelector('button[type="submit"]');

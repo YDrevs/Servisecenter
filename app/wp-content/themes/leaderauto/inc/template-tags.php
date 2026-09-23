@@ -29,6 +29,10 @@ function leaderauto_telegram_href(): string {
 	return 'https://t.me/V_P_97';
 }
 
+function leaderauto_instagram_href(): string {
+	return 'https://www.instagram.com/lider_avto_/';
+}
+
 function leaderauto_address(): string {
 	return '60313, с. Магала, вул. Гр. Нандріша, 6';
 }
@@ -40,6 +44,35 @@ function leaderauto_address(): string {
  */
 function leaderauto_brands(): array {
 	return array( 'BYD', 'Tesla', 'Zeekr', 'Volkswagen ID', 'Nissan Leaf' );
+}
+
+/**
+ * Permalink of the Contacts page — the fallback target for every service link.
+ * Cached per request: the services section calls this once per list item.
+ */
+function leaderauto_contacts_url(): string {
+	static $url = null;
+	if ( null === $url ) {
+		$page = get_page_by_path( 'contacts' );
+		$url  = $page ? get_permalink( $page ) : home_url( '/contacts/' );
+	}
+	return $url;
+}
+
+/**
+ * A service list item as a link to the contact form.
+ *
+ * The href is a real link to Contacts with the service name in the query string;
+ * service-modal.js upgrades the click into an on-page dialog. Without JS, or on
+ * open-in-new-tab, the Contacts page picks the name up from the URL.
+ */
+function leaderauto_service_link( string $name ): void {
+	printf(
+		'<a class="card__link" href="%1$s" data-service="%2$s">%3$s</a>',
+		esc_url( add_query_arg( 'service', rawurlencode( $name ), leaderauto_contacts_url() ) ),
+		esc_attr( $name ),
+		esc_html( $name )
+	);
 }
 
 /**

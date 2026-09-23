@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $faq = array(
 	array(
 		'q' => __( 'Ви працюєте тільки з BYD?', 'leaderauto' ),
-		'a' => __( 'Ні. BYD — наш профільний бренд, але ми обслуговуємо Tesla, Zeekr, Volkswagen ID, Nissan Leaf та інші електромобілі.', 'leaderauto' ),
+		'a' => __( 'Ні. BYD — наш профільний бренд, але ми обслуговуємо Honda, Zeekr, Volkswagen ID, Nissan Leaf та інші електромобілі.', 'leaderauto' ),
 	),
 	array(
 		'q' => __( 'Чи можна замовити запчастини у вас?', 'leaderauto' ),

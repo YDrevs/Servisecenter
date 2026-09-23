@@ -50,5 +50,5 @@
 /* The heading drops clear of the decorative FAQ letters. `top` keeps it out of the
    flow calculation, so the head reserves the same distance as padding to stop the
    shifted title running into the accordions. */
-.faq__head { padding-bottom: 2cm; }
-.faq__title { margin-bottom: 0; position: relative; top: 2cm; }
+.faq__head { padding-bottom: 3cm; }
+.faq__title { margin-bottom: 0; position: relative; top: 3cm; }

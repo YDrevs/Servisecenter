@@ -35,3 +35,22 @@
 	width: min(100% - 2 * var(--gutter), var(--container));
 	margin-inline: auto;
 }
+
+/* Social icons sit at the right, level with the bottom of the menu column. */
+.site-footer__social {
+	display: flex;
+	gap: 1.25rem;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+.site-footer__icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 3.5rem;
+	height: 3.5rem;
+	color: #fff;
+	border: 1px solid rgba(255, 255, 255, 0.25);
+	transition: color 0.2s, border-color 0.2s;
+}
+a.site-footer__icon:hover { border-color: #fff; }
