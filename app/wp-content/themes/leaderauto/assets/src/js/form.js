@@ -41,6 +41,14 @@ function bindForm(form) {
 		if (!form.reportValidity()) return;
 
 		const payload = Object.fromEntries(new FormData(form).entries());
+		// Fields the endpoint has no param for (the parts form's VIN, category, …)
+		// carry data-message-label and ride along at the top of the message.
+		const extra = [...form.querySelectorAll('[data-message-label]')]
+			.filter((el) => el.value.trim())
+			.map((el) => `${el.dataset.messageLabel}: ${el.value.trim()}`);
+		if (extra.length) {
+			payload.message = [...extra, payload.message].filter(Boolean).join('\n');
+		}
 		button.disabled = true;
 		say('Надсилаємо…', 'ok');
 

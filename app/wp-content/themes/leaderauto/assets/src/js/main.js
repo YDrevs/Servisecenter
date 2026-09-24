@@ -4,6 +4,7 @@ import { initContactForm } from './form.js';
 import { initCounters } from './counters.js';
 import { initShowroom } from './showroom.js';
 import { initServiceModal } from './service-modal.js';
+import { initParts } from './parts.js';
 
 const ready = (fn) =>
 	document.readyState !== 'loading'
@@ -16,4 +17,5 @@ ready(() => {
 	initCounters();
 	initShowroom();
 	initServiceModal();
+	initParts();
 });

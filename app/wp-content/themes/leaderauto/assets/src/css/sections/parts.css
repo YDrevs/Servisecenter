@@ -1,0 +1,186 @@
+/* Parts page (templates/page-parts.php). The client's prototype ran its own
+   blue/green palette, Inter and rounded 11–22px corners; here it sits on the
+   theme's tokens instead — brand green, Exo 2 / Open Sans, square buttons and
+   inputs, --radius-card on cards. */
+
+/* Kickers on light sections read as brand-green labels; on dark/photo sections
+   they keep the inherited white. */
+.parts__kicker { color: var(--c-brand); opacity: 1; }
+.parts__lead { color: var(--c-muted); max-width: 46ch; margin-bottom: 2rem; }
+
+.page-shell--parts .page-shell__title { max-width: 18ch; }
+.page-shell--parts .cta-band__row { margin-top: 2rem; }
+
+/* Desktop banner (Images/Parts_mainBanner.png). Text and buttons are part of the
+   picture; the hit areas are placed in % of the 1983×793 image, measured from the
+   painted buttons, so they track it at any width. */
+.parts-banner { display: none; position: relative; line-height: 0; }
+.parts-banner__img { display: block; width: 100%; height: auto; }
+.parts-banner__hit {
+	position: absolute;
+	top: 74.65%;
+	height: 9.6%;
+	border-radius: 0.6vw;
+}
+.parts-banner__hit--pick { left: 4.94%; width: 21.53%; }
+.parts-banner__hit--vin { left: 27.69%; width: 16.59%; }
+.parts-banner__hit:hover { background: rgba(0, 0, 0, 0.06); }
+.parts-banner__hit:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+
+@media (min-width: 900px) {
+	.parts-banner { display: block; }
+	.parts-hero { display: none; }
+}
+
+/* Categories: the whole tile is the button that prefills the form. */
+.parts-cat {
+	display: grid;
+	align-content: start;
+	gap: 0.35rem;
+	min-height: 10rem;
+	padding: 1.5rem;
+	text-align: left;
+	font: inherit;
+	color: var(--c-ink);
+	background: var(--c-white);
+	border: 1px solid var(--c-line);
+	border-radius: var(--radius-card);
+	cursor: pointer;
+	transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.parts-cat:hover {
+	border-color: var(--c-brand);
+	box-shadow: 0 12px 30px rgba(19, 122, 30, 0.12);
+	transform: translateY(-3px);
+}
+.parts-cat:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+.parts-cat__icon {
+	width: 2.75rem; height: 2.75rem;
+	display: grid; place-items: center;
+	margin-bottom: 0.75rem;
+	background: var(--c-surface);
+	color: var(--c-brand);
+	font-size: 1.4rem;
+	line-height: 1;
+}
+.parts-cat__title {
+	font-family: var(--font-heading);
+	font-weight: 700;
+	font-size: 1.1rem;
+	line-height: 1.3;
+}
+.parts-cat__text { color: var(--c-muted); font-size: 0.875rem; line-height: 1.6; }
+
+/* Model chips. Square like the site's buttons; scroll sideways on phones. */
+.parts-models {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.625rem;
+}
+.parts-models__chip {
+	font-family: var(--font-heading);
+	font-weight: 600;
+	font-size: 1rem;
+	padding: 0.65rem 1.25rem;
+	color: var(--c-ink);
+	background: var(--c-white);
+	border: 1px solid var(--c-line);
+	cursor: pointer;
+	transition: border-color 0.15s ease, color 0.15s ease;
+}
+.parts-models__chip:hover { border-color: var(--c-brand); color: var(--c-brand); }
+.parts-models__chip:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+@media (max-width: 600px) {
+	.parts-models { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.25rem; }
+	.parts-models__chip { white-space: nowrap; }
+}
+
+/* Popular requests. The glyph block stands in for a product photo. */
+.parts-item { padding: 1rem; }
+.parts-item__pic {
+	height: 10rem;
+	display: grid; place-items: center;
+	border-radius: calc(var(--radius-card) - 4px);
+	background: var(--c-surface);
+	color: var(--c-brand);
+	font-size: 3.5rem;
+	line-height: 1;
+}
+.parts-item__kicker {
+	margin-top: 1rem;
+	color: var(--c-brand);
+	font-family: var(--font-heading);
+	font-weight: 600;
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+.parts-item__title { font-size: 1.1rem; margin: 0.25rem 0 0.75rem; }
+.parts-item__ask {
+	padding: 0;
+	border: 0;
+	background: none;
+	font-family: var(--font-heading);
+	font-weight: 700;
+	font-size: 1rem;
+	color: var(--c-brand);
+	cursor: pointer;
+}
+.parts-item__ask:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Steps on the dark band: the shared .steps tiles, two across. */
+.parts-steps { grid-template-columns: repeat(2, 1fr); }
+.parts-steps .steps__item { font-family: var(--font-heading); font-weight: 600; }
+@media (max-width: 480px) {
+	.parts-steps { grid-template-columns: 1fr; }
+}
+
+/* Request: copy on the left, form card on the right. */
+.parts-request {
+	display: grid;
+	gap: clamp(1.5rem, 5vw, 4rem);
+}
+@media (min-width: 900px) {
+	.parts-request { grid-template-columns: 0.8fr 1.2fr; align-items: start; }
+}
+
+.parts-types { display: grid; gap: 0.75rem; }
+.parts-types li {
+	display: grid;
+	padding: 0.75rem 1rem;
+	background: var(--c-white);
+	border-left: 4px solid var(--c-brand);
+	color: var(--c-muted);
+	line-height: 1.5;
+}
+.parts-types strong { font-family: var(--font-heading); color: var(--c-ink); }
+
+.parts-form {
+	background: var(--c-white);
+	border: 1px solid var(--c-line);
+	border-radius: var(--radius-card);
+	padding: clamp(1.25rem, 3vw, 2rem);
+}
+.parts-form__grid { display: grid; column-gap: 1rem; }
+@media (min-width: 600px) {
+	.parts-form__grid { grid-template-columns: 1fr 1fr; }
+	.parts-form__full { grid-column: 1 / -1; }
+}
+/* forms.css styles input/textarea only — the category select joins them here. */
+.parts-form select {
+	width: 100%;
+	padding: 0.7rem 0.85rem;
+	border: 1px solid var(--c-line);
+	border-radius: var(--radius);
+	background: var(--c-white);
+	font: inherit;
+}
+.parts-form select:focus {
+	outline: 2px solid var(--c-brand);
+	outline-offset: 1px;
+	border-color: var(--c-brand);
+}
+.parts-form__submit { width: 100%; }
+
+/* Brief flash on a field a tile or chip just filled in. */
+.parts-form .is-prefilled { border-color: var(--c-brand); background: var(--c-surface); }

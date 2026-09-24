@@ -15,6 +15,7 @@ add_action( 'after_switch_theme', 'leaderauto_scaffold_site' );
 function leaderauto_scaffold_site(): void {
 	$pages = array(
 		'home'     => array( 'title' => 'Головна',   'template' => '' ),
+		'parts'    => array( 'title' => 'Запчастини', 'template' => 'templates/page-parts.php' ),
 		'dealer'   => array( 'title' => 'Автодилер', 'template' => 'templates/page-dealer.php' ),
 		'about'    => array( 'title' => 'Про нас',   'template' => 'templates/page-about.php' ),
 		'contacts' => array( 'title' => 'Контакти',  'template' => 'templates/page-contacts.php' ),
@@ -71,7 +72,7 @@ function leaderauto_build_primary_menu( array $ids ): void {
 
 	// Only populate an empty menu — don't stomp manual edits.
 	if ( ! wp_get_nav_menu_items( $menu_id ) ) {
-		$order = array( 'home' => 'Головна', 'dealer' => 'Автодилер', 'about' => 'Про нас', 'contacts' => 'Контакти' );
+		$order = array( 'home' => 'Головна', 'parts' => 'Запчастини', 'dealer' => 'Автодилер', 'about' => 'Про нас', 'contacts' => 'Контакти' );
 		$i     = 0;
 		foreach ( $order as $slug => $label ) {
 			if ( empty( $ids[ $slug ] ) ) {
@@ -86,9 +87,49 @@ function leaderauto_build_primary_menu( array $ids ): void {
 				'menu-item-position'  => ++$i,
 			) );
 		}
+	} else {
+		leaderauto_menu_insert_parts( $menu_id, $ids );
 	}
 
 	$locations            = (array) get_theme_mod( 'nav_menu_locations', array() );
 	$locations['primary'] = $menu_id;
 	set_theme_mod( 'nav_menu_locations', $locations );
+}
+
+/**
+ * Menus built before the Parts page existed: slot it in second, right after Головна,
+ * and shift the rest down one. Skipped if the page is already on the menu.
+ *
+ * @param array<string,int> $ids slug => page ID
+ */
+function leaderauto_menu_insert_parts( int $menu_id, array $ids ): void {
+	if ( empty( $ids['parts'] ) ) {
+		return;
+	}
+
+	$items    = (array) wp_get_nav_menu_items( $menu_id );
+	$position = 1; // no Головна item found → put Parts first
+	foreach ( $items as $item ) {
+		if ( 'page' === $item->object && (int) $item->object_id === $ids['parts'] ) {
+			return;
+		}
+		if ( 'page' === $item->object && ! empty( $ids['home'] ) && (int) $item->object_id === $ids['home'] ) {
+			$position = (int) $item->menu_order + 1;
+		}
+	}
+
+	foreach ( $items as $item ) {
+		if ( (int) $item->menu_order >= $position ) {
+			wp_update_post( array( 'ID' => $item->ID, 'menu_order' => (int) $item->menu_order + 1 ) );
+		}
+	}
+
+	wp_update_nav_menu_item( $menu_id, 0, array(
+		'menu-item-title'     => 'Запчастини',
+		'menu-item-object'    => 'page',
+		'menu-item-object-id' => $ids['parts'],
+		'menu-item-type'      => 'post_type',
+		'menu-item-status'    => 'publish',
+		'menu-item-position'  => $position,
+	) );
 }
