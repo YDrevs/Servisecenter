@@ -68,12 +68,12 @@ capture: ## Save the 4 old pages' rendered HTML into app/reference/pages/
 	done
 
 build: ## Build the theme's CSS/JS (runs Node in a container)
-	$(NODE) sh -c '[ -x node_modules/.bin/vite ] || npm ci; npm run build'
+	$(NODE) sh -c '[ node_modules/.package-lock.json -nt package-lock.json ] || npm ci; npm run build'
 	@rm -f $(DEV_MARKER)
 
 dev: ## Vite dev server with live-reload (http://localhost:5173); Ctrl-C to stop
 	@touch $(DEV_MARKER)
-	-$(COMPOSE) run --rm --service-ports node sh -c '[ -x node_modules/.bin/vite ] || npm ci; npm run dev -- --host'
+	-$(COMPOSE) run --rm --service-ports node sh -c '[ node_modules/.package-lock.json -nt package-lock.json ] || npm ci; npm run dev -- --host'
 	@rm -f $(DEV_MARKER)
 
 use-leaderauto: ## Activate the NEW theme + core plugin

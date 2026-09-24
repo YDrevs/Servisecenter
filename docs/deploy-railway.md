@@ -43,6 +43,9 @@ lives in the database, not in Git.
      ```
    - `LEADERAUTO_CONTACT_EMAIL`, and optionally `LEADERAUTO_TELEGRAM_TOKEN` /
      `LEADERAUTO_TELEGRAM_CHAT_ID` for the contact form.
+   - Optionally `LEADERAUTO_VAPI_PUBLIC_KEY` + `LEADERAUTO_VAPI_ASSISTANT_ID` for the voice
+     AI assistant on `/contacts/` (hidden unless both are set). Use the Vapi **public** key,
+     and add the site's domain to the key's allowed origins in the Vapi dashboard.
    - SMTP vars for outbound mail (Railway has no local MTA — configure `easy-wp-smtp` or a
      transactional provider, or rely on Telegram only).
 

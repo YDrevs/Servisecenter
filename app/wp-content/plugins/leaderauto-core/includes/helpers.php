@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 const OPTION_KEY = 'leaderauto_core_settings';
 
 /**
- * @return array{recipient_email:string,telegram_token:string,telegram_chat_id:string}
+ * @return array{recipient_email:string,telegram_token:string,telegram_chat_id:string,vapi_public_key:string,vapi_assistant_id:string}
  */
 function settings(): array {
 	$saved = wp_parse_args(
@@ -24,6 +24,8 @@ function settings(): array {
 			'recipient_email'  => '',
 			'telegram_token'   => '',
 			'telegram_chat_id' => '',
+			'vapi_public_key'   => '',
+			'vapi_assistant_id' => '',
 		)
 	);
 
@@ -41,5 +43,7 @@ function settings(): array {
 		'recipient_email'  => $recipient ?: get_option( 'admin_email' ),
 		'telegram_token'   => $env( 'LEADERAUTO_TELEGRAM_TOKEN' ) ?: $saved['telegram_token'],
 		'telegram_chat_id' => $env( 'LEADERAUTO_TELEGRAM_CHAT_ID' ) ?: $saved['telegram_chat_id'],
+		'vapi_public_key'   => $env( 'LEADERAUTO_VAPI_PUBLIC_KEY' ) ?: $saved['vapi_public_key'],
+		'vapi_assistant_id' => $env( 'LEADERAUTO_VAPI_ASSISTANT_ID' ) ?: $saved['vapi_assistant_id'],
 	);
 }

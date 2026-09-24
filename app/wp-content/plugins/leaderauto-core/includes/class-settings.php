@@ -45,6 +45,8 @@ class Settings {
 			'recipient_email'  => __( 'E-mail для заявок', 'leaderauto-core' ),
 			'telegram_token'   => __( 'Telegram bot token', 'leaderauto-core' ),
 			'telegram_chat_id' => __( 'Telegram chat ID', 'leaderauto-core' ),
+			'vapi_public_key'   => __( 'Vapi public key', 'leaderauto-core' ),
+			'vapi_assistant_id' => __( 'Vapi assistant ID', 'leaderauto-core' ),
 		);
 		foreach ( $fields as $key => $label ) {
 			add_settings_field(
@@ -92,6 +94,8 @@ class Settings {
 			'recipient_email'  => sanitize_email( $input['recipient_email'] ?? '' ),
 			'telegram_token'   => sanitize_text_field( $input['telegram_token'] ?? '' ),
 			'telegram_chat_id' => sanitize_text_field( $input['telegram_chat_id'] ?? '' ),
+			'vapi_public_key'   => sanitize_text_field( $input['vapi_public_key'] ?? '' ),
+			'vapi_assistant_id' => sanitize_text_field( $input['vapi_assistant_id'] ?? '' ),
 		);
 	}
 
@@ -100,6 +104,7 @@ class Settings {
 		<div class="wrap">
 			<h1><?php esc_html_e( 'LeaderAuto — заявки з сайту', 'leaderauto-core' ); ?></h1>
 			<p><?php esc_html_e( 'Куди надсилати повідомлення з контактної форми. Порожній e-mail = адреса адміністратора. Telegram працює, лише якщо заповнені токен і chat ID.', 'leaderauto-core' ); ?></p>
+			<p><?php esc_html_e( 'Голосовий ШІ-асистент на сторінці «Контакти» з’являється, лише якщо заповнені обидва поля Vapi. Ключ — саме публічний (Public Key), не приватний.', 'leaderauto-core' ); ?></p>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'leaderauto_core' );

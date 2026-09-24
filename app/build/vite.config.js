@@ -11,6 +11,15 @@ const DEV_PORT = 5173;
 export default defineConfig({
   root: srcDir,
   base: '/wp-content/themes/leaderauto/assets/dist/',
+  // Theme sources sit outside app/build, so bare imports can't walk up to its
+  // node_modules on their own — point each npm dependency there explicitly.
+  resolve: {
+    alias: {
+      '@vapi-ai/web': resolve(__dirname, 'node_modules/@vapi-ai/web'),
+    },
+  },
+  // CommonJS package; pre-bundle it so the dev server serves it as ESM.
+  optimizeDeps: { include: ['@vapi-ai/web'] },
   build: {
     outDir: resolve(themeDir, 'assets/dist'),
     emptyOutDir: true,
