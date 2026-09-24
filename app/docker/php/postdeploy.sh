@@ -19,7 +19,11 @@ if ! "${WP[@]}" core is-installed 2>/dev/null; then
 fi
 
 "${WP[@]}" plugin activate leaderauto-core
-"${WP[@]}" theme activate leaderauto          # fires the scaffold hook (pages, menu, permalinks)
+"${WP[@]}" theme activate leaderauto
+# `theme activate` is a no-op on an already-active theme, so after_switch_theme — and
+# with it the scaffold — never fires on redeploys. Call it directly: it is idempotent
+# and creates any page/menu item added since (e.g. /parts/).
+"${WP[@]}" eval 'leaderauto_scaffold_site();'
 "${WP[@]}" rewrite structure '/%postname%/' --hard
 "${WP[@]}" rewrite flush --hard
 "${WP[@]}" cache flush || true
