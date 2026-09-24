@@ -107,6 +107,13 @@
 	/* The pitch and its CTA sit closer to the window edge than the 10vw the band
 	   itself starts at, so the block lines up nearer the full-bleed shot below. */
 	.hero__pitch { margin-left: -6vw; }
+	/* The service line sits left-aligned, just clear of the wedge's diagonal.
+	   min-width: 0 stops a long line from widening its grid column. */
+	.hero__note {
+		min-width: 0;
+		margin-left: -3vw;
+		text-align: left;
+	}
 	/* The wedge. Its edge runs from 46% of the width at the band's top to 26% at
 	   the bottom, which is where the reference's diagonal sits; the untouched
 	   left side lets the hero's green overlay show through. */
@@ -117,5 +124,16 @@
 		z-index: 0;
 		background: var(--c-asphalt);
 		clip-path: polygon(46% 0, 100% 0, 100% 100%, 26% 100%);
+	}
+}
+
+/* Wide enough for one row at a readable size: scale with the viewport, no wrap.
+   The row is wider than its column, so it starts further left — the diagonal
+   crosses the row's midline at ~36% of the width, the text at ~40%. */
+@media (min-width: 1200px) {
+	.hero__note {
+		margin-left: -12vw;
+		white-space: nowrap;
+		font-size: 1.2vw;
 	}
 }

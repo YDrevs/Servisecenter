@@ -4,8 +4,9 @@
 !.env.example
 
 # === Local scratch: screenshots and short notes the user drops in ===
-# Deliberately local-only. Design docs that should be shared live in "Planned work/".
+# Deliberately local-only, as are the design spec/plan in "Planned work/".
 /To do now/
+/Planned work/
 
 # === OS / IDE ===
 .DS_Store
