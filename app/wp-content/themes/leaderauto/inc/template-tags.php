@@ -103,7 +103,7 @@ function leaderauto_section_close(): void {
 function leaderauto_primary_fallback(): void {
 	echo '<ul class="menu">';
 	echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">Головна</a></li>';
-	foreach ( array( 'dealer' => 'Автодилер', 'about' => 'Про нас', 'contacts' => 'Контакти' ) as $slug => $label ) {
+	foreach ( array( 'parts' => 'Запчастини', 'dealer' => 'Автодилер', 'about' => 'Про нас', 'contacts' => 'Контакти' ) as $slug => $label ) {
 		$page = get_page_by_path( $slug );
 		if ( $page ) {
 			printf( '<li><a href="%s">%s</a></li>', esc_url( get_permalink( $page ) ), esc_html( $label ) );

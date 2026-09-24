@@ -174,7 +174,7 @@ Decided and in effect. `docs/architecture.md` is the authoritative version; summ
 | Stack | WordPress, kept. Bespoke theme `leaderauto` + plugin `leaderauto-core`. No page builder, no Divi in the rebuild. |
 | Layout | Everything under `app/` (`wp-content/themes/leaderauto`, `wp-content/plugins/leaderauto-core`, `build/`, `docker/`, `reference/`). Root: `docker-compose.yml`, `Makefile`, `railway.json`. |
 | Rendering | Classic PHP templates. `front-page.php` + `template-parts/home/*`; `templates/page-*.php` (`Template Name`) assigned on theme activation by `inc/activation.php`. |
-| Routing / slugs | `/`, `/dealer/`, `/about/`, `/contacts/`. Pretty permalinks (`/%postname%/`). |
+| Routing / slugs | `/`, `/parts/`, `/dealer/`, `/about/`, `/contacts/` (menu in that order). Pretty permalinks (`/%postname%/`). `/parts/` is new — no counterpart on the old site. |
 | Styling | Tokens from the reference site in `theme.json` + `assets/src/css/base/variables.css`. CSS split `base/ components/ sections/`, bundled via `main.css`. Brand `#1700be`, Kanit / Open Sans. |
 | Assets | Vite in `app/build`. `npm --prefix app/build run build` → `assets/dist/` (git-ignored) + manifest; `inc/enqueue.php` reads it, with a dev-server (`:5173`) fallback. |
 | i18n | `uk` only. Text domain `leaderauto` / `leaderauto-core` is wired; copy is inline Ukrainian for now — no second locale planned. |
