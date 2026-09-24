@@ -11,6 +11,27 @@
 .page-shell--parts .page-shell__title { max-width: 18ch; }
 .page-shell--parts .cta-band__row { margin-top: 2rem; }
 
+/* Desktop banner (Images/Parts_mainBanner.png). Text and buttons are part of the
+   picture; the hit areas are placed in % of the 1983×793 image, measured from the
+   painted buttons, so they track it at any width. */
+.parts-banner { display: none; position: relative; line-height: 0; }
+.parts-banner__img { display: block; width: 100%; height: auto; }
+.parts-banner__hit {
+	position: absolute;
+	top: 74.65%;
+	height: 9.6%;
+	border-radius: 0.6vw;
+}
+.parts-banner__hit--pick { left: 4.94%; width: 21.53%; }
+.parts-banner__hit--vin { left: 27.69%; width: 16.59%; }
+.parts-banner__hit:hover { background: rgba(0, 0, 0, 0.06); }
+.parts-banner__hit:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+
+@media (min-width: 900px) {
+	.parts-banner { display: block; }
+	.parts-hero { display: none; }
+}
+
 /* Categories: the whole tile is the button that prefills the form. */
 .parts-cat {
 	display: grid;

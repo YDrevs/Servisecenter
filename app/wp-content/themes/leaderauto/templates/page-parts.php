@@ -71,7 +71,18 @@ $faq = array(
 $form_id = 'leaderauto-parts-form';
 ?>
 <article class="page-shell page-shell--parts">
-	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'tech-service.webp' ) ); ?>');">
+	<?php /* Desktop banner: the headline and both buttons are painted into the image, so
+	         the h1 is kept for screen readers and the buttons are transparent links laid
+	         over the painted ones. Below 900px the painted text is too small to read and
+	         the text header below takes over. */ ?>
+	<header class="parts-banner">
+		<img class="parts-banner__img" src="<?php echo esc_url( leaderauto_img( 'parts-banner.jpg' ) ); ?>" alt="" width="1983" height="793">
+		<h1 class="screen-reader-text"><?php esc_html_e( 'Запчастини для EV — знайдемо потрібну деталь для вашого автомобіля', 'leaderauto' ); ?></h1>
+		<a class="parts-banner__hit parts-banner__hit--pick" href="#request"><span class="screen-reader-text"><?php esc_html_e( 'Підібрати запчастину', 'leaderauto' ); ?></span></a>
+		<a class="parts-banner__hit parts-banner__hit--vin" href="#request" data-parts-vin><span class="screen-reader-text"><?php esc_html_e( 'Знайти за VIN', 'leaderauto' ); ?></span></a>
+	</header>
+
+	<header class="page-shell__head parts-hero" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'tech-service.webp' ) ); ?>');">
 		<div class="page-shell__inner">
 			<p class="section__kicker"><?php esc_html_e( 'Запчастини для EV', 'leaderauto' ); ?></p>
 			<h1 class="page-shell__title"><?php esc_html_e( 'Запчастини для BYD та електромобілів', 'leaderauto' ); ?></h1>
@@ -86,7 +97,7 @@ $form_id = 'leaderauto-parts-form';
 	<section class="section" id="categories">
 		<div class="section__inner">
 			<p class="section__kicker parts__kicker"><?php esc_html_e( 'Категорії', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Що вам потрібно?', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php esc_html_e( 'Що саме потрібно?', 'leaderauto' ); ?></h2>
 			<p class="parts__lead"><?php esc_html_e( 'Оберіть категорію — вона автоматично підставиться у заявку.', 'leaderauto' ); ?></p>
 			<div class="cards cards--4">
 				<?php foreach ( $categories as $cat ) : ?>
@@ -100,9 +111,10 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section section--surface" id="models">
+	<?php /* Same black-to-green wedge as the home page CTA band. */ ?>
+	<section class="section section--dark cta-band--wedge" id="models">
 		<div class="section__inner">
-			<p class="section__kicker parts__kicker"><?php esc_html_e( 'Підбір за авто', 'leaderauto' ); ?></p>
+			<p class="section__kicker"><?php esc_html_e( 'Підбір за авто', 'leaderauto' ); ?></p>
 			<h2 class="section__title"><?php esc_html_e( 'Оберіть автомобіль', 'leaderauto' ); ?></h2>
 			<div class="parts-models">
 				<?php foreach ( $models as $label => $value ) : ?>
@@ -206,10 +218,13 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section" id="faq">
+	<?php /* Same treatment as the home page FAQ (template-parts/home/faq.php). */ ?>
+	<section class="section section--dark" id="faq">
 		<div class="section__inner">
-			<p class="section__kicker parts__kicker">FAQ</p>
-			<h2 class="section__title"><?php esc_html_e( 'Часті запитання', 'leaderauto' ); ?></h2>
+			<div class="faq__head">
+				<span class="faq__mark" aria-hidden="true">FAQ</span>
+				<h2 class="section__title faq__title"><?php esc_html_e( 'Часті запитання', 'leaderauto' ); ?></h2>
+			</div>
 			<div class="faq">
 				<?php foreach ( $faq as $row ) : ?>
 					<details class="faq__item">
@@ -218,6 +233,17 @@ $form_id = 'leaderauto-parts-form';
 					</details>
 				<?php endforeach; ?>
 			</div>
+
+			<p class="faq__contacts">
+				<?php esc_html_e( 'Швидке питання?', 'leaderauto' ); ?>
+				<?php printf( esc_html__( 'Viber: %s', 'leaderauto' ), esc_html( leaderauto_viber() ) ); ?>
+				<span aria-hidden="true">·</span>
+				<?php printf(
+					'Telegram: <a href="%1$s">%2$s</a>',
+					esc_url( leaderauto_telegram_href() ),
+					esc_html( leaderauto_telegram() )
+				); ?>
+			</p>
 		</div>
 	</section>
 </article>
