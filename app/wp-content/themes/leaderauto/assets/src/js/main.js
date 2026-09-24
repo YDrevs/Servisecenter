@@ -5,6 +5,7 @@ import { initCounters } from './counters.js';
 import { initShowroom } from './showroom.js';
 import { initServiceModal } from './service-modal.js';
 import { initParts } from './parts.js';
+import { initVoiceAssistant } from './voice.js';
 
 const ready = (fn) =>
 	document.readyState !== 'loading'
@@ -18,4 +19,5 @@ ready(() => {
 	initShowroom();
 	initServiceModal();
 	initParts();
+	initVoiceAssistant();
 });

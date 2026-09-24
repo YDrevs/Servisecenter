@@ -1,0 +1,38 @@
+/* Voice AI assistant band on the Contacts page (template-parts/voice-assistant.php). */
+.voice__inner {
+	display: grid;
+	gap: 2rem;
+	align-items: center;
+}
+@media (min-width: 820px) {
+	.voice__inner { grid-template-columns: 1.4fr 1fr; }
+}
+
+.voice__title { margin-bottom: 0.75rem; }
+.voice__text p { line-height: 1.8; }
+.voice__note { color: var(--c-muted); font-size: 0.9rem; }
+
+.voice__call {
+	display: grid;
+	justify-items: center;
+	gap: 0.75rem;
+	text-align: center;
+}
+.voice__button:disabled { opacity: 0.6; cursor: progress; }
+
+/* In a call the button turns into a hang-up, and pulses while the assistant speaks. */
+.voice__call.is-active .voice__button {
+	background: var(--c-accent);
+	border-color: var(--c-accent);
+	color: var(--c-white);
+}
+.voice__call.is-speaking .voice__button { animation: voice-pulse 1.2s ease-in-out infinite; }
+@keyframes voice-pulse {
+	0%, 100% { box-shadow: 0 0 0 0 rgba(255, 105, 0, 0.45); }
+	50% { box-shadow: 0 0 0 12px rgba(255, 105, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+	.voice__call.is-speaking .voice__button { animation: none; }
+}
+
+.voice__status { min-height: 1.5em; color: var(--c-muted); font-size: 0.9rem; }

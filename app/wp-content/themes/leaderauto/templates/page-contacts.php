@@ -53,6 +53,8 @@ get_header();
 			</aside>
 		</div>
 	</section>
+
+	<?php get_template_part( 'template-parts/voice-assistant' ); ?>
 </article>
 <?php
 get_footer();
