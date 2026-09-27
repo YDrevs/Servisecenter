@@ -46,7 +46,7 @@ $groups = array(
 	),
 	array(
 		'title' => __( 'Додаткові послуги', 'leaderauto' ),
-		'image' => 'detailing-08.jpg',
+		'image' => 'services-extra.webp',
 		'items' => array(
 			__( 'Забір і доставка автомобіля від клієнта до СТО і назад', 'leaderauto' ),
 			__( 'Евакуатор', 'leaderauto' ),
