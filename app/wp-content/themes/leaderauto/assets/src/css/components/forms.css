@@ -64,6 +64,12 @@
 	margin-bottom: 0.35rem;
 }
 .contacts__block p { line-height: 1.8; } /* reference: .et_pb_blurb_description */
+.contacts__messenger {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.6rem;
+}
+.contacts__messenger svg { flex: none; }
 
 .contacts__badge {
 	display: grid;
