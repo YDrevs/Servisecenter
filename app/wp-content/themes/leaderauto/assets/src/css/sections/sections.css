@@ -58,6 +58,22 @@
 	aspect-ratio: 1000 / 788;
 	clip-path: polygon(0 0, 52.7% 0, 100% 59.9%, 100% 100%, 0 100%);
 }
+/* The overlay is a 2:1 pentagon: a 45° left side up to an apex at 52.7%, then
+   down to the right edge at 65% and straight to the bottom. The frame is the
+   white span; the photo is clipped 6px inside it along both slopes (the offsets
+   are that 6px measured perpendicular to each slope), so any rectangular 2:1
+   photo drops in without re-cutting the file. */
+.services__shot-over {
+	aspect-ratio: 2 / 1;
+	background: var(--c-white);
+	clip-path: polygon(52.7% 0, 100% 65%, 100% 100%, 0 100%);
+}
+.services__shot-over img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	clip-path: polygon(calc(52.7% + 0.6px) 7.7px, 100% calc(65% + 7.3px), 100% 100%, 8.7px 100%);
+}
 .services__aside { display: grid; gap: clamp(1rem, 3vw, 1.75rem); }
 /* A 9:16 clip filling the column would stand taller than the shot and take
    over the row's height, which is what the centring below is measured against.
@@ -73,10 +89,13 @@
 	   gutter left of .section__inner rather than a flat 10vw. */
 	/* All three placed by hand: the overlay shares the shot's cell, so leaving any
 	   of them to auto-placement pushes the others into the wrong track. */
-	.services__intro { --shot-raise: calc(4.5rem - 14vw); }
+	.services__intro {
+		--shot-raise: calc(4.5rem - 14vw);
+		--shot-bleed: calc((100vw - min(100vw - 2 * var(--gutter), var(--container))) / 2);
+	}
 	.services__shot { grid-area: 1 / 1; }
 	.services__shot-over { grid-area: 1 / 1; }
-	/* The clip sits on the shot's bottom line, the same one detailing-07 is
+	/* The clip sits on the shot's bottom line, the same one the pentagon still is
 	   anchored to. Repeating the raise keeps this column's margin box shorter than
 	   the shot's, so the shot stays in charge of the row height and "row bottom"
 	   and "shot bottom" remain the same line. */
@@ -87,10 +106,9 @@
 	}
 
 	.services__shot {
-		/* Paints over the hero's black wedge (z-index 0) so its tail is hidden, but
-		   still under .hero__band-inner (z-index 1), which keeps the CTA on top. */
+		/* Paints over the hero's wedge so its tail is hidden, but still under
+		   .hero__inner (z-index 1), which keeps the CTA on top. */
 		position: relative;
-		--shot-bleed: calc((100vw - min(100vw - 2 * var(--gutter), var(--container))) / 2);
 		/* Without this the widened shot feeds its own column's auto minimum and the
 		   1.6fr / 1fr split collapses. */
 		min-width: 0;
@@ -105,11 +123,12 @@
 	.services__shot-over {
 		align-self: end;
 		position: relative;
-		/* 10% larger than its cell, grown from the bottom-right corner so both the
-		   right edge and the bottom line it shares with the shot stay put. */
+		/* 86% of the shot's full (bled) width at every screen size, anchored at the
+		   bottom-right corner so the right edge and bottom line it shares with the
+		   shot stay put, and the shot's car shows past its lower-left slope. */
 		justify-self: end;
-		width: 110%;
-		max-width: none; /* the reset's img { max-width: 100% } would undo the 110% */
+		width: calc(0.86 * (100% + var(--shot-bleed)));
+		max-width: none; /* the reset's img { max-width: 100% } would cap it at the cell */
 	}
 }
 .section__title--center { text-align: center; }

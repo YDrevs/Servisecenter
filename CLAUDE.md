@@ -42,7 +42,7 @@ The stack is settled — see [Rebuild conventions](#rebuild-conventions). Don't 
 
 - **Services:** EV diagnostics, ECU software updates and coding, high-voltage battery service, reduction gear (редуктор), cooling systems, brakes, suspension checks, fluid changes, OEM parts sourcing.
 - **Brands, in order of prominence:** **BYD** (lead brand — dedicated banner and launch video), Tesla, Zeekr, Volkswagen ID, Nissan Leaf.
-- **Phone used on-site:** +380 (95) 066 29 21
+- **Phone used on-site:** +38 (098) 089-90-90 (main), +380 (95) 066 29 21 (second line, also Viber). Address: вул. Коломийська, 1 «З», Чернівці, 58007. All contact details live in `inc/template-tags.php`.
 - **Audience:** Ukrainian-speaking, local. Tone is expert-but-plain, not corporate.
 
 ---

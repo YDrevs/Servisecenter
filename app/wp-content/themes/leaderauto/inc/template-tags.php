@@ -10,15 +10,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function leaderauto_phone(): string {
-	return '+380 (95) 066 29 21';
+	return '+38 (098) 089-90-90';
 }
 
 function leaderauto_phone_href(): string {
+	return 'tel:+380980899090';
+}
+
+/** Second line, listed after the main number where both are shown. Also the Viber number. */
+function leaderauto_phone_alt(): string {
+	return '+380 (95) 066 29 21';
+}
+
+function leaderauto_phone_alt_href(): string {
 	return 'tel:+380950662921';
 }
 
 function leaderauto_viber(): string {
 	return '(095) 066 29 21';
+}
+
+function leaderauto_viber_href(): string {
+	return 'viber://chat?number=%2B380950662921';
 }
 
 function leaderauto_telegram(): string {
@@ -34,7 +47,7 @@ function leaderauto_instagram_href(): string {
 }
 
 function leaderauto_address(): string {
-	return '60313, с. Магала, вул. Гр. Нандріша, 6';
+	return 'вул. Коломийська, 1 «З», Чернівці, 58007';
 }
 
 /**

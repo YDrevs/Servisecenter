@@ -22,6 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<h3 class="site-footer__title"><?php esc_html_e( 'Контакти', 'leaderauto' ); ?></h3>
 			<p>
 				<a href="<?php echo esc_attr( leaderauto_phone_href() ); ?>"><?php echo esc_html( leaderauto_phone() ); ?></a><br>
+				<a href="<?php echo esc_attr( leaderauto_phone_alt_href() ); ?>"><?php echo esc_html( leaderauto_phone_alt() ); ?></a><br>
 				<?php echo esc_html( leaderauto_address() ); ?>
 			</p>
 			<p><?php printf( esc_html__( 'Viber: %s', 'leaderauto' ), esc_html( leaderauto_viber() ) ); ?></p>
