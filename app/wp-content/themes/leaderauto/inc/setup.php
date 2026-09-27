@@ -38,7 +38,7 @@ add_action(
 /**
  * The front page's tab title. WP builds it from blogname + blogdescription, and both
  * options still read "LeaderAuto" in the DB, so it renders "LeaderAuto – LeaderAuto".
- * Home only, matching the header wordmark; the rest of the site keeps the DB values.
+ * Home only; the rest of the site keeps the DB values.
  */
 add_filter( 'document_title_parts', static function ( $parts ) {
 	if ( is_front_page() ) {
