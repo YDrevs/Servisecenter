@@ -19,8 +19,12 @@
 	padding-top: clamp(2.5rem, 8vw, 7.4rem);
 	padding-bottom: 0;
 }
-/* One column for all the copy, starting at 8% of the window at every width. */
+/* One column for all the copy, starting at 8% of the window at every width. Its
+   own layer keeps the CTA clickable above the band and the services shot that
+   rides up over the hero's bottom edge. */
 .hero__inner {
+	position: relative;
+	z-index: 1;
 	width: 84%;
 	margin-inline: auto;
 	padding-bottom: clamp(1.5rem, 4vw, 3rem);

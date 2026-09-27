@@ -87,8 +87,8 @@
 	}
 
 	.services__shot {
-		/* Paints over the hero's black wedge (z-index 0) so its tail is hidden, but
-		   still under .hero__band-inner (z-index 1), which keeps the CTA on top. */
+		/* Paints over the hero's wedge so its tail is hidden, but still under
+		   .hero__inner (z-index 1), which keeps the CTA on top. */
 		position: relative;
 		--shot-bleed: calc((100vw - min(100vw - 2 * var(--gutter), var(--container))) / 2);
 		/* Without this the widened shot feeds its own column's auto minimum and the
