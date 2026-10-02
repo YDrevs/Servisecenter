@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<section class="section section--dark" id="loyalty">
+<section class="section section--dark section--asphalt" id="loyalty">
 	<div class="section__inner band">
 		<div class="band__figure">10%</div>
 		<div class="band__body">

@@ -52,3 +52,54 @@
    shifted title running into the accordions. */
 .faq__head { padding-bottom: 3cm; }
 .faq__title { margin-bottom: 0; position: relative; top: 3cm; }
+
+/* Home FAQ: white panel on the left, cut diagonally with a green edge stripe,
+   the night BYD photo on the right — the mirror of .section--why, sloping the
+   other way. /parts/ keeps the dark FAQ above; everything here is scoped.
+   Narrow screens: the photo stacks under the questions. */
+.section--faq {
+	position: relative;
+	isolation: isolate;
+	color: var(--c-body);
+	background: var(--sec-bg) 50% 100% / 100% auto no-repeat, var(--c-white);
+	padding-bottom: calc(50vw + 1.5rem); /* the photo is 2:1 */
+}
+.section--faq .section__inner { position: relative; z-index: 1; }
+.section--faq .faq { gap: 0.9rem; }
+.section--faq .faq__item {
+	border: 0;
+	border-radius: 6px;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+.section--faq .faq__q { padding: 1.25rem 1.75rem; font-size: 1.125rem; align-items: center; }
+.section--faq .faq__q::after { font-size: 1.5rem; font-weight: 700; }
+.section--faq .faq__a { padding: 0 1.75rem 1.25rem; }
+.section--faq .faq__contacts { color: var(--c-body); }
+.section--faq .faq__contacts a { color: var(--c-brand); }
+@media (min-width: 900px) {
+	/* Height-fitted and pinned right: the car stays whole and in the photo
+	   side; the white panel hides whatever the image leaves on the left. */
+	.section--faq {
+		background: var(--sec-bg) 100% 50% / auto 100% no-repeat, var(--c-white);
+		padding-bottom: var(--space-section);
+	}
+	.section--faq::before,
+	.section--faq::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+	.section--faq::before {
+		background: var(--c-brand-bright);
+		clip-path: polygon(0 0, 87.5% 0, 55.5% 100%, 0 100%);
+	}
+	.section--faq::after {
+		background: var(--c-white);
+		clip-path: polygon(0 0, 85.5% 0, 53.5% 100%, 0 100%);
+	}
+	/* Kept left of the diagonal, which reaches its narrowest at the bottom. */
+	.section--faq .faq,
+	.section--faq .faq__contacts { max-width: min(46rem, 44vw); }
+}

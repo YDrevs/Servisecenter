@@ -6,6 +6,10 @@
 }
 .section--dark .media-split__media img { border-color: rgba(255, 255, 255, 0.2); }
 
+/* Loyalty band: same flat asphalt as the hero's service-line plate, in place
+   of the dark section's black-to-green gradient. */
+.section--asphalt { background: var(--c-asphalt); }
+
 .band__body > * + * { margin-top: 0.5rem; }
 /* Pushed to the far end of the loyalty band, opposite the 10% figure. The PNG is
    transparent around a black frame, which reads on this section's dark gradient;
@@ -146,6 +150,7 @@
 .section--photo h1,
 .section--photo h2,
 .section--photo h3 { color: var(--c-white); }
+.section--photo .btn { gap: 2.5rem; }
 
 /* Reference: Kanit 80px, letter-spacing 12px, uppercase, centred. */
 .section__title--display {
@@ -171,6 +176,47 @@
 	background-image:
 		linear-gradient(135deg, rgba(19, 122, 30, 0) 36%, var(--c-brand) 36%, var(--c-brand) 100%),
 		var(--grad-hero);
+}
+
+/* Home closing CTA: the charging-port photo, darkened from the left so the white
+   copy reads, with a green corner wedge. The photo's own baked-in wedge sits
+   high up; the CSS one is drawn over it. */
+.cta-band--photo {
+	position: relative;
+	isolation: isolate;
+	/* Taller than a plain band so `cover` crops less of the 3:1 photo. */
+	padding-block: clamp(3rem, 8vw, 7.5rem);
+	background:
+		linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.6) 45%, rgba(0, 0, 0, 0) 75%),
+		var(--sec-bg) 100% 60% / cover no-repeat,
+		var(--c-black);
+}
+.cta-band--photo::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	background: var(--c-brand-bright);
+	pointer-events: none;
+}
+.cta-band--photo .section__inner { position: relative; z-index: 1; }
+.cta-band--photo .cta-band__row .btn { min-width: 15rem; }
+.cta-band--photo .section__title { font-size: clamp(1.75rem, 2.5vw, 2.5rem); }
+@media (min-width: 900px) {
+	/* Reference sets the copy in from the container edge, clear of the wedge. */
+	.cta-band--photo .section__inner { padding-left: clamp(2rem, 6vw, 6rem); }
+	.cta-band--photo::before { clip-path: polygon(0 0, 16% 0, 0 80%); }
+}
+@media (max-width: 899px) {
+	/* Narrow: the wedge would sit under the heading, so it shrinks to a corner,
+	   and the copy spans the bright car too, so the darkening goes full width. */
+	.cta-band--photo::before { clip-path: polygon(0 0, 12% 0, 0 14%); }
+	.cta-band--photo {
+		background:
+			linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+			var(--sec-bg) 75% 50% / cover no-repeat,
+			var(--c-black);
+	}
 }
 
 /* Reference: linear-gradient(-135deg, #1700BD 16%, #fff 16%) — a blue corner

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
-<section class="section section--dark cta-band cta-band--wedge" id="contact">
+<section class="section section--dark cta-band cta-band--photo" id="contact" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Golovna/cta-charging.webp' ) ); ?>');">
 	<div class="section__inner">
 		<h2 class="section__title"><?php esc_html_e( 'Потрібна діагностика або ремонт електромобіля?', 'leaderauto' ); ?></h2>
 		<p class="cta-band__row">
