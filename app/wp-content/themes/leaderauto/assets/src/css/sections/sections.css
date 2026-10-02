@@ -232,3 +232,83 @@
 }
 .page-shell__head--plain .page-shell__title { color: var(--c-ink); }
 .page-shell__head--plain .page-shell__lead { color: var(--c-body); opacity: 1; }
+
+/* "Чому власники EV": white panel on the left, cut diagonally with a green edge
+   stripe, the BYD photo showing through on the right. faq.webp has no wedge of
+   its own, so both shapes are clip-path layers over the section background.
+   Narrow screens: no room for the diagonal — the photo stacks under the copy. */
+.section--why {
+	position: relative;
+	isolation: isolate;
+	color: var(--c-body);
+	background: var(--sec-bg) 50% 100% / 100% auto no-repeat, var(--c-white);
+	padding-bottom: calc(50vw + 1.5rem); /* the photo is 2:1 */
+}
+.section--why .section__inner { position: relative; z-index: 1; }
+.section--why .section__kicker {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	color: var(--c-brand);
+	opacity: 1;
+	font-size: 0.95rem;
+}
+.why__arrow {
+	position: relative;
+	flex: none;
+	width: 1.75rem;
+	height: 2px;
+	background: currentColor;
+}
+.why__arrow::after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0.45rem;
+	height: 0.45rem;
+	border-top: 2px solid currentColor;
+	border-right: 2px solid currentColor;
+	transform: translateY(-50%) rotate(45deg);
+}
+.section--why .ticks { gap: 1.1rem; }
+.section--why .ticks li {
+	padding-left: 2.5rem;
+	color: var(--c-ink);
+	font-size: 1.125rem;
+}
+.section--why .ticks li::before {
+	color: var(--c-brand);
+	width: 0.9rem;
+	height: 0.45rem;
+	border-width: 3px;
+}
+.section--why .btn { gap: 2.5rem; }
+@media (min-width: 900px) {
+	.section--why {
+		background: var(--sec-bg) 100% 50% / cover no-repeat;
+		padding-bottom: var(--space-section);
+		min-height: clamp(560px, 40vw, 780px);
+		display: flex;
+		align-items: center;
+	}
+	.section--why::before,
+	.section--why::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+	/* Green stripe = the green layer peeking past the white one's edge. */
+	.section--why::before {
+		background: var(--c-brand-bright);
+		clip-path: polygon(0 0, 66% 0, 29.5% 100%, 0 100%);
+	}
+	.section--why::after {
+		background: var(--c-white);
+		clip-path: polygon(0 0, 64.5% 0, 27.5% 100%, 0 100%);
+	}
+	.section--why .section__inner > * { max-width: 34rem; }
+	.section--why .section__title { font-size: clamp(2.5rem, 3.6vw, 3.75rem); }
+}
