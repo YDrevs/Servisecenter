@@ -30,14 +30,9 @@ $faq = array(
 	),
 );
 ?>
-<section class="section section--dark" id="faq">
+<section class="section section--faq" id="faq" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Golovna/faq2.webp' ) ); ?>');">
 	<div class="section__inner">
-		<?php /* Reference stacks oversized red F A Q behind the heading; aria-hidden
-		         because it is decoration, not content a screen reader should read. */ ?>
-		<div class="faq__head">
-			<span class="faq__mark" aria-hidden="true">FAQ</span>
-			<h2 class="section__title faq__title"><?php esc_html_e( 'Поширені запитання', 'leaderauto' ); ?></h2>
-		</div>
+		<h2 class="section__title"><?php esc_html_e( 'Поширені запитання', 'leaderauto' ); ?></h2>
 
 		<div class="faq">
 			<?php foreach ( $faq as $row ) : ?>

@@ -18,9 +18,9 @@ $reasons = array(
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
-<section class="section section--dark" id="why">
+<section class="section section--why" id="why" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Golovna/faq.webp' ) ); ?>');">
 	<div class="section__inner">
-		<p class="section__kicker"><?php esc_html_e( '100% вирішення проблем', 'leaderauto' ); ?></p>
+		<p class="section__kicker"><span class="why__arrow" aria-hidden="true"></span><?php esc_html_e( '100% вирішення проблем', 'leaderauto' ); ?></p>
 		<h2 class="section__title"><?php esc_html_e( 'Чому власники EV звертаються до нас', 'leaderauto' ); ?></h2>
 		<ul class="ticks">
 			<?php foreach ( $reasons as $reason ) : ?>
@@ -28,7 +28,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 			<?php endforeach; ?>
 		</ul>
 		<p class="section__actions">
-			<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Записатися', 'leaderauto' ); ?></a>
+			<a class="btn" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Записатися', 'leaderauto' ); ?> <span aria-hidden="true">→</span></a>
 		</p>
 	</div>
 </section>
