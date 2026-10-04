@@ -44,10 +44,10 @@ $models = array(
 
 // TODO(content): real photos per part once the client supplies them.
 $popular = array(
-	array( 'icon' => '◫', 'kicker' => __( 'Кузов та оптика', 'leaderauto' ), 'title' => __( 'Передня оптика BYD', 'leaderauto' ),   'part' => __( 'Передня оптика BYD', 'leaderauto' ) ),
-	array( 'icon' => '◎', 'kicker' => __( 'Гальма', 'leaderauto' ),          'title' => __( 'Гальмівні колодки', 'leaderauto' ),    'part' => __( 'Гальмівні колодки', 'leaderauto' ) ),
-	array( 'icon' => 'ϟ', 'kicker' => __( 'Зарядна система', 'leaderauto' ), 'title' => __( 'Порти та модулі', 'leaderauto' ),      'part' => __( 'Порт або зарядний модуль', 'leaderauto' ) ),
-	array( 'icon' => '⌁', 'kicker' => __( 'Ходова', 'leaderauto' ),          'title' => __( 'Підвіска та ступиці', 'leaderauto' ), 'part' => __( 'Запчастини ходової частини', 'leaderauto' ) ),
+	array( 'icon' => '◫', 'title' => __( 'Передня оптика BYD', 'leaderauto' ),   'part' => __( 'Передня оптика BYD', 'leaderauto' ), 'img' => 'Parts/fara.webp', 'badge' => 'Parts/fara_icon.webp' ),
+	array( 'icon' => '◎', 'title' => __( 'Гальмівні колодки', 'leaderauto' ),    'part' => __( 'Гальмівні колодки', 'leaderauto' ), 'img' => 'Parts/galmdisk_foto.webp', 'badge' => 'Parts/galmo_icon.webp' ),
+	array( 'icon' => 'ϟ', 'title' => __( 'Порти та модулі', 'leaderauto' ),      'part' => __( 'Порт або зарядний модуль', 'leaderauto' ), 'img' => 'Parts/zaryad_foto.webp', 'badge' => 'Parts/zaryadka_icon.webp' ),
+	array( 'icon' => '⌁', 'title' => __( 'Підвіска та ступиці', 'leaderauto' ), 'part' => __( 'Запчастини ходової частини', 'leaderauto' ), 'img' => 'Parts/Hodova_foto.webp', 'badge' => 'Parts/servis_icon.webp' ),
 );
 
 $steps = array(
@@ -134,8 +134,14 @@ $form_id = 'leaderauto-parts-form';
 			<div class="cards cards--4">
 				<?php foreach ( $popular as $item ) : ?>
 					<article class="card parts-item">
-						<div class="parts-item__pic" aria-hidden="true"><?php echo esc_html( $item['icon'] ); ?></div>
-						<p class="parts-item__kicker"><?php echo esc_html( $item['kicker'] ); ?></p>
+						<?php if ( empty( $item['img'] ) ) : ?>
+							<div class="parts-item__pic" aria-hidden="true"><?php echo esc_html( $item['icon'] ); ?></div>
+						<?php else : ?>
+							<div class="parts-item__pic parts-item__pic--photo" aria-hidden="true">
+								<img class="parts-item__img" src="<?php echo esc_url( leaderauto_img( $item['img'] ) ); ?>" alt="" loading="lazy">
+								<span class="parts-item__badge"><img src="<?php echo esc_url( leaderauto_img( $item['badge'] ) ); ?>" alt="" loading="lazy"></span>
+							</div>
+						<?php endif; ?>
 						<h3 class="parts-item__title"><?php echo esc_html( $item['title'] ); ?></h3>
 						<button class="parts-item__ask" type="button" data-parts-part="<?php echo esc_attr( $item['part'] ); ?>"><?php esc_html_e( 'Запитати наявність →', 'leaderauto' ); ?></button>
 					</article>
