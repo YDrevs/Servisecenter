@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 $categories = array(
-	array( 'icon' => '◈', 'title' => __( 'Кузов та оптика', 'leaderauto' ),   'text' => __( 'Фари, бампери, крила, дзеркала', 'leaderauto' ) ),
+	array( 'icon' => '◈', 'title' => __( 'Кузов та оптика', 'leaderauto' ),   'text' => __( 'Фари, бампери, крила, дзеркала', 'leaderauto' ), 'img' => 'Parts/byd_avtomobil.webp' ),
 	array( 'icon' => '⌁', 'title' => __( 'Ходова частина', 'leaderauto' ),    'text' => __( 'Важелі, амортизатори, ступиці', 'leaderauto' ) ),
 	array( 'icon' => '◎', 'title' => __( 'Гальмівна система', 'leaderauto' ), 'text' => __( 'Диски, колодки, супорти', 'leaderauto' ) ),
 	array( 'icon' => '⌘', 'title' => __( 'Електроніка', 'leaderauto' ),       'text' => __( 'Блоки, датчики, модулі', 'leaderauto' ) ),
@@ -101,8 +101,11 @@ $form_id = 'leaderauto-parts-form';
 			<p class="parts__lead"><?php esc_html_e( 'Оберіть категорію — вона автоматично підставиться у заявку.', 'leaderauto' ); ?></p>
 			<div class="cards cards--4">
 				<?php foreach ( $categories as $cat ) : ?>
-					<button class="parts-cat" type="button" data-parts-category="<?php echo esc_attr( $cat['title'] ); ?>">
+					<button class="parts-cat<?php echo empty( $cat['img'] ) ? '' : ' parts-cat--pic'; ?>" type="button" data-parts-category="<?php echo esc_attr( $cat['title'] ); ?>">
 						<span class="parts-cat__icon" aria-hidden="true"><?php echo esc_html( $cat['icon'] ); ?></span>
+						<?php if ( ! empty( $cat['img'] ) ) : ?>
+							<img class="parts-cat__pic" src="<?php echo esc_url( leaderauto_img( $cat['img'] ) ); ?>" alt="" width="900" height="483" loading="lazy">
+						<?php endif; ?>
 						<span class="parts-cat__title"><?php echo esc_html( $cat['title'] ); ?></span>
 						<span class="parts-cat__text"><?php echo esc_html( $cat['text'] ); ?></span>
 					</button>

@@ -71,6 +71,17 @@
 }
 .parts-cat__text { color: var(--c-muted); font-size: 0.875rem; line-height: 1.6; }
 
+/* Category with a photo: icon top-left, photo beside it, title and text full width below. */
+.parts-cat--pic { grid-template-columns: auto 1fr; }
+.parts-cat--pic .parts-cat__title,
+.parts-cat--pic .parts-cat__text { grid-column: 1 / -1; }
+.parts-cat__pic {
+	width: 100%;
+	height: auto;
+	margin: -0.5rem -0.75rem 0.25rem 0;
+	align-self: start;
+}
+
 /* Model chips. Square like the site's buttons; scroll sideways on phones. */
 .parts-models {
 	display: flex;
