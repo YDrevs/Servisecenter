@@ -159,7 +159,7 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section section--dark" id="install">
+	<section class="section section--dark parts-install" id="install" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Parts/servise_bg.webp' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div>
 				<p class="section__kicker"><?php esc_html_e( 'Запчастини + сервіс', 'leaderauto' ); ?></p>
