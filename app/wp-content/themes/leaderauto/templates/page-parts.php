@@ -240,7 +240,6 @@ $form_id = 'leaderauto-parts-form';
 	<section class="section section--dark" id="faq">
 		<div class="section__inner">
 			<div class="faq__head">
-				<span class="faq__mark" aria-hidden="true">FAQ</span>
 				<h2 class="section__title faq__title"><?php esc_html_e( 'Часті запитання', 'leaderauto' ); ?></h2>
 			</div>
 			<div class="faq">
