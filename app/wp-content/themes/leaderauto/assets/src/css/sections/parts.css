@@ -166,6 +166,32 @@
 }
 .parts-item__ask:hover { text-decoration: underline; text-underline-offset: 2px; }
 
+/* Install band: the service-centre photo is the background; its left third is
+   already deep green, so the copy sits there and the step tiles float over
+   the middle. --sec-bg is set inline by the template. */
+.parts-install {
+	background:
+		linear-gradient(90deg, rgba(10, 70, 20, 0.85) 0%, rgba(10, 70, 20, 0.6) 35%, rgba(10, 70, 20, 0) 55%),
+		var(--sec-bg) 70% 50% / cover no-repeat,
+		var(--c-brand);
+}
+.parts-install .steps__item {
+	border: 0;
+	border-radius: 6px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+.parts-install .steps__n { border-radius: 4px; }
+.parts-install .btn--light { border-radius: 6px; }
+@media (max-width: 799px) {
+	/* Stacked: the photo runs behind the copy too, so darken it evenly. */
+	.parts-install {
+		background:
+			linear-gradient(rgba(10, 70, 20, 0.7), rgba(10, 70, 20, 0.7)),
+			var(--sec-bg) 70% 50% / cover no-repeat,
+			var(--c-brand);
+	}
+}
+
 /* Steps on the dark band: the shared .steps tiles, two across. */
 .parts-steps { grid-template-columns: repeat(2, 1fr); }
 .parts-steps .steps__item { font-family: var(--font-heading); font-weight: 600; }
