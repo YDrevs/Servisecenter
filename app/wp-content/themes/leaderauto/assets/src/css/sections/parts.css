@@ -84,27 +84,38 @@
 }
 
 /* Model chips. Square like the site's buttons; scroll sideways on phones. */
+/* Pick-by-car band: photo with its own green fade on the left, white copy over it,
+   a grid of brand-logo tiles under the title. */
+.parts-pick {
+	background: var(--sec-bg) 100% 50% / cover no-repeat, var(--c-brand);
+	color: var(--c-white);
+}
+.parts-pick .section__kicker,
+.parts-pick .section__title { color: var(--c-white); }
 .parts-models {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.625rem;
+	display: grid;
+	grid-template-columns: repeat(8, 5rem);
+	gap: 0.6rem;
 }
 .parts-models__chip {
-	font-family: var(--font-heading);
-	font-weight: 600;
-	font-size: 1rem;
-	padding: 0.65rem 1.25rem;
-	color: var(--c-ink);
+	display: block;   /* grid would let the img's 100% height resolve to its own size */
+	height: 3.25rem;
+	padding: 0.4rem 0.6rem;
 	background: var(--c-white);
-	border: 1px solid var(--c-line);
+	border: 2px solid transparent;
+	border-radius: 8px;
 	cursor: pointer;
-	transition: border-color 0.15s ease, color 0.15s ease;
+	transition: border-color 0.15s ease, transform 0.15s ease;
 }
-.parts-models__chip:hover { border-color: var(--c-brand); color: var(--c-brand); }
+.parts-models__chip img { width: 100%; height: 100%; object-fit: contain; }
+.parts-models__chip:hover { border-color: var(--c-brand-bright); transform: translateY(-2px); }
 .parts-models__chip:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
-@media (max-width: 600px) {
-	.parts-models { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.25rem; }
-	.parts-models__chip { white-space: nowrap; }
+/* Desktop: 7 tiles on top, 8 below, as in the client's mock-up. */
+@media (min-width: 901px) {
+	.parts-models__chip:nth-child(8) { grid-column-start: 1; }
+}
+@media (max-width: 900px) {
+	.parts-models { grid-template-columns: repeat(auto-fill, minmax(4.5rem, 1fr)); }
 }
 
 /* Popular requests. The glyph block stands in for a product photo. */

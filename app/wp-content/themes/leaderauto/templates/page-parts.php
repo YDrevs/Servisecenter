@@ -31,15 +31,23 @@ $categories = array(
 	array( 'icon' => '✦', 'title' => __( 'ТО та витратники', 'leaderauto' ),  'text' => __( 'Фільтри, рідини, щітки', 'leaderauto' ), 'img' => 'Parts/servise.webp' ),
 );
 
-// Label => value written into the form's vehicle field.
+// Brand => logo in assets/images/logo_cars/. The brand name is what lands in the form's vehicle field.
 $models = array(
-	'Song Plus' => 'BYD Song Plus',
-	'Seal'      => 'BYD Seal',
-	'Sealion 7' => 'BYD Sealion 7',
-	'Seagull'   => 'BYD Seagull',
-	'Han'       => 'BYD Han',
-	'Tang'      => 'BYD Tang',
-	'Leopard 5' => 'Leopard 5',
+	'Changan'      => 'changan.webp',
+	'BYD'          => 'byd.webp',
+	'Audi'         => 'audi.webp',
+	'Chery'        => 'chery.webp',
+	'Denza'        => 'denza.webp',
+	'Fangchengbao' => 'fangchengbao.webp',
+	'Honda'        => 'honda.webp',
+	'DFSK'         => 'dfsk.webp',
+	'Hyundai'      => 'hyundai.webp',
+	'Kia'          => 'kia.webp',
+	'MG'           => 'mg.webp',
+	'Nissan'       => 'nissan.webp',
+	'Toyota'       => 'toyota.webp',
+	'Volkswagen'   => 'volkswagen.webp',
+	'Zeekr'        => 'zeekr.webp',
 );
 
 // TODO(content): real photos per part once the client supplies them.
@@ -114,14 +122,15 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<?php /* Same black-to-green wedge as the home page CTA band. */ ?>
-	<section class="section section--dark cta-band--wedge" id="models">
+	<section class="section parts-pick" id="models" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Parts/baner3.webp' ) ); ?>');">
 		<div class="section__inner">
 			<p class="section__kicker"><?php esc_html_e( 'Підбір за авто', 'leaderauto' ); ?></p>
 			<h2 class="section__title"><?php esc_html_e( 'Оберіть автомобіль', 'leaderauto' ); ?></h2>
 			<div class="parts-models">
-				<?php foreach ( $models as $label => $value ) : ?>
-					<button class="parts-models__chip" type="button" data-parts-model="<?php echo esc_attr( $value ); ?>"><?php echo esc_html( $label ); ?></button>
+				<?php foreach ( $models as $brand => $logo ) : ?>
+					<button class="parts-models__chip" type="button" data-parts-model="<?php echo esc_attr( $brand ); ?>">
+						<img src="<?php echo esc_url( leaderauto_img( 'logo_cars/' . $logo ) ); ?>" alt="<?php echo esc_attr( $brand ); ?>" loading="lazy">
+					</button>
 				<?php endforeach; ?>
 			</div>
 		</div>
