@@ -25,10 +25,10 @@ $categories = array(
 	array( 'icon' => '⌁', 'title' => __( 'Ходова частина', 'leaderauto' ),    'text' => __( 'Важелі, амортизатори, ступиці', 'leaderauto' ), 'img' => 'Parts/hodova2.webp' ),
 	array( 'icon' => '◎', 'title' => __( 'Гальмівна система', 'leaderauto' ), 'text' => __( 'Диски, колодки, супорти', 'leaderauto' ), 'img' => 'Parts/galma_disk.webp' ),
 	array( 'icon' => '⌘', 'title' => __( 'Електроніка', 'leaderauto' ),       'text' => __( 'Блоки, датчики, модулі', 'leaderauto' ), 'img' => 'Parts/EBU.webp' ),
-	array( 'icon' => '▣', 'title' => __( 'Батарея та HV', 'leaderauto' ),     'text' => __( 'Високовольтні компоненти', 'leaderauto' ) ),
-	array( 'icon' => 'ϟ', 'title' => __( 'Зарядна система', 'leaderauto' ),   'text' => __( 'Порти, модулі, кабелі', 'leaderauto' ) ),
-	array( 'icon' => '◇', 'title' => __( 'Салон', 'leaderauto' ),             'text' => __( 'Дисплеї, пластик, кнопки', 'leaderauto' ) ),
-	array( 'icon' => '✦', 'title' => __( 'ТО та витратники', 'leaderauto' ),  'text' => __( 'Фільтри, рідини, щітки', 'leaderauto' ) ),
+	array( 'icon' => '▣', 'title' => __( 'Батарея та HV', 'leaderauto' ),     'text' => __( 'Високовольтні компоненти', 'leaderauto' ), 'img' => 'Parts/baterry.webp' ),
+	array( 'icon' => 'ϟ', 'title' => __( 'Зарядна система', 'leaderauto' ),   'text' => __( 'Порти, модулі, кабелі', 'leaderauto' ), 'img' => 'Parts/zaryad2_foto.webp' ),
+	array( 'icon' => '◇', 'title' => __( 'Салон', 'leaderauto' ),             'text' => __( 'Дисплеї, пластик, кнопки', 'leaderauto' ), 'img' => 'Parts/salon.webp' ),
+	array( 'icon' => '✦', 'title' => __( 'ТО та витратники', 'leaderauto' ),  'text' => __( 'Фільтри, рідини, щітки', 'leaderauto' ), 'img' => 'Parts/servise.webp' ),
 );
 
 // Label => value written into the form's vehicle field.
