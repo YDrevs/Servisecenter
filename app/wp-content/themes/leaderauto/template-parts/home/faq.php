@@ -30,9 +30,9 @@ $faq = array(
 	),
 );
 ?>
-<section class="section section--faq" id="faq" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Golovna/faq2.webp' ) ); ?>');">
+<section class="section section--faq" id="faq" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'home', 'faq_bg' ) ); ?>');">
 	<div class="section__inner">
-		<h2 class="section__title"><?php esc_html_e( 'Поширені запитання', 'leaderauto' ); ?></h2>
+		<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'home', 'faq_title' ) ); ?></h2>
 
 		<div class="faq">
 			<?php foreach ( $faq as $row ) : ?>

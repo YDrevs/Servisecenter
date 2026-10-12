@@ -71,8 +71,8 @@ $groups = array(
 	<div class="section__inner">
 		<?php /* Reference row 1: two stills on the left, the debut clip on the right. */ ?>
 		<div class="services__intro">
-			<img class="services__shot" src="<?php echo esc_url( leaderauto_img( 'detailing-19.webp' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
-			<span class="services__shot-over"><img src="<?php echo esc_url( leaderauto_img( 'services-byd.webp' ) ); ?>" alt="<?php esc_attr_e( 'Електромобіль BYD', 'leaderauto' ); ?>" width="1230" height="615" loading="lazy"></span>
+			<img class="services__shot" src="<?php echo esc_url( leaderauto_field_img( 'home', 'services_shot' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+			<span class="services__shot-over"><img src="<?php echo esc_url( leaderauto_field_img( 'home', 'services_shot_over' ) ); ?>" alt="<?php esc_attr_e( 'Електромобіль BYD', 'leaderauto' ); ?>" width="1230" height="615" loading="lazy"></span>
 			<div class="services__aside">
 				<?php /* Portrait 720x1280 clip — no poster, the first frame stands in. */ ?>
 				<video class="video video--portrait" controls preload="metadata">
@@ -81,7 +81,7 @@ $groups = array(
 			</div>
 		</div>
 
-		<h2 class="section__title section__title--center"><?php esc_html_e( 'Наші послуги', 'leaderauto' ); ?></h2>
+		<h2 class="section__title section__title--center"><?php echo esc_html( leaderauto_field( 'home', 'services_title' ) ); ?></h2>
 		<div class="cards cards--4 cards--wide">
 			<?php foreach ( $groups as $group ) : ?>
 				<article class="card">

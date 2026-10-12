@@ -19,6 +19,17 @@ function leaderauto_field( string $page, string $key ): string {
 }
 
 /**
+ * URL of an editable image: the attachment picked in wp-admin, else the bundled default.
+ */
+function leaderauto_field_img( string $page, string $key ): string {
+	$value = leaderauto_field( $page, $key );
+	if ( ctype_digit( $value ) ) {
+		return (string) wp_get_attachment_url( (int) $value );
+	}
+	return '' === $value ? '' : leaderauto_img( $value );
+}
+
+/**
  * Digits of a phone number as written on the site, in international form.
  * A local 0XX… number gets the 38 country prefix.
  */

@@ -50,17 +50,17 @@ $models = array(
 );
 ?>
 <article class="page-shell">
-	<header class="page-shell__head page-shell__head--plain" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>');">
+	<header class="page-shell__head page-shell__head--plain" style="--page-bg: url('<?php echo esc_url( leaderauto_field_img( 'dealer', 'head_bg' ) ); ?>');">
 		<div class="page-shell__inner">
-			<h1 class="page-shell__title"><?php esc_html_e( 'Автодилер', 'leaderauto' ); ?></h1>
-			<p class="page-shell__lead"><?php esc_html_e( 'Обери свою серед наявних — офіційний підхід до продажу та тест-драйву електромобілів BYD.', 'leaderauto' ); ?></p>
+			<h1 class="page-shell__title"><?php echo esc_html( leaderauto_field( 'dealer', 'head_title' ) ); ?></h1>
+			<p class="page-shell__lead"><?php echo esc_html( leaderauto_field( 'dealer', 'head_lead' ) ); ?></p>
 		</div>
 	</header>
 
 	<section class="section showroom" id="showroom">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'Авто у наявності та під замовлення', 'leaderauto' ); ?></h2>
-			<p class="showroom__lead"><?php esc_html_e( 'Підбір моделі під ваш бюджет і задачі, допомога з оформленням, підготовка авто перед видачею та подальше сервісне обслуговування в одному місці.', 'leaderauto' ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'showroom_title' ) ); ?></h2>
+			<p class="showroom__lead"><?php echo esc_html( leaderauto_field( 'dealer', 'showroom_lead' ) ); ?></p>
 
 			<div class="showroom__stage">
 				<?php foreach ( $models as $i => $model ) : ?>
@@ -116,7 +116,7 @@ $models = array(
 
 	<section class="section section--surface">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'Як проходить купівля', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'offers_title' ) ); ?></h2>
 			<div class="cards cards--3">
 				<?php foreach ( $offers as $offer ) : ?>
 					<article class="card">
@@ -129,21 +129,21 @@ $models = array(
 		</div>
 	</section>
 
-	<section class="section section--guarantee" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-02.png' ) ); ?>');">
+	<section class="section section--guarantee" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'dealer', 'guarantee_bg' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div class="media-split__media">
-				<img src="<?php echo esc_url( leaderauto_img( 'detailing-19.webp' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+				<img src="<?php echo esc_url( leaderauto_field_img( 'dealer', 'guarantee_image' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
 			</div>
 			<div class="media-split__body">
-				<h2 class="section__title"><?php esc_html_e( 'Відповідаємо за результат', 'leaderauto' ); ?></h2>
-				<p><?php esc_html_e( 'Ми працюємо тільки з електромобілями, тому беремось за авто, яке справді розуміємо, і супроводжуємо його після продажу.', 'leaderauto' ); ?></p>
+				<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'guarantee_title' ) ); ?></h2>
+				<p><?php echo esc_html( leaderauto_field( 'dealer', 'guarantee_text' ) ); ?></p>
 			</div>
 		</div>
 	</section>
 
 	<section class="section section--surface">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'BYD Sea Lion 08 — дебют', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'video_title' ) ); ?></h2>
 			<video class="video" controls preload="metadata" poster="<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>">
 				<source src="<?php echo esc_url( leaderauto_img( 'sea-lion-08-debut.mp4' ) ); ?>" type="video/mp4">
 			</video>
@@ -152,9 +152,9 @@ $models = array(
 
 	<section class="section section--dark cta-band">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'Цікавить конкретна модель?', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'cta_title' ) ); ?></h2>
 			<p class="cta-band__row">
-				<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Залишити заявку', 'leaderauto' ); ?></a>
+				<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php echo esc_html( leaderauto_field( 'dealer', 'cta_button' ) ); ?></a>
 				<a class="btn btn--ghost" href="<?php echo esc_attr( leaderauto_phone_href() ); ?>"><?php echo esc_html( leaderauto_phone() ); ?></a>
 			</p>
 		</div>

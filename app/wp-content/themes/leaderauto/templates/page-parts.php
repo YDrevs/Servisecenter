@@ -90,23 +90,23 @@ $form_id = 'leaderauto-parts-form';
 		<a class="parts-banner__hit parts-banner__hit--vin" href="#request" data-parts-vin><span class="screen-reader-text"><?php esc_html_e( 'Знайти за VIN', 'leaderauto' ); ?></span></a>
 	</header>
 
-	<header class="page-shell__head parts-hero" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'tech-service.webp' ) ); ?>');">
+	<header class="page-shell__head parts-hero" style="--page-bg: url('<?php echo esc_url( leaderauto_field_img( 'parts', 'hero_bg' ) ); ?>');">
 		<div class="page-shell__inner">
-			<p class="section__kicker"><?php esc_html_e( 'Запчастини для EV', 'leaderauto' ); ?></p>
-			<h1 class="page-shell__title"><?php esc_html_e( 'Запчастини для BYD та електромобілів', 'leaderauto' ); ?></h1>
-			<p class="page-shell__lead"><?php esc_html_e( 'Оригінальні та перевірені запчастини для BYD, Tesla, Zeekr та інших EV. Підберемо за VIN, перевіримо сумісність та допоможемо з установкою.', 'leaderauto' ); ?></p>
+			<p class="section__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'hero_kicker' ) ); ?></p>
+			<h1 class="page-shell__title"><?php echo esc_html( leaderauto_field( 'parts', 'hero_title' ) ); ?></h1>
+			<p class="page-shell__lead"><?php echo esc_html( leaderauto_field( 'parts', 'hero_lead' ) ); ?></p>
 			<p class="cta-band__row">
-				<a class="btn btn--light" href="#request"><?php esc_html_e( 'Підібрати запчастину', 'leaderauto' ); ?></a>
-				<a class="btn btn--ghost" href="#request" data-parts-vin><?php esc_html_e( 'Знайти за VIN', 'leaderauto' ); ?></a>
+				<a class="btn btn--light" href="#request"><?php echo esc_html( leaderauto_field( 'parts', 'hero_button_pick' ) ); ?></a>
+				<a class="btn btn--ghost" href="#request" data-parts-vin><?php echo esc_html( leaderauto_field( 'parts', 'hero_button_vin' ) ); ?></a>
 			</p>
 		</div>
 	</header>
 
 	<section class="section" id="categories">
 		<div class="section__inner">
-			<p class="section__kicker parts__kicker"><?php esc_html_e( 'Категорії', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Що саме потрібно?', 'leaderauto' ); ?></h2>
-			<p class="parts__lead"><?php esc_html_e( 'Оберіть категорію — вона автоматично підставиться у заявку.', 'leaderauto' ); ?></p>
+			<p class="section__kicker parts__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'categories_kicker' ) ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'categories_title' ) ); ?></h2>
+			<p class="parts__lead"><?php echo esc_html( leaderauto_field( 'parts', 'categories_lead' ) ); ?></p>
 			<div class="cards cards--4">
 				<?php foreach ( $categories as $cat ) : ?>
 					<button class="parts-cat<?php echo empty( $cat['img'] ) ? '' : ' parts-cat--pic'; ?>" type="button" data-parts-category="<?php echo esc_attr( $cat['title'] ); ?>">
@@ -122,10 +122,10 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section parts-pick" id="models" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Parts/baner3.webp' ) ); ?>');">
+	<section class="section parts-pick" id="models" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'parts', 'models_bg' ) ); ?>');">
 		<div class="section__inner">
-			<p class="section__kicker"><?php esc_html_e( 'Підбір за авто', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Оберіть автомобіль', 'leaderauto' ); ?></h2>
+			<p class="section__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'models_kicker' ) ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'models_title' ) ); ?></h2>
 			<div class="parts-models">
 				<?php foreach ( $models as $brand => $logo ) : ?>
 					<button class="parts-models__chip" type="button" data-parts-model="<?php echo esc_attr( $brand ); ?>">
@@ -138,8 +138,8 @@ $form_id = 'leaderauto-parts-form';
 
 	<section class="section" id="popular">
 		<div class="section__inner">
-			<p class="section__kicker parts__kicker"><?php esc_html_e( 'Популярні запити', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Часто шукають', 'leaderauto' ); ?></h2>
+			<p class="section__kicker parts__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'popular_kicker' ) ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'popular_title' ) ); ?></h2>
 			<div class="cards cards--4">
 				<?php foreach ( $popular as $item ) : ?>
 					<article class="card parts-item">
@@ -159,13 +159,13 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section section--dark parts-install" id="install" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Parts/servise_bg.webp' ) ); ?>');">
+	<section class="section section--dark parts-install" id="install" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'parts', 'install_bg' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div>
-				<p class="section__kicker"><?php esc_html_e( 'Запчастини + сервіс', 'leaderauto' ); ?></p>
-				<h2 class="section__title"><?php esc_html_e( 'Не просто продаємо — можемо одразу встановити', 'leaderauto' ); ?></h2>
-				<p><?php esc_html_e( 'Підберемо сумісну запчастину, встановимо її у сервісному центрі та перевіримо роботу систем автомобіля.', 'leaderauto' ); ?></p>
-				<p class="section__actions"><a class="btn btn--light" href="#request"><?php esc_html_e( 'Підібрати запчастину', 'leaderauto' ); ?></a></p>
+				<p class="section__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'install_kicker' ) ); ?></p>
+				<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'install_title' ) ); ?></h2>
+				<p><?php echo esc_html( leaderauto_field( 'parts', 'install_text' ) ); ?></p>
+				<p class="section__actions"><a class="btn btn--light" href="#request"><?php echo esc_html( leaderauto_field( 'parts', 'install_button' ) ); ?></a></p>
 			</div>
 			<ol class="steps parts-steps">
 				<?php foreach ( $steps as $i => $step ) : ?>
@@ -178,9 +178,9 @@ $form_id = 'leaderauto-parts-form';
 	<section class="section section--surface" id="request">
 		<div class="section__inner parts-request">
 			<div>
-				<p class="section__kicker parts__kicker"><?php esc_html_e( 'Заявка', 'leaderauto' ); ?></p>
-				<h2 class="section__title"><?php esc_html_e( 'Знайдемо потрібну деталь', 'leaderauto' ); ?></h2>
-				<p class="parts__lead"><?php esc_html_e( 'Вкажіть автомобіль та VIN, опишіть деталь. Менеджер перевірить сумісність, наявність і вартість.', 'leaderauto' ); ?></p>
+				<p class="section__kicker parts__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'request_kicker' ) ); ?></p>
+				<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'request_title' ) ); ?></h2>
+				<p class="parts__lead"><?php echo esc_html( leaderauto_field( 'parts', 'request_lead' ) ); ?></p>
 				<ul class="parts-types">
 					<li><strong>Original</strong><?php esc_html_e( 'Оригінальні компоненти', 'leaderauto' ); ?></li>
 					<li><strong>OEM</strong><?php esc_html_e( 'Перевірені постачальники', 'leaderauto' ); ?></li>
@@ -240,7 +240,7 @@ $form_id = 'leaderauto-parts-form';
 	<section class="section section--dark" id="faq">
 		<div class="section__inner">
 			<div class="faq__head">
-				<h2 class="section__title faq__title"><?php esc_html_e( 'Часті запитання', 'leaderauto' ); ?></h2>
+				<h2 class="section__title faq__title"><?php echo esc_html( leaderauto_field( 'parts', 'faq_title' ) ); ?></h2>
 			</div>
 			<div class="faq">
 				<?php foreach ( $faq as $row ) : ?>
