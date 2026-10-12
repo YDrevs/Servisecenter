@@ -5,7 +5,7 @@
  * Reference page 15 was ~90% untranslated Divi "Car Detailing" demo (Lorem ipsum,
  * "Wheel Protection", "Quick Links", …) — none of that is carried over. This is a
  * minimal real page: BYD sales / test drive + real media + a CTA to the form.
- * TODO(content): real model photos, descriptions, availability — pending client input.
+ * All copy, models and cards are editable in wp-admin → Контент сайту → Автодилер.
  *
  * @package LeaderAuto
  */
@@ -19,35 +19,32 @@ get_header();
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 
-/*
- * Six cards, mirroring the reference page's grid and image order. The reference
- * titles were untranslated Divi demo ("Full Detailing", "Wheel Protection", …)
- * with Lorem ipsum bodies; these are real Ukrainian steps of the dealer flow.
- * TODO(content): confirm wording, models and terms with the client.
- */
-$offers = array(
-	array( 'image' => '1w.jpg',           'title' => __( 'Підбір моделі', 'leaderauto' ),              'text' => __( 'Допомагаємо обрати електромобіль під ваш бюджет, пробіг і умови експлуатації.', 'leaderauto' ) ),
-	array( 'image' => 'detailing-08.jpg', 'title' => __( 'Тест-драйв', 'leaderauto' ),                 'text' => __( 'Записуємо на тест-драйв, щоб ви відчули авто до покупки, а не з опису.', 'leaderauto' ) ),
-	array( 'image' => 'detailing-21.jpg', 'title' => __( 'Оформлення', 'leaderauto' ),                 'text' => __( 'Супровід документів і реєстрації — без зайвих поїздок і посередників.', 'leaderauto' ) ),
-	array( 'image' => 'detailing-18.png', 'title' => __( 'Передпродажна підготовка', 'leaderauto' ),   'text' => __( 'Повна діагностика, перевірка батареї та електроніки перед видачею.', 'leaderauto' ) ),
-	array( 'image' => 'detailing-10.jpg', 'title' => __( 'Видача авто', 'leaderauto' ),                'text' => __( 'Показуємо, як користуватись зарядкою та системами авто, і відповідаємо на питання.', 'leaderauto' ) ),
-	array( 'image' => 'detailing-17.png', 'title' => __( 'Сервіс після покупки', 'leaderauto' ),       'text' => __( 'Подальше обслуговування у тому ж місці, де купували — з історією вашого авто.', 'leaderauto' ) ),
-);
+// «Як проходить купівля» cards, editable in wp-admin → Контент сайту → Автодилер.
+$offers = leaderauto_rows( 'dealer', 'offers' );
 
 /*
  * Showroom models, in display order. No prices on purpose — availability only.
- * 'image' is relative to assets/images/; a missing file renders the striped
- * placeholder, so dropping vehicles/<slug>.webp in place is enough to show it.
- * TODO(content): descriptions from the client.
+ * A bundled image path that doesn't exist yet renders the striped placeholder, so
+ * dropping vehicles/<slug>.webp in place is enough to show it. The slug (anchor
+ * for the rail thumbnails) comes from the name: "Song +" → song-plus.
  */
-$models = array(
-	array( 'slug' => 'seal',      'name' => 'Seal',      'type' => __( 'Седан', 'leaderauto' ),            'in_stock' => true,  'image' => 'vehicles/seal.webp',      'text' => __( 'Електричний седан для щоденних поїздок і траси.', 'leaderauto' ) ),
-	array( 'slug' => 'sealion-7', 'name' => 'Sealion 7', 'type' => __( 'Кросовер', 'leaderauto' ),         'in_stock' => false, 'image' => 'vehicles/sealion-7.webp', 'text' => __( 'Просторий електричний кросовер для сім\'ї та далеких поїздок.', 'leaderauto' ) ),
-	array( 'slug' => 'leopard',   'name' => 'Leopard',   'type' => __( 'Позашляховик', 'leaderauto' ),     'in_stock' => false, 'image' => 'vehicles/leopard.webp',   'text' => __( 'Рамний позашляховик для тих, кому потрібне авто поза асфальтом.', 'leaderauto' ) ),
-	array( 'slug' => 'song-plus', 'name' => 'Song +',    'type' => __( 'Кросовер, гібрид', 'leaderauto' ), 'in_stock' => true,  'image' => 'vehicles/song-plus.webp', 'text' => __( 'Гібридний кросовер: електротяга в місті й запас ходу для поїздок.', 'leaderauto' ) ),
-	array( 'slug' => 'seagull',   'name' => 'Seagull',   'type' => __( 'Хетчбек', 'leaderauto' ),          'in_stock' => true,  'image' => 'vehicles/seagull.webp',   'text' => __( 'Компактний міський хетчбек, зручний для парковки й коротких маршрутів.', 'leaderauto' ) ),
-	array( 'slug' => 'dolphin',   'name' => 'Dolphin',   'type' => __( 'Хетчбек', 'leaderauto' ),          'in_stock' => false, 'image' => 'vehicles/dolphin.webp',   'text' => __( 'Практичний хетчбек з місткою кабіною для міста та області.', 'leaderauto' ) ),
-);
+$models = array();
+foreach ( leaderauto_rows( 'dealer', 'models' ) as $row ) {
+	$image = $row['image'];
+	if ( ctype_digit( $image ) ) {
+		$photo = leaderauto_media_url( $image );
+	} else {
+		$photo = '' !== $image && file_exists( LEADERAUTO_DIR . '/assets/images/' . $image ) ? leaderauto_img( $image ) : '';
+	}
+	$models[] = array(
+		'slug'     => sanitize_title( str_replace( '+', ' plus', $row['name'] ) ),
+		'name'     => $row['name'],
+		'type'     => $row['type'],
+		'in_stock' => '1' === $row['in_stock'],
+		'photo'    => $photo,
+		'text'     => $row['text'],
+	);
+}
 ?>
 <article class="page-shell">
 	<header class="page-shell__head page-shell__head--plain" style="--page-bg: url('<?php echo esc_url( leaderauto_field_img( 'dealer', 'head_bg' ) ); ?>');">
@@ -65,13 +62,13 @@ $models = array(
 			<div class="showroom__stage">
 				<?php foreach ( $models as $i => $model ) : ?>
 					<?php
-					$has_photo = file_exists( LEADERAUTO_DIR . '/assets/images/' . $model['image'] );
+					$has_photo = '' !== $model['photo'];
 					$full_name = 'BYD ' . $model['name'];
 					?>
 					<div class="showroom__panel" id="showroom-<?php echo esc_attr( $model['slug'] ); ?>">
 						<div class="showroom__media">
 							<?php if ( $has_photo ) : ?>
-								<img src="<?php echo esc_url( leaderauto_img( $model['image'] ) ); ?>" alt="<?php echo esc_attr( $full_name ); ?>"<?php echo 0 === $i ? '' : ' loading="lazy"'; ?>>
+								<img src="<?php echo esc_url( $model['photo'] ); ?>" alt="<?php echo esc_attr( $full_name ); ?>"<?php echo 0 === $i ? '' : ' loading="lazy"'; ?>>
 							<?php else : ?>
 								<div class="showroom__placeholder" role="img" aria-label="<?php echo esc_attr( $full_name ); ?>"><span aria-hidden="true"><?php esc_html_e( 'ФОТО МОДЕЛІ', 'leaderauto' ); ?></span></div>
 							<?php endif; ?>
@@ -101,8 +98,8 @@ $models = array(
 				<?php foreach ( $models as $model ) : ?>
 					<a class="showroom__thumb" href="#showroom-<?php echo esc_attr( $model['slug'] ); ?>">
 						<span class="showroom__thumb-media">
-							<?php if ( file_exists( LEADERAUTO_DIR . '/assets/images/' . $model['image'] ) ) : ?>
-								<img src="<?php echo esc_url( leaderauto_img( $model['image'] ) ); ?>" alt="<?php echo esc_attr( 'BYD ' . $model['name'] ); ?>" loading="lazy">
+							<?php if ( '' !== $model['photo'] ) : ?>
+								<img src="<?php echo esc_url( $model['photo'] ); ?>" alt="<?php echo esc_attr( 'BYD ' . $model['name'] ); ?>" loading="lazy">
 							<?php else : ?>
 								<span class="showroom__placeholder"></span>
 							<?php endif; ?>
@@ -120,7 +117,9 @@ $models = array(
 			<div class="cards cards--3">
 				<?php foreach ( $offers as $offer ) : ?>
 					<article class="card">
-						<img class="card__media" src="<?php echo esc_url( leaderauto_img( $offer['image'] ) ); ?>" alt="<?php echo esc_attr( $offer['title'] ); ?>" loading="lazy">
+						<?php if ( '' !== $offer['image'] ) : ?>
+							<img class="card__media" src="<?php echo esc_url( leaderauto_media_url( $offer['image'] ) ); ?>" alt="<?php echo esc_attr( $offer['title'] ); ?>" loading="lazy">
+						<?php endif; ?>
 						<h3 class="card__title"><?php echo esc_html( $offer['title'] ); ?></h3>
 						<p><?php echo esc_html( $offer['text'] ); ?></p>
 					</article>

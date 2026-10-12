@@ -5,8 +5,10 @@
  * renders exactly as before.
  *
  * Shape: page slug => [ 'title', 'sections' => [ [ 'title', 'fields' => [ key => field ] ] ] ].
- * Field: [ 'type' => text|textarea|url|image, 'label', 'default', 'help'? ].
+ * Field: [ 'type' => text|textarea|url|image|lines, 'label', 'default', 'help'? ].
  * An image saves an attachment ID; its default is a path under the theme's assets/images/.
+ * `lines` is a textarea read as one item per line.
+ * A repeater (see repeater()) holds rows of sub-fields; its default is the shipped rows.
  *
  * @package LeaderAuto\Core
  */
@@ -25,7 +27,27 @@ function field( string $type, string $label, string $default, string $help = '' 
 }
 
 /**
- * @return array<string,array{title:string,sections:array<int,array{title:string,fields:array<string,array<string,string>>}>}>
+ * A list of cards the client can add to, remove from and reorder.
+ * Sub-field types: text, textarea, image, checkbox. `title` names the sub-field
+ * shown as each row's heading in wp-admin.
+ *
+ * @param array<string,array<string,string>> $subfields
+ * @param array<int,array<string,string>>    $rows
+ * @return array<string,mixed>
+ */
+function repeater( string $label, string $title, array $subfields, array $rows, string $help = '' ): array {
+	return array(
+		'type'      => 'repeater',
+		'label'     => $label,
+		'title'     => $title,
+		'subfields' => $subfields,
+		'default'   => $rows,
+		'help'      => $help,
+	);
+}
+
+/**
+ * @return array<string,array{title:string,sections:array<int,array{title:string,fields:array<string,array<string,mixed>>}>}>
  */
 function schema(): array {
 	static $schema = null;
@@ -45,6 +67,11 @@ function build_schema(): array {
 	$text   = __( 'Текст', 'leaderauto-core' );
 	$kicker = __( 'Надзаголовок', 'leaderauto-core' );
 	$button = __( 'Текст кнопки', 'leaderauto-core' );
+	$lines  = __( 'Кожен пункт — з нового рядка.', 'leaderauto-core' );
+	$faq    = array(
+		'q' => field( 'text', __( 'Питання', 'leaderauto-core' ), '' ),
+		'a' => field( 'textarea', __( 'Відповідь', 'leaderauto-core' ), '' ),
+	);
 
 	return array(
 		'contacts'      => array(
@@ -94,6 +121,38 @@ function build_schema(): array {
 						'services_shot'      => field( 'image', __( 'Фото зліва', 'leaderauto-core' ), 'detailing-19.webp' ),
 						'services_shot_over' => field( 'image', __( 'Фото авто поверх нього', 'leaderauto-core' ), 'services-byd.webp' ),
 						'services_title'     => field( 'text', $title, 'Наші послуги' ),
+						'services_groups'    => repeater(
+							__( 'Картки послуг', 'leaderauto-core' ),
+							'title',
+							array(
+								'title' => field( 'text', __( 'Назва', 'leaderauto-core' ), '' ),
+								'image' => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+								'items' => field( 'textarea', __( 'Послуги', 'leaderauto-core' ), '', __( 'Кожна послуга — з нового рядка. Рядок, що починається з «-», стає підпунктом попереднього рядка.', 'leaderauto-core' ) ),
+							),
+							array(
+								array(
+									'title' => 'Програмний ремонт та діагностика',
+									'image' => 'diagnostic-byd.webp',
+									'items' => "Комп’ютерна діагностика\nОновлення програмного забезпечення\nОновлення та адаптація блоків\nУсунення помилок та програмних збоїв\nНалаштування електронних систем безпеки\nПослуги автоелектрика\nРемонт інверторів\nОбслуговування та ремонт високовольтних батарей",
+								),
+								array(
+									'title' => 'Технічне обслуговування',
+									'image' => 'tech-service.webp',
+									'items' => "Розвал-сходження для EV та HYBRID\nВібростенд та ремонт ходової\nЗаміна мастил та технічних рідин\nШиномонтаж\nЗаправка та ремонт кондиціонерів\nПеревірка усіх систем автомобіля",
+								),
+								array(
+									'title' => 'Запчастини та комплектуючі',
+									'image' => 'detailing-10.jpg',
+									'items' => "Підбір та продаж запчастин\nЗамовлення запчастин з Китаю\nДоставка по Україні\nДіючі програми лояльності",
+								),
+								array(
+									'title' => 'Додаткові послуги',
+									'image' => 'services-extra.webp',
+									'items' => "Забір і доставка автомобіля від клієнта до СТО і назад\nЕвакуатор\nОренда підйомника або робочого місця для самостійного обслуговування\nЗберігання коліс\nПередпродажна перевірка\nПісляпродажний сервіс:\n- Антикорозійна обробка\n- Тонування\n- Антихром обробка\n- Шумовіброізоляція",
+								),
+							),
+							__( 'Кожна послуга на сайті веде на форму заявки з її назвою.', 'leaderauto-core' )
+						),
 					),
 				),
 				array(
@@ -103,6 +162,7 @@ function build_schema(): array {
 						'why_kicker' => field( 'text', $kicker, '100% вирішення проблем' ),
 						'why_title'  => field( 'text', $title, 'Чому власники EV звертаються до нас' ),
 						'why_button' => field( 'text', $button, 'Записатися' ),
+						'why_list'   => field( 'lines', __( 'Пункти', 'leaderauto-core' ), "Спеціалізація на електромобілях\nДосвід роботи з BYD\nСучасна діагностика\nПрозорий підхід\nДопомога із запчастинами", $lines ),
 					),
 				),
 				array(
@@ -128,6 +188,18 @@ function build_schema(): array {
 					'fields' => array(
 						'faq_bg'    => field( 'image', $bg, 'Golovna/faq2.webp' ),
 						'faq_title' => field( 'text', $title, 'Поширені запитання' ),
+						'faq_items' => repeater(
+							__( 'Питання', 'leaderauto-core' ),
+							'q',
+							$faq,
+							array(
+								array( 'q' => 'Ви працюєте тільки з BYD?', 'a' => 'Ні. BYD — наш профільний бренд, але ми обслуговуємо Honda, Zeekr, Volkswagen ID, Nissan Leaf та інші електромобілі.' ),
+								array( 'q' => 'Чи можна замовити запчастини у вас?', 'a' => 'Так. Замовляємо оригінальні деталі та перевірені аналоги, допомагаємо з підбором і доставкою.' ),
+								array( 'q' => 'Ви займаєтесь програмним ремонтом?', 'a' => 'Так: діагностика, оновлення ПЗ, кодування та адаптація блоків, усунення помилок.' ),
+								array( 'q' => 'Чи є гарантія?', 'a' => 'На виконані роботи та встановлені запчастини надаємо гарантію; умови узгоджуємо перед ремонтом.' ),
+								array( 'q' => 'Скільки часу займає діагностика?', 'a' => 'Базова діагностика — зазвичай протягом дня. Складніші випадки узгоджуємо окремо.' ),
+							)
+						),
 					),
 				),
 				array(
@@ -161,6 +233,27 @@ function build_schema(): array {
 						'categories_kicker' => field( 'text', $kicker, 'Категорії' ),
 						'categories_title'  => field( 'text', $title, 'Що саме потрібно?' ),
 						'categories_lead'   => field( 'textarea', $lead, 'Оберіть категорію — вона автоматично підставиться у заявку.' ),
+						'categories'        => repeater(
+							__( 'Категорії', 'leaderauto-core' ),
+							'title',
+							array(
+								'title' => field( 'text', __( 'Назва', 'leaderauto-core' ), '' ),
+								'text'  => field( 'text', __( 'Опис', 'leaderauto-core' ), '' ),
+								'icon'  => field( 'text', __( 'Значок (символ)', 'leaderauto-core' ), '', __( 'Показується, коли немає фото.', 'leaderauto-core' ) ),
+								'img'   => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+							),
+							array(
+								array( 'icon' => '◈', 'title' => 'Кузов та оптика', 'text' => 'Фари, бампери, крила, дзеркала', 'img' => 'Parts/byd_avtomobil.webp' ),
+								array( 'icon' => '⌁', 'title' => 'Ходова частина', 'text' => 'Важелі, амортизатори, ступиці', 'img' => 'Parts/hodova2.webp' ),
+								array( 'icon' => '◎', 'title' => 'Гальмівна система', 'text' => 'Диски, колодки, супорти', 'img' => 'Parts/galma_disk.webp' ),
+								array( 'icon' => '⌘', 'title' => 'Електроніка', 'text' => 'Блоки, датчики, модулі', 'img' => 'Parts/EBU.webp' ),
+								array( 'icon' => '▣', 'title' => 'Батарея та HV', 'text' => 'Високовольтні компоненти', 'img' => 'Parts/baterry.webp' ),
+								array( 'icon' => 'ϟ', 'title' => 'Зарядна система', 'text' => 'Порти, модулі, кабелі', 'img' => 'Parts/zaryad2_foto.webp' ),
+								array( 'icon' => '◇', 'title' => 'Салон', 'text' => 'Дисплеї, пластик, кнопки', 'img' => 'Parts/salon.webp' ),
+								array( 'icon' => '✦', 'title' => 'ТО та витратники', 'text' => 'Фільтри, рідини, щітки', 'img' => 'Parts/servise.webp' ),
+							),
+							__( 'Назви категорій також є варіантами у полі «Категорія» форми заявки.', 'leaderauto-core' )
+						),
 					),
 				),
 				array(
@@ -169,6 +262,31 @@ function build_schema(): array {
 						'models_bg'     => field( 'image', $bg, 'Parts/baner3.webp' ),
 						'models_kicker' => field( 'text', $kicker, 'Підбір за авто' ),
 						'models_title'  => field( 'text', $title, 'Оберіть автомобіль' ),
+						'brands'        => repeater(
+							__( 'Марки', 'leaderauto-core' ),
+							'brand',
+							array(
+								'brand' => field( 'text', __( 'Марка', 'leaderauto-core' ), '', __( 'Підставляється в поле «Автомобіль» форми заявки.', 'leaderauto-core' ) ),
+								'logo'  => field( 'image', __( 'Логотип', 'leaderauto-core' ), '' ),
+							),
+							array(
+								array( 'brand' => 'Changan', 'logo' => 'logo_cars/changan.webp' ),
+								array( 'brand' => 'BYD', 'logo' => 'logo_cars/byd.webp' ),
+								array( 'brand' => 'Audi', 'logo' => 'logo_cars/audi.webp' ),
+								array( 'brand' => 'Chery', 'logo' => 'logo_cars/chery.webp' ),
+								array( 'brand' => 'Denza', 'logo' => 'logo_cars/denza.webp' ),
+								array( 'brand' => 'Fangchengbao', 'logo' => 'logo_cars/fangchengbao.webp' ),
+								array( 'brand' => 'Honda', 'logo' => 'logo_cars/honda.webp' ),
+								array( 'brand' => 'DFSK', 'logo' => 'logo_cars/dfsk.webp' ),
+								array( 'brand' => 'Hyundai', 'logo' => 'logo_cars/hyundai.webp' ),
+								array( 'brand' => 'Kia', 'logo' => 'logo_cars/kia.webp' ),
+								array( 'brand' => 'MG', 'logo' => 'logo_cars/mg.webp' ),
+								array( 'brand' => 'Nissan', 'logo' => 'logo_cars/nissan.webp' ),
+								array( 'brand' => 'Toyota', 'logo' => 'logo_cars/toyota.webp' ),
+								array( 'brand' => 'Volkswagen', 'logo' => 'logo_cars/volkswagen.webp' ),
+								array( 'brand' => 'Zeekr', 'logo' => 'logo_cars/zeekr.webp' ),
+							)
+						),
 					),
 				),
 				array(
@@ -176,6 +294,23 @@ function build_schema(): array {
 					'fields' => array(
 						'popular_kicker' => field( 'text', $kicker, 'Популярні запити' ),
 						'popular_title'  => field( 'text', $title, 'Часто шукають' ),
+						'popular'        => repeater(
+							__( 'Картки', 'leaderauto-core' ),
+							'title',
+							array(
+								'title' => field( 'text', __( 'Назва', 'leaderauto-core' ), '' ),
+								'part'  => field( 'text', __( 'Що підставити в заявку', 'leaderauto-core' ), '' ),
+								'icon'  => field( 'text', __( 'Значок (символ)', 'leaderauto-core' ), '', __( 'Показується, коли немає фото.', 'leaderauto-core' ) ),
+								'img'   => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+								'badge' => field( 'image', __( 'Маленька іконка на фото', 'leaderauto-core' ), '' ),
+							),
+							array(
+								array( 'icon' => '◫', 'title' => 'Передня оптика BYD', 'part' => 'Передня оптика BYD', 'img' => 'Parts/fara.webp', 'badge' => 'Parts/fara_icon.webp' ),
+								array( 'icon' => '◎', 'title' => 'Гальмівні колодки', 'part' => 'Гальмівні колодки', 'img' => 'Parts/galmdisk_foto.webp', 'badge' => 'Parts/galmo_icon.webp' ),
+								array( 'icon' => 'ϟ', 'title' => 'Порти та модулі', 'part' => 'Порт або зарядний модуль', 'img' => 'Parts/zaryad_foto.webp', 'badge' => 'Parts/zaryadka_icon.webp' ),
+								array( 'icon' => '⌁', 'title' => 'Підвіска та ступиці', 'part' => 'Запчастини ходової частини', 'img' => 'Parts/Hodova_foto.webp', 'badge' => 'Parts/servis_icon.webp' ),
+							)
+						),
 					),
 				),
 				array(
@@ -186,6 +321,7 @@ function build_schema(): array {
 						'install_title'  => field( 'text', $title, 'Не просто продаємо — можемо одразу встановити' ),
 						'install_text'   => field( 'textarea', $text, 'Підберемо сумісну запчастину, встановимо її у сервісному центрі та перевіримо роботу систем автомобіля.' ),
 						'install_button' => field( 'text', $button, 'Підібрати запчастину' ),
+						'install_steps'  => field( 'lines', __( 'Кроки', 'leaderauto-core' ), "Підбір за VIN\nПеревірка сумісності\nВстановлення\nДіагностика", $lines ),
 					),
 				),
 				array(
@@ -200,6 +336,15 @@ function build_schema(): array {
 					'title'  => __( 'Часті запитання', 'leaderauto-core' ),
 					'fields' => array(
 						'faq_title' => field( 'text', $title, 'Часті запитання' ),
+						'faq_items' => repeater(
+							__( 'Питання', 'leaderauto-core' ),
+							'q',
+							$faq,
+							array(
+								array( 'q' => 'Чи обов’язково знати номер запчастини?', 'a' => 'Ні. Для підбору можна використати VIN, модель авто, опис або фото.' ),
+								array( 'q' => 'Чи можна одразу встановити деталь?', 'a' => 'Так, встановлення та діагностику можна погодити із сервісним центром.' ),
+							)
+						),
 					),
 				),
 			),
@@ -221,12 +366,49 @@ function build_schema(): array {
 					'fields' => array(
 						'showroom_title' => field( 'text', $title, 'Авто у наявності та під замовлення' ),
 						'showroom_lead'  => field( 'textarea', $lead, 'Підбір моделі під ваш бюджет і задачі, допомога з оформленням, підготовка авто перед видачею та подальше сервісне обслуговування в одному місці.' ),
+						'models'         => repeater(
+							__( 'Моделі', 'leaderauto-core' ),
+							'name',
+							array(
+								'name'     => field( 'text', __( 'Модель (без «BYD»)', 'leaderauto-core' ), '' ),
+								'type'     => field( 'text', __( 'Тип кузова', 'leaderauto-core' ), '' ),
+								'in_stock' => field( 'checkbox', __( 'В наявності', 'leaderauto-core' ), '', __( 'Без позначки показується «Під замовлення».', 'leaderauto-core' ) ),
+								'image'    => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+								'text'     => field( 'textarea', __( 'Опис', 'leaderauto-core' ), '' ),
+							),
+							array(
+								array( 'name' => 'Seal', 'type' => 'Седан', 'in_stock' => '1', 'image' => 'vehicles/seal.webp', 'text' => 'Електричний седан для щоденних поїздок і траси.' ),
+								array( 'name' => 'Sealion 7', 'type' => 'Кросовер', 'in_stock' => '', 'image' => 'vehicles/sealion-7.webp', 'text' => 'Просторий електричний кросовер для сім\'ї та далеких поїздок.' ),
+								array( 'name' => 'Leopard', 'type' => 'Позашляховик', 'in_stock' => '', 'image' => 'vehicles/leopard.webp', 'text' => 'Рамний позашляховик для тих, кому потрібне авто поза асфальтом.' ),
+								array( 'name' => 'Song +', 'type' => 'Кросовер, гібрид', 'in_stock' => '1', 'image' => 'vehicles/song-plus.webp', 'text' => 'Гібридний кросовер: електротяга в місті й запас ходу для поїздок.' ),
+								array( 'name' => 'Seagull', 'type' => 'Хетчбек', 'in_stock' => '1', 'image' => 'vehicles/seagull.webp', 'text' => 'Компактний міський хетчбек, зручний для парковки й коротких маршрутів.' ),
+								array( 'name' => 'Dolphin', 'type' => 'Хетчбек', 'in_stock' => '', 'image' => 'vehicles/dolphin.webp', 'text' => 'Практичний хетчбек з місткою кабіною для міста та області.' ),
+							),
+							__( 'Без фото показується сіра заглушка «ФОТО МОДЕЛІ».', 'leaderauto-core' )
+						),
 					),
 				),
 				array(
 					'title'  => __( 'Як проходить купівля', 'leaderauto-core' ),
 					'fields' => array(
 						'offers_title' => field( 'text', $title, 'Як проходить купівля' ),
+						'offers'       => repeater(
+							__( 'Картки', 'leaderauto-core' ),
+							'title',
+							array(
+								'title' => field( 'text', __( 'Назва', 'leaderauto-core' ), '' ),
+								'image' => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+								'text'  => field( 'textarea', $text, '' ),
+							),
+							array(
+								array( 'image' => '1w.jpg', 'title' => 'Підбір моделі', 'text' => 'Допомагаємо обрати електромобіль під ваш бюджет, пробіг і умови експлуатації.' ),
+								array( 'image' => 'detailing-08.jpg', 'title' => 'Тест-драйв', 'text' => 'Записуємо на тест-драйв, щоб ви відчули авто до покупки, а не з опису.' ),
+								array( 'image' => 'detailing-21.jpg', 'title' => 'Оформлення', 'text' => 'Супровід документів і реєстрації — без зайвих поїздок і посередників.' ),
+								array( 'image' => 'detailing-18.png', 'title' => 'Передпродажна підготовка', 'text' => 'Повна діагностика, перевірка батареї та електроніки перед видачею.' ),
+								array( 'image' => 'detailing-10.jpg', 'title' => 'Видача авто', 'text' => 'Показуємо, як користуватись зарядкою та системами авто, і відповідаємо на питання.' ),
+								array( 'image' => 'detailing-17.png', 'title' => 'Сервіс після покупки', 'text' => 'Подальше обслуговування у тому ж місці, де купували — з історією вашого авто.' ),
+							)
+						),
 					),
 				),
 				array(
@@ -269,12 +451,27 @@ function build_schema(): array {
 					'title'  => __( 'Про компанію', 'leaderauto-core' ),
 					'fields' => array(
 						'intro' => field( 'textarea', $text, 'Ми спеціалізуємось на обслуговуванні та ремонті електромобілів, з акцентом на BYD та інші сучасні EV-платформи. Працюємо як з технічною частиною, так і з програмною — від діагностики до кодування блоків.' ),
+						'stats' => repeater(
+							__( 'Цифри', 'leaderauto-core' ),
+							'n',
+							array(
+								'n'     => field( 'text', __( 'Значення', 'leaderauto-core' ), '', __( 'Наприклад 275+ або 100%.', 'leaderauto-core' ) ),
+								'label' => field( 'text', __( 'Підпис', 'leaderauto-core' ), '' ),
+								'from'  => field( 'text', __( 'Анімувати від', 'leaderauto-core' ), '', __( 'Число, з якого лічильник рахує при прокрутці. Порожньо — без анімації.', 'leaderauto-core' ) ),
+							),
+							array(
+								array( 'n' => '100%', 'from' => '55', 'label' => 'Задоволених клієнтів' ),
+								array( 'n' => '24/7', 'from' => '', 'label' => 'На зв’язку' ),
+								array( 'n' => '275+', 'from' => '199', 'label' => 'Виконаних сервісів' ),
+							)
+						),
 					),
 				),
 				array(
 					'title'  => __( 'Як ми працюємо', 'leaderauto-core' ),
 					'fields' => array(
 						'steps_title' => field( 'text', $title, 'Як ми працюємо' ),
+						'steps'       => field( 'lines', __( 'Кроки', 'leaderauto-core' ), "Заявка або дзвінок\nДіагностика\nУзгодження\nРемонт\nВидача авто", $lines ),
 					),
 				),
 				array(
@@ -346,5 +543,18 @@ function get( string $page, string $key ): string {
 	if ( '' === $value ) {
 		$value = fields( $page )[ $key ]['default'] ?? '';
 	}
-	return (string) $value;
+	return is_array( $value ) ? '' : (string) $value;
+}
+
+/**
+ * Rows of a repeater. Saved rows win even when empty — the client removed them all.
+ *
+ * @return array<int,array<string,string>>
+ */
+function get_rows( string $page, string $key ): array {
+	$saved = (array) get_option( option_name( $page ), array() );
+	if ( isset( $saved[ $key ] ) && is_array( $saved[ $key ] ) ) {
+		return $saved[ $key ];
+	}
+	return fields( $page )[ $key ]['default'] ?? array();
 }

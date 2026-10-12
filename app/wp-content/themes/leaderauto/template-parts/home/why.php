@@ -7,13 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$reasons = array(
-	__( 'Спеціалізація на електромобілях', 'leaderauto' ),
-	__( 'Досвід роботи з BYD', 'leaderauto' ),
-	__( 'Сучасна діагностика', 'leaderauto' ),
-	__( 'Прозорий підхід', 'leaderauto' ),
-	__( 'Допомога із запчастинами', 'leaderauto' ),
-);
+$reasons = leaderauto_lines( 'home', 'why_list' );
 
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );

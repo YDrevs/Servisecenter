@@ -19,14 +19,39 @@ function leaderauto_field( string $page, string $key ): string {
 }
 
 /**
- * URL of an editable image: the attachment picked in wp-admin, else the bundled default.
+ * Rows of an editable list from leaderauto-core. Empty if the plugin is inactive.
+ *
+ * @return array<int,array<string,string>>
  */
-function leaderauto_field_img( string $page, string $key ): string {
-	$value = leaderauto_field( $page, $key );
+function leaderauto_rows( string $page, string $key ): array {
+	return function_exists( 'leaderauto_content_rows' ) ? leaderauto_content_rows( $page, $key ) : array();
+}
+
+/**
+ * An editable one-item-per-line field, as a list of non-empty lines.
+ *
+ * @return string[]
+ */
+function leaderauto_lines( string $page, string $key ): array {
+	return array_values( array_filter( array_map( 'trim', explode( "\n", leaderauto_field( $page, $key ) ) ), 'strlen' ) );
+}
+
+/**
+ * URL for an editable image value: an attachment ID picked in wp-admin, or a
+ * path under assets/images/. '' stays ''.
+ */
+function leaderauto_media_url( string $value ): string {
 	if ( ctype_digit( $value ) ) {
 		return (string) wp_get_attachment_url( (int) $value );
 	}
 	return '' === $value ? '' : leaderauto_img( $value );
+}
+
+/**
+ * URL of an editable image field: the attachment picked in wp-admin, else the bundled default.
+ */
+function leaderauto_field_img( string $page, string $key ): string {
+	return leaderauto_media_url( leaderauto_field( $page, $key ) );
 }
 
 /**

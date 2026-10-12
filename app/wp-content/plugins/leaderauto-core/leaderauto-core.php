@@ -30,6 +30,15 @@ function leaderauto_content( string $page, string $key ): string {
 	return \LeaderAuto\Core\Content\get( $page, $key );
 }
 
+/**
+ * Rows of an editable list (FAQ, cards, models…) for the theme.
+ *
+ * @return array<int,array<string,string>>
+ */
+function leaderauto_content_rows( string $page, string $key ): array {
+	return \LeaderAuto\Core\Content\get_rows( $page, $key );
+}
+
 add_action( 'plugins_loaded', static function () {
 	( new \LeaderAuto\Core\Settings() )->hooks();
 	( new \LeaderAuto\Core\Rest_Contact() )->hooks();

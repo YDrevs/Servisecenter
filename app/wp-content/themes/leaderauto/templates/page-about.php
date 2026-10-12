@@ -2,8 +2,8 @@
 /**
  * Template Name: Про нас (About)
  *
- * Mirrors reference page 17. Stat labels/numbers below are placeholders — the
- * originals ("Happy Clients / Towing Services / Projects Done") were Divi demo text.
+ * Mirrors reference page 17. The originals' stat labels ("Happy Clients / Towing
+ * Services / Projects Done") were Divi demo text.
  *
  * @package LeaderAuto
  */
@@ -14,27 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$steps = array(
-	__( 'Заявка або дзвінок', 'leaderauto' ),
-	__( 'Діагностика', 'leaderauto' ),
-	__( 'Узгодження', 'leaderauto' ),
-	__( 'Ремонт', 'leaderauto' ),
-	__( 'Видача авто', 'leaderauto' ),
-);
+$steps = leaderauto_lines( 'about', 'steps' );
 
 /*
- * Values as they settle on the reference (100% / 24/7 / 275+). The written spec
- * recorded 78 / 19 / 213 because Divi counts these up on scroll and the reading
- * was taken mid-animation. Labels are the reference's own, in Ukrainian — its
- * mobile build already used "Виконаних сервісів" for the third. The reference's
- * "Towing Services" was leftover Divi demo copy — LeaderAuto does not tow; per
- * the client the 24/7 figure means being reachable.
+ * Defaults are the values as they settle on the reference (100% / 24/7 / 275+);
+ * the written spec's 78 / 19 / 213 were read mid-animation. 'from' opts a tile
+ * into the count-up. Editable in wp-admin → Контент сайту → Про нас.
  */
-$stats = array(
-	array( 'n' => '100%', 'from' => 55, 'label' => __( 'Задоволених клієнтів', 'leaderauto' ) ),
-	array( 'n' => '24/7', 'label' => __( 'На зв’язку', 'leaderauto' ) ),
-	array( 'n' => '275+', 'from' => 199, 'label' => __( 'Виконаних сервісів', 'leaderauto' ) ),
-);
+$stats = leaderauto_rows( 'about', 'stats' );
 
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
@@ -56,7 +43,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 				<?php foreach ( $stats as $stat ) : ?>
 					<div class="stats__item">
 						<?php /* 'from' opts the tile into the count-up; 24/7 is not a quantity. */ ?>
-						<span class="stats__n"<?php echo isset( $stat['from'] ) ? ' data-count-from="' . esc_attr( (string) $stat['from'] ) . '"' : ''; ?>><?php echo esc_html( $stat['n'] ); ?></span>
+						<span class="stats__n"<?php echo '' !== ( $stat['from'] ?? '' ) ? ' data-count-from="' . esc_attr( (string) $stat['from'] ) . '"' : ''; ?>><?php echo esc_html( $stat['n'] ); ?></span>
 						<span class="stats__label"><?php echo esc_html( $stat['label'] ); ?></span>
 					</div>
 				<?php endforeach; ?>
