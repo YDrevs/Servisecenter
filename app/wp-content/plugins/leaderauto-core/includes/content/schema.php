@@ -5,8 +5,8 @@
  * renders exactly as before.
  *
  * Shape: page slug => [ 'title', 'sections' => [ [ 'title', 'fields' => [ key => field ] ] ] ].
- * Field: [ 'type' => text|textarea|url|image|lines, 'label', 'default', 'help'? ].
- * An image saves an attachment ID; its default is a path under the theme's assets/images/.
+ * Field: [ 'type' => text|textarea|url|image|video|lines, 'label', 'default', 'help'? ].
+ * An image or video saves an attachment ID; its default is a path under the theme's assets/images/.
  * `lines` is a textarea read as one item per line.
  * A repeater (see repeater()) holds rows of sub-fields; its default is the shipped rows.
  *
@@ -120,6 +120,7 @@ function build_schema(): array {
 					'fields' => array(
 						'services_shot'      => field( 'image', __( 'Фото зліва', 'leaderauto-core' ), 'detailing-19.webp' ),
 						'services_shot_over' => field( 'image', __( 'Фото авто поверх нього', 'leaderauto-core' ), 'services-byd.webp' ),
+						'services_video'     => field( 'video', __( 'Відео праворуч', 'leaderauto-core' ), 'r2d2.mp4', __( 'Вертикальне відео (9:16), MP4. До 64 МБ.', 'leaderauto-core' ) ),
 						'services_title'     => field( 'text', $title, 'Наші послуги' ),
 						'services_groups'    => repeater(
 							__( 'Картки послуг', 'leaderauto-core' ),
@@ -423,7 +424,9 @@ function build_schema(): array {
 				array(
 					'title'  => __( 'Відео', 'leaderauto-core' ),
 					'fields' => array(
-						'video_title' => field( 'text', $title, 'BYD Sea Lion 08 — дебют' ),
+						'video_title'  => field( 'text', $title, 'BYD Sea Lion 08 — дебют' ),
+						'video'        => field( 'video', __( 'Відео', 'leaderauto-core' ), 'sea-lion-08-debut.mp4', __( 'MP4, до 64 МБ.', 'leaderauto-core' ) ),
+						'video_poster' => field( 'image', __( 'Обкладинка відео', 'leaderauto-core' ), 'byd.jpg', __( 'Картинка, яку видно до натискання «Відтворити».', 'leaderauto-core' ) ),
 					),
 				),
 				array(

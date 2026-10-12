@@ -126,7 +126,8 @@ class Admin {
 	private function control( array $field, string $id, string $name, string $value, string $default ): void {
 		switch ( $field['type'] ) {
 			case 'image':
-				$this->image_field( $id, $name, $value, $default );
+			case 'video':
+				$this->media_field( $field['type'], $id, $name, $value, $default );
 				break;
 			case 'checkbox':
 				printf(
@@ -160,24 +161,30 @@ class Admin {
 	/**
 	 * Hidden value input plus preview; content.js opens the media library.
 	 * The value is an attachment ID, a path under the theme's assets/images/, or ''.
-	 * With a $default, '' means that bundled file; without one, '' means no image.
+	 * With a $default, '' means that bundled file; without one, '' means no file.
+	 *
+	 * @param string $kind image|video — the library filter and the preview element.
 	 */
-	private function image_field( string $id, string $name, string $value, string $default ): void {
+	private function media_field( string $kind, string $id, string $name, string $value, string $default ): void {
 		// Bundled images ship in the active theme's assets/images/.
 		$base        = get_stylesheet_directory_uri() . '/assets/images/';
 		$default_url = '' === $default ? '' : $base . $default;
 		if ( ctype_digit( $value ) ) {
-			$preview = (string) wp_get_attachment_image_url( (int) $value, 'medium' );
+			$preview = (string) ( 'video' === $kind ? wp_get_attachment_url( (int) $value ) : wp_get_attachment_image_url( (int) $value, 'medium' ) );
 		} else {
 			$preview = '' === $value || ( $default && $value === $default ) ? $default_url : $base . $value;
 		}
 		$is_default = '' === $value || $value === $default;
 		?>
-		<div class="la-image" data-default-url="<?php echo esc_url( $default_url ); ?>">
-			<img class="la-image__preview" src="<?php echo esc_url( $preview ); ?>" alt="">
+		<div class="la-image" data-kind="<?php echo esc_attr( $kind ); ?>" data-default-url="<?php echo esc_url( $default_url ); ?>">
+			<?php if ( 'video' === $kind ) : ?>
+				<video class="la-image__preview" src="<?php echo esc_url( $preview ); ?>" controls preload="metadata"></video>
+			<?php else : ?>
+				<img class="la-image__preview" src="<?php echo esc_url( $preview ); ?>" alt="">
+			<?php endif; ?>
 			<input type="hidden" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $name ); ?>" value="<?php echo esc_attr( $value === $default ? '' : $value ); ?>">
 			<p>
-				<button type="button" class="button la-image__pick"><?php esc_html_e( 'Обрати зображення', 'leaderauto-core' ); ?></button>
+				<button type="button" class="button la-image__pick"><?php 'video' === $kind ? esc_html_e( 'Обрати відео', 'leaderauto-core' ) : esc_html_e( 'Обрати зображення', 'leaderauto-core' ); ?></button>
 				<button type="button" class="button-link la-image__reset"<?php echo $is_default ? ' hidden' : ''; ?>><?php '' === $default ? esc_html_e( 'Прибрати', 'leaderauto-core' ) : esc_html_e( 'Повернути початкове', 'leaderauto-core' ); ?></button>
 			</p>
 		</div>
@@ -276,8 +283,12 @@ class Admin {
 			case 'url':
 				return esc_url_raw( trim( $raw ) );
 			case 'image':
+			case 'video':
 				if ( ctype_digit( $raw ) ) {
-					return wp_attachment_is_image( (int) $raw ) ? $raw : '';
+					$ok = 'image' === $type
+						? wp_attachment_is_image( (int) $raw )
+						: str_starts_with( (string) get_post_mime_type( (int) $raw ), 'video/' );
+					return $ok ? $raw : '';
 				}
 				// A bundled default carried over from the shipped rows: a plain relative path.
 				return preg_match( '#^[A-Za-z0-9_-][A-Za-z0-9_./-]*$#', $raw ) && false === strpos( $raw, '..' ) ? $raw : '';

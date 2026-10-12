@@ -66,3 +66,9 @@
 	margin-bottom: 6px;
 	border: 1px dashed #8c8f94;
 }
+
+video.la-image__preview {
+	max-width: 320px;
+	max-height: 240px;
+	background: #000;
+}

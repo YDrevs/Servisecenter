@@ -1,5 +1,5 @@
 /**
- * «Контент сайту» screens: image fields pick from the media library, and
+ * «Контент сайту» screens: image and video fields pick from the media library, and
  * repeaters add, remove and reorder rows.
  * An image's hidden input holds an attachment ID; empty means the default image
  * (or none, inside a repeater row).
@@ -7,10 +7,11 @@
 ( function ( $ ) {
 	$( document ).on( 'click', '.la-image__pick', function () {
 		var $box = $( this ).closest( '.la-image' );
+		var kind = $box.data( 'kind' ) || 'image';
 		var frame = wp.media( {
-			title: 'Оберіть зображення',
+			title: 'video' === kind ? 'Оберіть відео' : 'Оберіть зображення',
 			button: { text: 'Використати' },
-			library: { type: 'image' },
+			library: { type: kind },
 			multiple: false,
 		} );
 

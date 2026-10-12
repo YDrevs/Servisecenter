@@ -45,7 +45,7 @@ foreach ( leaderauto_rows( 'home', 'services_groups' ) as $row ) {
 			<div class="services__aside">
 				<?php /* Portrait 720x1280 clip — no poster, the first frame stands in. */ ?>
 				<video class="video video--portrait" controls preload="metadata">
-					<source src="<?php echo esc_url( leaderauto_img( 'r2d2.mp4' ) ); ?>" type="video/mp4">
+					<source src="<?php echo esc_url( leaderauto_media_url( leaderauto_field( 'home', 'services_video' ) ) ); ?>" type="video/mp4">
 				</video>
 			</div>
 		</div>

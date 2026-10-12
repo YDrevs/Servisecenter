@@ -63,6 +63,8 @@ services:
       # --- the new build, live-mounted so edits show immediately ---
       - ./app/wp-content/themes/leaderauto:/var/www/html/wp-content/themes/leaderauto
       - ./app/wp-content/plugins/leaderauto-core:/var/www/html/wp-content/plugins/leaderauto-core
+      # --- same upload limits as the production image ---
+      - ./app/docker/php/uploads.ini:/usr/local/etc/php/conf.d/leaderauto-uploads.ini:ro
 
   # `docker compose run --rm wpcli wp <args>`  (see `make wp`)
   wpcli:

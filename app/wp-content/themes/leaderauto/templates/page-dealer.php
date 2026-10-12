@@ -143,8 +143,8 @@ foreach ( leaderauto_rows( 'dealer', 'models' ) as $row ) {
 	<section class="section section--surface">
 		<div class="section__inner">
 			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'video_title' ) ); ?></h2>
-			<video class="video" controls preload="metadata" poster="<?php echo esc_url( leaderauto_img( 'byd.jpg' ) ); ?>">
-				<source src="<?php echo esc_url( leaderauto_img( 'sea-lion-08-debut.mp4' ) ); ?>" type="video/mp4">
+			<video class="video" controls preload="metadata" poster="<?php echo esc_url( leaderauto_field_img( 'dealer', 'video_poster' ) ); ?>">
+				<source src="<?php echo esc_url( leaderauto_media_url( leaderauto_field( 'dealer', 'video' ) ) ); ?>" type="video/mp4">
 			</video>
 		</div>
 	</section>
