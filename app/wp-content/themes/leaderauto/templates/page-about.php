@@ -2,8 +2,8 @@
 /**
  * Template Name: Про нас (About)
  *
- * Mirrors reference page 17. Stat labels/numbers below are placeholders — the
- * originals ("Happy Clients / Towing Services / Projects Done") were Divi demo text.
+ * Mirrors reference page 17. The originals' stat labels ("Happy Clients / Towing
+ * Services / Projects Done") were Divi demo text.
  *
  * @package LeaderAuto
  */
@@ -14,49 +14,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$steps = array(
-	__( 'Заявка або дзвінок', 'leaderauto' ),
-	__( 'Діагностика', 'leaderauto' ),
-	__( 'Узгодження', 'leaderauto' ),
-	__( 'Ремонт', 'leaderauto' ),
-	__( 'Видача авто', 'leaderauto' ),
-);
+$steps = leaderauto_lines( 'about', 'steps' );
 
 /*
- * Values as they settle on the reference (100% / 24/7 / 275+). The written spec
- * recorded 78 / 19 / 213 because Divi counts these up on scroll and the reading
- * was taken mid-animation. Labels are the reference's own, in Ukrainian — its
- * mobile build already used "Виконаних сервісів" for the third. The reference's
- * "Towing Services" was leftover Divi demo copy — LeaderAuto does not tow; per
- * the client the 24/7 figure means being reachable.
+ * Defaults are the values as they settle on the reference (100% / 24/7 / 275+);
+ * the written spec's 78 / 19 / 213 were read mid-animation. 'from' opts a tile
+ * into the count-up. Editable in wp-admin → Контент сайту → Про нас.
  */
-$stats = array(
-	array( 'n' => '100%', 'from' => 55, 'label' => __( 'Задоволених клієнтів', 'leaderauto' ) ),
-	array( 'n' => '24/7', 'label' => __( 'На зв’язку', 'leaderauto' ) ),
-	array( 'n' => '275+', 'from' => 199, 'label' => __( 'Виконаних сервісів', 'leaderauto' ) ),
-);
+$stats = leaderauto_rows( 'about', 'stats' );
 
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
 <article class="page-shell">
-	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'detailing-13.jpg' ) ); ?>');">
+	<header class="page-shell__head" style="--page-bg: url('<?php echo esc_url( leaderauto_field_img( 'about', 'head_bg' ) ); ?>');">
 		<div class="page-shell__inner">
-			<h1 class="page-shell__title"><?php esc_html_e( 'Про нас', 'leaderauto' ); ?></h1>
-			<p class="page-shell__lead"><?php esc_html_e( 'Експертний сервіс для сучасних електромобілів.', 'leaderauto' ); ?></p>
+			<h1 class="page-shell__title"><?php echo esc_html( leaderauto_field( 'about', 'head_title' ) ); ?></h1>
+			<p class="page-shell__lead"><?php echo esc_html( leaderauto_field( 'about', 'head_lead' ) ); ?></p>
 		</div>
 	</header>
 
 	<section class="section section--wedge-tr">
 		<div class="section__inner">
 			<p>
-				<?php esc_html_e( 'Ми спеціалізуємось на обслуговуванні та ремонті електромобілів, з акцентом на BYD та інші сучасні EV-платформи. Працюємо як з технічною частиною, так і з програмною — від діагностики до кодування блоків.', 'leaderauto' ); ?>
+				<?php echo esc_html( leaderauto_field( 'about', 'intro' ) ); ?>
 			</p>
 			<div class="stats">
 				<?php foreach ( $stats as $stat ) : ?>
 					<div class="stats__item">
 						<?php /* 'from' opts the tile into the count-up; 24/7 is not a quantity. */ ?>
-						<span class="stats__n"<?php echo isset( $stat['from'] ) ? ' data-count-from="' . esc_attr( (string) $stat['from'] ) . '"' : ''; ?>><?php echo esc_html( $stat['n'] ); ?></span>
+						<span class="stats__n"<?php echo '' !== ( $stat['from'] ?? '' ) ? ' data-count-from="' . esc_attr( (string) $stat['from'] ) . '"' : ''; ?>><?php echo esc_html( $stat['n'] ); ?></span>
 						<span class="stats__label"><?php echo esc_html( $stat['label'] ); ?></span>
 					</div>
 				<?php endforeach; ?>
@@ -66,7 +53,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 
 	<section class="section section--dark section--divided">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'Як ми працюємо', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'steps_title' ) ); ?></h2>
 			<ol class="steps">
 				<?php foreach ( $steps as $i => $step ) : ?>
 					<li class="steps__item">
@@ -87,16 +74,16 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 
 	<section class="section">
 		<div class="section__inner media-pair">
-			<img src="<?php echo esc_url( leaderauto_img( 'detailing-14.png' ) ); ?>" alt="<?php esc_attr_e( 'Робота з електромобілем у сервісі', 'leaderauto' ); ?>" loading="lazy">
-			<img src="<?php echo esc_url( leaderauto_img( 'detailing-15.png' ) ); ?>" alt="<?php esc_attr_e( 'Обладнання сервісу LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+			<img src="<?php echo esc_url( leaderauto_field_img( 'about', 'image_1' ) ); ?>" alt="<?php esc_attr_e( 'Робота з електромобілем у сервісі', 'leaderauto' ); ?>" loading="lazy">
+			<img src="<?php echo esc_url( leaderauto_field_img( 'about', 'image_2' ) ); ?>" alt="<?php esc_attr_e( 'Обладнання сервісу LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
 		</div>
 	</section>
 
 	<section class="section section--dark cta-band">
 		<div class="section__inner">
-			<h2 class="section__title"><?php esc_html_e( 'Потрібна діагностика або ремонт електромобіля?', 'leaderauto' ); ?></h2>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'cta_title' ) ); ?></h2>
 			<p class="cta-band__row">
-				<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php esc_html_e( 'Залишити заявку', 'leaderauto' ); ?></a>
+				<a class="btn btn--light" href="<?php echo esc_url( $cta_url ); ?>"><?php echo esc_html( leaderauto_field( 'about', 'cta_button' ) ); ?></a>
 				<a class="btn btn--ghost" href="<?php echo esc_attr( leaderauto_phone_href() ); ?>"><?php echo esc_html( leaderauto_phone() ); ?></a>
 			</p>
 		</div>

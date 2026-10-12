@@ -20,61 +20,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-$categories = array(
-	array( 'icon' => '◈', 'title' => __( 'Кузов та оптика', 'leaderauto' ),   'text' => __( 'Фари, бампери, крила, дзеркала', 'leaderauto' ), 'img' => 'Parts/byd_avtomobil.webp' ),
-	array( 'icon' => '⌁', 'title' => __( 'Ходова частина', 'leaderauto' ),    'text' => __( 'Важелі, амортизатори, ступиці', 'leaderauto' ), 'img' => 'Parts/hodova2.webp' ),
-	array( 'icon' => '◎', 'title' => __( 'Гальмівна система', 'leaderauto' ), 'text' => __( 'Диски, колодки, супорти', 'leaderauto' ), 'img' => 'Parts/galma_disk.webp' ),
-	array( 'icon' => '⌘', 'title' => __( 'Електроніка', 'leaderauto' ),       'text' => __( 'Блоки, датчики, модулі', 'leaderauto' ), 'img' => 'Parts/EBU.webp' ),
-	array( 'icon' => '▣', 'title' => __( 'Батарея та HV', 'leaderauto' ),     'text' => __( 'Високовольтні компоненти', 'leaderauto' ), 'img' => 'Parts/baterry.webp' ),
-	array( 'icon' => 'ϟ', 'title' => __( 'Зарядна система', 'leaderauto' ),   'text' => __( 'Порти, модулі, кабелі', 'leaderauto' ), 'img' => 'Parts/zaryad2_foto.webp' ),
-	array( 'icon' => '◇', 'title' => __( 'Салон', 'leaderauto' ),             'text' => __( 'Дисплеї, пластик, кнопки', 'leaderauto' ), 'img' => 'Parts/salon.webp' ),
-	array( 'icon' => '✦', 'title' => __( 'ТО та витратники', 'leaderauto' ),  'text' => __( 'Фільтри, рідини, щітки', 'leaderauto' ), 'img' => 'Parts/servise.webp' ),
+// Lists below are editable in wp-admin → Контент сайту → Запчастини. Image values
+// become URLs here; an empty one falls back to the glyph.
+$categories = array_map(
+	static fn( array $row ): array => array( 'img' => leaderauto_media_url( $row['img'] ) ) + $row,
+	leaderauto_rows( 'parts', 'categories' )
 );
 
-// Brand => logo in assets/images/logo_cars/. The brand name is what lands in the form's vehicle field.
-$models = array(
-	'Changan'      => 'changan.webp',
-	'BYD'          => 'byd.webp',
-	'Audi'         => 'audi.webp',
-	'Chery'        => 'chery.webp',
-	'Denza'        => 'denza.webp',
-	'Fangchengbao' => 'fangchengbao.webp',
-	'Honda'        => 'honda.webp',
-	'DFSK'         => 'dfsk.webp',
-	'Hyundai'      => 'hyundai.webp',
-	'Kia'          => 'kia.webp',
-	'MG'           => 'mg.webp',
-	'Nissan'       => 'nissan.webp',
-	'Toyota'       => 'toyota.webp',
-	'Volkswagen'   => 'volkswagen.webp',
-	'Zeekr'        => 'zeekr.webp',
+// The brand name is what lands in the form's vehicle field.
+$brands = leaderauto_rows( 'parts', 'brands' );
+
+$popular = array_map(
+	static fn( array $row ): array => array(
+		'img'   => leaderauto_media_url( $row['img'] ),
+		'badge' => leaderauto_media_url( $row['badge'] ),
+	) + $row,
+	leaderauto_rows( 'parts', 'popular' )
 );
 
-// TODO(content): real photos per part once the client supplies them.
-$popular = array(
-	array( 'icon' => '◫', 'title' => __( 'Передня оптика BYD', 'leaderauto' ),   'part' => __( 'Передня оптика BYD', 'leaderauto' ), 'img' => 'Parts/fara.webp', 'badge' => 'Parts/fara_icon.webp' ),
-	array( 'icon' => '◎', 'title' => __( 'Гальмівні колодки', 'leaderauto' ),    'part' => __( 'Гальмівні колодки', 'leaderauto' ), 'img' => 'Parts/galmdisk_foto.webp', 'badge' => 'Parts/galmo_icon.webp' ),
-	array( 'icon' => 'ϟ', 'title' => __( 'Порти та модулі', 'leaderauto' ),      'part' => __( 'Порт або зарядний модуль', 'leaderauto' ), 'img' => 'Parts/zaryad_foto.webp', 'badge' => 'Parts/zaryadka_icon.webp' ),
-	array( 'icon' => '⌁', 'title' => __( 'Підвіска та ступиці', 'leaderauto' ), 'part' => __( 'Запчастини ходової частини', 'leaderauto' ), 'img' => 'Parts/Hodova_foto.webp', 'badge' => 'Parts/servis_icon.webp' ),
-);
+$steps = leaderauto_lines( 'parts', 'install_steps' );
 
-$steps = array(
-	__( 'Підбір за VIN', 'leaderauto' ),
-	__( 'Перевірка сумісності', 'leaderauto' ),
-	__( 'Встановлення', 'leaderauto' ),
-	__( 'Діагностика', 'leaderauto' ),
-);
-
-$faq = array(
-	array(
-		'q' => __( 'Чи обов’язково знати номер запчастини?', 'leaderauto' ),
-		'a' => __( 'Ні. Для підбору можна використати VIN, модель авто, опис або фото.', 'leaderauto' ),
-	),
-	array(
-		'q' => __( 'Чи можна одразу встановити деталь?', 'leaderauto' ),
-		'a' => __( 'Так, встановлення та діагностику можна погодити із сервісним центром.', 'leaderauto' ),
-	),
-);
+$faq = leaderauto_rows( 'parts', 'faq_items' );
 
 $form_id = 'leaderauto-parts-form';
 ?>
@@ -90,29 +56,29 @@ $form_id = 'leaderauto-parts-form';
 		<a class="parts-banner__hit parts-banner__hit--vin" href="#request" data-parts-vin><span class="screen-reader-text"><?php esc_html_e( 'Знайти за VIN', 'leaderauto' ); ?></span></a>
 	</header>
 
-	<header class="page-shell__head parts-hero" style="--page-bg: url('<?php echo esc_url( leaderauto_img( 'tech-service.webp' ) ); ?>');">
+	<header class="page-shell__head parts-hero" style="--page-bg: url('<?php echo esc_url( leaderauto_field_img( 'parts', 'hero_bg' ) ); ?>');">
 		<div class="page-shell__inner">
-			<p class="section__kicker"><?php esc_html_e( 'Запчастини для EV', 'leaderauto' ); ?></p>
-			<h1 class="page-shell__title"><?php esc_html_e( 'Запчастини для BYD та електромобілів', 'leaderauto' ); ?></h1>
-			<p class="page-shell__lead"><?php esc_html_e( 'Оригінальні та перевірені запчастини для BYD, Tesla, Zeekr та інших EV. Підберемо за VIN, перевіримо сумісність та допоможемо з установкою.', 'leaderauto' ); ?></p>
+			<p class="section__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'hero_kicker' ) ); ?></p>
+			<h1 class="page-shell__title"><?php echo esc_html( leaderauto_field( 'parts', 'hero_title' ) ); ?></h1>
+			<p class="page-shell__lead"><?php echo esc_html( leaderauto_field( 'parts', 'hero_lead' ) ); ?></p>
 			<p class="cta-band__row">
-				<a class="btn btn--light" href="#request"><?php esc_html_e( 'Підібрати запчастину', 'leaderauto' ); ?></a>
-				<a class="btn btn--ghost" href="#request" data-parts-vin><?php esc_html_e( 'Знайти за VIN', 'leaderauto' ); ?></a>
+				<a class="btn btn--light" href="#request"><?php echo esc_html( leaderauto_field( 'parts', 'hero_button_pick' ) ); ?></a>
+				<a class="btn btn--ghost" href="#request" data-parts-vin><?php echo esc_html( leaderauto_field( 'parts', 'hero_button_vin' ) ); ?></a>
 			</p>
 		</div>
 	</header>
 
 	<section class="section" id="categories">
 		<div class="section__inner">
-			<p class="section__kicker parts__kicker"><?php esc_html_e( 'Категорії', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Що саме потрібно?', 'leaderauto' ); ?></h2>
-			<p class="parts__lead"><?php esc_html_e( 'Оберіть категорію — вона автоматично підставиться у заявку.', 'leaderauto' ); ?></p>
+			<p class="section__kicker parts__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'categories_kicker' ) ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'categories_title' ) ); ?></h2>
+			<p class="parts__lead"><?php echo esc_html( leaderauto_field( 'parts', 'categories_lead' ) ); ?></p>
 			<div class="cards cards--4">
 				<?php foreach ( $categories as $cat ) : ?>
 					<button class="parts-cat<?php echo empty( $cat['img'] ) ? '' : ' parts-cat--pic'; ?>" type="button" data-parts-category="<?php echo esc_attr( $cat['title'] ); ?>">
 						<span class="parts-cat__icon" aria-hidden="true"><?php echo esc_html( $cat['icon'] ); ?></span>
 						<?php if ( ! empty( $cat['img'] ) ) : ?>
-							<img class="parts-cat__pic" src="<?php echo esc_url( leaderauto_img( $cat['img'] ) ); ?>" alt="" width="900" height="483" loading="lazy">
+							<img class="parts-cat__pic" src="<?php echo esc_url( $cat['img'] ); ?>" alt="" width="900" height="483" loading="lazy">
 						<?php endif; ?>
 						<span class="parts-cat__title"><?php echo esc_html( $cat['title'] ); ?></span>
 						<span class="parts-cat__text"><?php echo esc_html( $cat['text'] ); ?></span>
@@ -122,14 +88,18 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section parts-pick" id="models" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Parts/baner3.webp' ) ); ?>');">
+	<section class="section parts-pick" id="models" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'parts', 'models_bg' ) ); ?>');">
 		<div class="section__inner">
-			<p class="section__kicker"><?php esc_html_e( 'Підбір за авто', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Оберіть автомобіль', 'leaderauto' ); ?></h2>
+			<p class="section__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'models_kicker' ) ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'models_title' ) ); ?></h2>
 			<div class="parts-models">
-				<?php foreach ( $models as $brand => $logo ) : ?>
-					<button class="parts-models__chip" type="button" data-parts-model="<?php echo esc_attr( $brand ); ?>">
-						<img src="<?php echo esc_url( leaderauto_img( 'logo_cars/' . $logo ) ); ?>" alt="<?php echo esc_attr( $brand ); ?>" loading="lazy">
+				<?php foreach ( $brands as $brand ) : ?>
+					<button class="parts-models__chip" type="button" data-parts-model="<?php echo esc_attr( $brand['brand'] ); ?>">
+						<?php if ( '' !== $brand['logo'] ) : ?>
+							<img src="<?php echo esc_url( leaderauto_media_url( $brand['logo'] ) ); ?>" alt="<?php echo esc_attr( $brand['brand'] ); ?>" loading="lazy">
+						<?php else : ?>
+							<?php echo esc_html( $brand['brand'] ); ?>
+						<?php endif; ?>
 					</button>
 				<?php endforeach; ?>
 			</div>
@@ -138,8 +108,8 @@ $form_id = 'leaderauto-parts-form';
 
 	<section class="section" id="popular">
 		<div class="section__inner">
-			<p class="section__kicker parts__kicker"><?php esc_html_e( 'Популярні запити', 'leaderauto' ); ?></p>
-			<h2 class="section__title"><?php esc_html_e( 'Часто шукають', 'leaderauto' ); ?></h2>
+			<p class="section__kicker parts__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'popular_kicker' ) ); ?></p>
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'popular_title' ) ); ?></h2>
 			<div class="cards cards--4">
 				<?php foreach ( $popular as $item ) : ?>
 					<article class="card parts-item">
@@ -147,8 +117,10 @@ $form_id = 'leaderauto-parts-form';
 							<div class="parts-item__pic" aria-hidden="true"><?php echo esc_html( $item['icon'] ); ?></div>
 						<?php else : ?>
 							<div class="parts-item__pic parts-item__pic--photo" aria-hidden="true">
-								<img class="parts-item__img" src="<?php echo esc_url( leaderauto_img( $item['img'] ) ); ?>" alt="" loading="lazy">
-								<span class="parts-item__badge"><img src="<?php echo esc_url( leaderauto_img( $item['badge'] ) ); ?>" alt="" loading="lazy"></span>
+								<img class="parts-item__img" src="<?php echo esc_url( $item['img'] ); ?>" alt="" loading="lazy">
+								<?php if ( $item['badge'] ) : ?>
+									<span class="parts-item__badge"><img src="<?php echo esc_url( $item['badge'] ); ?>" alt="" loading="lazy"></span>
+								<?php endif; ?>
 							</div>
 						<?php endif; ?>
 						<h3 class="parts-item__title"><?php echo esc_html( $item['title'] ); ?></h3>
@@ -159,13 +131,13 @@ $form_id = 'leaderauto-parts-form';
 		</div>
 	</section>
 
-	<section class="section section--dark parts-install" id="install" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Parts/servise_bg.webp' ) ); ?>');">
+	<section class="section section--dark parts-install" id="install" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'parts', 'install_bg' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div>
-				<p class="section__kicker"><?php esc_html_e( 'Запчастини + сервіс', 'leaderauto' ); ?></p>
-				<h2 class="section__title"><?php esc_html_e( 'Не просто продаємо — можемо одразу встановити', 'leaderauto' ); ?></h2>
-				<p><?php esc_html_e( 'Підберемо сумісну запчастину, встановимо її у сервісному центрі та перевіримо роботу систем автомобіля.', 'leaderauto' ); ?></p>
-				<p class="section__actions"><a class="btn btn--light" href="#request"><?php esc_html_e( 'Підібрати запчастину', 'leaderauto' ); ?></a></p>
+				<p class="section__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'install_kicker' ) ); ?></p>
+				<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'install_title' ) ); ?></h2>
+				<p><?php echo esc_html( leaderauto_field( 'parts', 'install_text' ) ); ?></p>
+				<p class="section__actions"><a class="btn btn--light" href="#request"><?php echo esc_html( leaderauto_field( 'parts', 'install_button' ) ); ?></a></p>
 			</div>
 			<ol class="steps parts-steps">
 				<?php foreach ( $steps as $i => $step ) : ?>
@@ -178,9 +150,9 @@ $form_id = 'leaderauto-parts-form';
 	<section class="section section--surface" id="request">
 		<div class="section__inner parts-request">
 			<div>
-				<p class="section__kicker parts__kicker"><?php esc_html_e( 'Заявка', 'leaderauto' ); ?></p>
-				<h2 class="section__title"><?php esc_html_e( 'Знайдемо потрібну деталь', 'leaderauto' ); ?></h2>
-				<p class="parts__lead"><?php esc_html_e( 'Вкажіть автомобіль та VIN, опишіть деталь. Менеджер перевірить сумісність, наявність і вартість.', 'leaderauto' ); ?></p>
+				<p class="section__kicker parts__kicker"><?php echo esc_html( leaderauto_field( 'parts', 'request_kicker' ) ); ?></p>
+				<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'parts', 'request_title' ) ); ?></h2>
+				<p class="parts__lead"><?php echo esc_html( leaderauto_field( 'parts', 'request_lead' ) ); ?></p>
 				<ul class="parts-types">
 					<li><strong>Original</strong><?php esc_html_e( 'Оригінальні компоненти', 'leaderauto' ); ?></li>
 					<li><strong>OEM</strong><?php esc_html_e( 'Перевірені постачальники', 'leaderauto' ); ?></li>
@@ -240,7 +212,7 @@ $form_id = 'leaderauto-parts-form';
 	<section class="section section--dark" id="faq">
 		<div class="section__inner">
 			<div class="faq__head">
-				<h2 class="section__title faq__title"><?php esc_html_e( 'Часті запитання', 'leaderauto' ); ?></h2>
+				<h2 class="section__title faq__title"><?php echo esc_html( leaderauto_field( 'parts', 'faq_title' ) ); ?></h2>
 			</div>
 			<div class="faq">
 				<?php foreach ( $faq as $row ) : ?>

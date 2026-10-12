@@ -7,32 +7,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$faq = array(
-	array(
-		'q' => __( 'Ви працюєте тільки з BYD?', 'leaderauto' ),
-		'a' => __( 'Ні. BYD — наш профільний бренд, але ми обслуговуємо Honda, Zeekr, Volkswagen ID, Nissan Leaf та інші електромобілі.', 'leaderauto' ),
-	),
-	array(
-		'q' => __( 'Чи можна замовити запчастини у вас?', 'leaderauto' ),
-		'a' => __( 'Так. Замовляємо оригінальні деталі та перевірені аналоги, допомагаємо з підбором і доставкою.', 'leaderauto' ),
-	),
-	array(
-		'q' => __( 'Ви займаєтесь програмним ремонтом?', 'leaderauto' ),
-		'a' => __( 'Так: діагностика, оновлення ПЗ, кодування та адаптація блоків, усунення помилок.', 'leaderauto' ),
-	),
-	array(
-		'q' => __( 'Чи є гарантія?', 'leaderauto' ),
-		'a' => __( 'На виконані роботи та встановлені запчастини надаємо гарантію; умови узгоджуємо перед ремонтом.', 'leaderauto' ),
-	),
-	array(
-		'q' => __( 'Скільки часу займає діагностика?', 'leaderauto' ),
-		'a' => __( 'Базова діагностика — зазвичай протягом дня. Складніші випадки узгоджуємо окремо.', 'leaderauto' ),
-	),
-);
+$faq = leaderauto_rows( 'home', 'faq_items' );
 ?>
-<section class="section section--faq" id="faq" style="--sec-bg: url('<?php echo esc_url( leaderauto_img( 'Golovna/faq2.webp' ) ); ?>');">
+<section class="section section--faq" id="faq" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'home', 'faq_bg' ) ); ?>');">
 	<div class="section__inner">
-		<h2 class="section__title"><?php esc_html_e( 'Поширені запитання', 'leaderauto' ); ?></h2>
+		<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'home', 'faq_title' ) ); ?></h2>
 
 		<div class="faq">
 			<?php foreach ( $faq as $row ) : ?>

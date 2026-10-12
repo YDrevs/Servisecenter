@@ -32,6 +32,7 @@ COPY app/wp-content/themes/leaderauto   /var/www/html/wp-content/themes/leaderau
 COPY app/wp-content/plugins/leaderauto-core /var/www/html/wp-content/plugins/leaderauto-core
 COPY app/docker/php/postdeploy.sh       /usr/local/bin/leaderauto-postdeploy
 COPY app/docker/php/entrypoint.sh       /usr/local/bin/leaderauto-entrypoint
+COPY app/docker/php/uploads.ini         /usr/local/etc/php/conf.d/leaderauto-uploads.ini
 
 # Built assets come from stage 1, never from the context — this also overwrites
 # a stale dist/ that a local build may have left in the theme directory.
