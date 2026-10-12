@@ -8,3 +8,6 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 delete_option( 'leaderauto_core_settings' );
+foreach ( array( 'contacts' ) as $page ) {
+	delete_option( 'leaderauto_content_' . $page );
+}

@@ -1,6 +1,7 @@
 <?php
 /**
- * Small presentation helpers. Single source of truth for on-site contact details.
+ * Small presentation helpers. Contact details come from leaderauto-core
+ * (wp-admin → Контент сайту → Контакти) and are read only through these functions.
  *
  * @package LeaderAuto
  */
@@ -9,45 +10,65 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Editable content from leaderauto-core (Контент сайту in wp-admin). Empty if the
+ * plugin is inactive — the plugin owns the defaults.
+ */
+function leaderauto_field( string $page, string $key ): string {
+	return function_exists( 'leaderauto_content' ) ? leaderauto_content( $page, $key ) : '';
+}
+
+/**
+ * Digits of a phone number as written on the site, in international form.
+ * A local 0XX… number gets the 38 country prefix.
+ */
+function leaderauto_phone_digits( string $phone ): string {
+	$digits = preg_replace( '/\D+/', '', $phone );
+	if ( 10 === strlen( $digits ) && '0' === $digits[0] ) {
+		$digits = '38' . $digits;
+	}
+	return $digits;
+}
+
 function leaderauto_phone(): string {
-	return '+38 (098) 089-90-90';
+	return leaderauto_field( 'contacts', 'phone' );
 }
 
 function leaderauto_phone_href(): string {
-	return 'tel:+380980899090';
+	return 'tel:+' . leaderauto_phone_digits( leaderauto_phone() );
 }
 
-/** Second line, listed after the main number where both are shown. Also the Viber number. */
+/** Second line, listed after the main number where both are shown. */
 function leaderauto_phone_alt(): string {
-	return '+380 (95) 066 29 21';
+	return leaderauto_field( 'contacts', 'phone_alt' );
 }
 
 function leaderauto_phone_alt_href(): string {
-	return 'tel:+380950662921';
+	return 'tel:+' . leaderauto_phone_digits( leaderauto_phone_alt() );
 }
 
 function leaderauto_viber(): string {
-	return '(095) 066 29 21';
+	return leaderauto_field( 'contacts', 'viber' );
 }
 
 function leaderauto_viber_href(): string {
-	return 'viber://chat?number=%2B380950662921';
+	return 'viber://chat?number=%2B' . leaderauto_phone_digits( leaderauto_viber() );
 }
 
 function leaderauto_telegram(): string {
-	return '@V_P_97';
+	return leaderauto_field( 'contacts', 'telegram' );
 }
 
 function leaderauto_telegram_href(): string {
-	return 'https://t.me/V_P_97';
+	return 'https://t.me/' . ltrim( leaderauto_telegram(), '@' );
 }
 
 function leaderauto_instagram_href(): string {
-	return 'https://www.instagram.com/lider_avto_/';
+	return leaderauto_field( 'contacts', 'instagram' );
 }
 
 function leaderauto_address(): string {
-	return 'вул. Коломийська, 1 «З», Чернівці, 58007';
+	return leaderauto_field( 'contacts', 'address' );
 }
 
 /**
