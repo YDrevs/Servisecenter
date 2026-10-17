@@ -103,7 +103,16 @@ manager note, search by phone, bulk status change. Spec and manager guide:
 `lead.created` and `lead.status_changed` (with `previous_status`). Synchronous, 5 s timeout;
 on failure WP-Cron retries after 1 / 5 / 30 min (4 attempts total). Result per lead in
 `_la_make_status` / `_la_make_at`, shown in the lead's «Доставка» box. The lead object is
-`Leads::to_array()` — reuse it for the CRM API. Setup guide: `docs/documentation/make-setup-guide.md`. Delivery targets come from
+`Leads::to_array()` — reuse it for the CRM API. Setup guide: `docs/documentation/make-setup-guide.md`.
+
+**CRM API** (`includes/class-rest-leads.php`): `GET /leaderauto/v1/leads`
+(`updated_since`, `status`, `page`, `per_page` ≤ 100; sorted by modified ↑, id ↑),
+`GET /leads/{id}`, `PATCH /leads/{id}` (`status` and/or `note`). Auth: `X-Api-Key` header,
+compared with `hash_equals` against `LEADERAUTO_CRM_API_KEY` / Settings → LeaderAuto
+(≥ 32 chars; empty = API off → `503`). `PATCH` writes the note before `wp_update_post`, so a
+status change fires `lead.status_changed` to Make with the fresh note. Lead JSON is
+`Leads::to_array()` (+ `updated_at`), entity-decoded to plain text. Developer guide:
+`docs/documentation/crm-api.md`. Delivery targets come from
 **env constants first** (`LEADERAUTO_CONTACT_EMAIL`, `LEADERAUTO_TELEGRAM_TOKEN`,
 `LEADERAUTO_TELEGRAM_CHAT_ID`), then the **Settings → LeaderAuto** screen.
 

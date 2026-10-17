@@ -56,6 +56,7 @@ wp-admin → **Налаштування → LeaderAuto**:
 | `test` | лише в тестовій події: `true` |
 | `lead.id` | `152` — номер заявки, стабільний ключ для таблиць і CRM |
 | `lead.created_at` | дата заявки |
+| `lead.updated_at` | дата останньої зміни заявки |
 | `lead.name`, `lead.phone`, `lead.car`, `lead.message` | як написав клієнт |
 | `lead.phone_digits` | телефон лише цифрами: `0950662921` |
 | `lead.status` | `la_new` · `la_progress` · `la_done` · `la_cancel` |
