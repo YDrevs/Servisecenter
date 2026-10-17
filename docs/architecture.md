@@ -88,9 +88,14 @@ buttons. Encoded once in `theme.json` (editor + `--wp--preset--*`) and in
 ## leaderauto-core
 
 `POST /wp-json/leaderauto/v1/contact` — honeypot + per-IP throttle (120s) + field
-validation (`name`, `phone` required; `car`, `message` optional). On success: `wp_mail`
-to the configured address (falls back to `admin_email`) and Telegram `sendMessage` if a
-token + chat id are set; if both channels fail → `502`. Delivery targets come from
+validation (`name`, `phone` required; `car`, `message` optional). On success the
+submission is first **stored as a lead** (`la_lead` post, status `la_new`), then sent by
+`wp_mail` to the configured address (falls back to `admin_email`) and Telegram
+`sendMessage` if a token + chat id are set. `502` only if the lead couldn't be saved
+**and** both channels failed. Leads are managed in wp-admin → **Заявки**
+(`includes/class-leads.php`): statuses `la_new` / `la_progress` / `la_done` / `la_cancel`,
+manager note, search by phone, bulk status change. Spec and manager guide:
+`docs/documentation/`. Delivery targets come from
 **env constants first** (`LEADERAUTO_CONTACT_EMAIL`, `LEADERAUTO_TELEGRAM_TOKEN`,
 `LEADERAUTO_TELEGRAM_CHAT_ID`), then the **Settings → LeaderAuto** screen.
 
