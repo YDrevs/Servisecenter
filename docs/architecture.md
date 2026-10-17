@@ -95,7 +95,15 @@ submission is first **stored as a lead** (`la_lead` post, status `la_new`), then
 **and** both channels failed. Leads are managed in wp-admin → **Заявки**
 (`includes/class-leads.php`): statuses `la_new` / `la_progress` / `la_done` / `la_cancel`,
 manager note, search by phone, bulk status change. Spec and manager guide:
-`docs/documentation/`. Delivery targets come from
+`docs/documentation/`.
+
+**Make.com** (`includes/class-make-webhook.php`): if a webhook URL is set
+(`LEADERAUTO_MAKE_WEBHOOK_URL`, then Settings → LeaderAuto; optional
+`LEADERAUTO_MAKE_API_KEY` → `x-make-apikey` header), the site POSTs JSON events
+`lead.created` and `lead.status_changed` (with `previous_status`). Synchronous, 5 s timeout;
+on failure WP-Cron retries after 1 / 5 / 30 min (4 attempts total). Result per lead in
+`_la_make_status` / `_la_make_at`, shown in the lead's «Доставка» box. The lead object is
+`Leads::to_array()` — reuse it for the CRM API. Setup guide: `docs/documentation/make-setup-guide.md`. Delivery targets come from
 **env constants first** (`LEADERAUTO_CONTACT_EMAIL`, `LEADERAUTO_TELEGRAM_TOKEN`,
 `LEADERAUTO_TELEGRAM_CHAT_ID`), then the **Settings → LeaderAuto** screen.
 
