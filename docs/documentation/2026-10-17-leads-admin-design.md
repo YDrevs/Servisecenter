@@ -29,7 +29,7 @@
 | Що | Де |
 |---|---|
 | Ім'я | `post_title` + meta `_la_name` |
-| Телефон | meta `_la_phone` |
+| Телефон | meta `_la_phone` + `_la_phone_digits` (лише цифри — для пошуку) |
 | Авто | meta `_la_car` |
 | Повідомлення | `post_content` |
 | Дата створення | `post_date` |

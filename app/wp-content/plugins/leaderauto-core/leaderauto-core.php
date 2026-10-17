@@ -19,6 +19,7 @@ define( 'LEADERAUTO_CORE_DIR', plugin_dir_path( __FILE__ ) );
 
 require LEADERAUTO_CORE_DIR . 'includes/helpers.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-settings.php';
+require LEADERAUTO_CORE_DIR . 'includes/class-leads.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-rest-contact.php';
 require LEADERAUTO_CORE_DIR . 'includes/content/schema.php';
 require LEADERAUTO_CORE_DIR . 'includes/content/class-content-admin.php';
@@ -41,6 +42,7 @@ function leaderauto_content_rows( string $page, string $key ): array {
 
 add_action( 'plugins_loaded', static function () {
 	( new \LeaderAuto\Core\Settings() )->hooks();
+	( new \LeaderAuto\Core\Leads() )->hooks();
 	( new \LeaderAuto\Core\Rest_Contact() )->hooks();
 	( new \LeaderAuto\Core\Content\Admin() )->hooks();
 } );
