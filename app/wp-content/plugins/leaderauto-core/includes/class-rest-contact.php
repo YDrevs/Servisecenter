@@ -96,6 +96,7 @@ class Rest_Contact {
 		$sent_telegram = $this->send_telegram( $payload );
 		if ( $lead_id ) {
 			Leads::set_delivery( $lead_id, $sent_mail, $sent_telegram );
+			Make_Webhook::send( 'lead.created', $lead_id );
 		}
 
 		// A saved lead is enough: the manager sees it in wp-admin even if delivery failed.

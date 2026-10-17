@@ -282,10 +282,13 @@ class Leads {
 			$v = get_post_meta( $post->ID, $key, true );
 			return '' === $v ? '—' : ( '1' === $v ? '✓' : '✗' );
 		};
+		$make_at = (int) get_post_meta( $post->ID, '_la_make_at', true );
 		printf(
-			'<p>E-mail: %s<br>Telegram: %s</p>',
+			'<p>E-mail: %s<br>Telegram: %s<br>Make.com: %s%s</p>',
 			esc_html( $mark( '_la_delivered_mail' ) ),
-			esc_html( $mark( '_la_delivered_tg' ) )
+			esc_html( $mark( '_la_delivered_tg' ) ),
+			esc_html( $mark( '_la_make_status' ) ),
+			$make_at ? ' <span class="description">(' . esc_html( wp_date( 'd.m.Y H:i', $make_at ) ) . ')</span>' : ''
 		);
 	}
 
@@ -352,5 +355,32 @@ class Leads {
 	public static function set_delivery( int $id, bool $mail, bool $tg ): void {
 		update_post_meta( $id, '_la_delivered_mail', $mail ? '1' : '0' );
 		update_post_meta( $id, '_la_delivered_tg', $tg ? '1' : '0' );
+	}
+
+	/**
+	 * A lead as plain data for integrations (Make.com, CRM). Empty if not a lead.
+	 *
+	 * @return array<string,int|string>
+	 */
+	public static function to_array( int $id ): array {
+		$post = get_post( $id );
+		if ( ! $post || self::POST_TYPE !== $post->post_type ) {
+			return array();
+		}
+		$created = get_post_datetime( $post );
+
+		return array(
+			'id'           => $post->ID,
+			'created_at'   => $created ? $created->format( DATE_ATOM ) : '',
+			'name'         => (string) get_post_meta( $post->ID, '_la_name', true ),
+			'phone'        => (string) get_post_meta( $post->ID, '_la_phone', true ),
+			'phone_digits' => (string) get_post_meta( $post->ID, '_la_phone_digits', true ),
+			'car'          => (string) get_post_meta( $post->ID, '_la_car', true ),
+			'message'      => $post->post_content,
+			'status'       => $post->post_status,
+			'status_label' => self::statuses()[ $post->post_status ] ?? $post->post_status,
+			'note'         => (string) get_post_meta( $post->ID, '_la_note', true ),
+			'admin_url'    => admin_url( 'post.php?post=' . $post->ID . '&action=edit' ),
+		);
 	}
 }

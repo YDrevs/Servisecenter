@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       LeaderAuto Core
- * Description:        Business logic for the LeaderAuto site — contact-form REST endpoint and delivery (e-mail + Telegram), editable site content. Kept separate from the theme so the design can change without losing functionality.
+ * Description:        Business logic for the LeaderAuto site — contact-form REST endpoint and delivery (e-mail + Telegram + Make.com), leads in wp-admin, editable site content. Kept separate from the theme so the design can change without losing functionality.
  * Version:           0.1.0
  * Requires at least: 6.5
  * Requires PHP:      8.1
@@ -20,6 +20,7 @@ define( 'LEADERAUTO_CORE_DIR', plugin_dir_path( __FILE__ ) );
 require LEADERAUTO_CORE_DIR . 'includes/helpers.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-settings.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-leads.php';
+require LEADERAUTO_CORE_DIR . 'includes/class-make-webhook.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-rest-contact.php';
 require LEADERAUTO_CORE_DIR . 'includes/content/schema.php';
 require LEADERAUTO_CORE_DIR . 'includes/content/class-content-admin.php';
@@ -43,6 +44,7 @@ function leaderauto_content_rows( string $page, string $key ): array {
 add_action( 'plugins_loaded', static function () {
 	( new \LeaderAuto\Core\Settings() )->hooks();
 	( new \LeaderAuto\Core\Leads() )->hooks();
+	( new \LeaderAuto\Core\Make_Webhook() )->hooks();
 	( new \LeaderAuto\Core\Rest_Contact() )->hooks();
 	( new \LeaderAuto\Core\Content\Admin() )->hooks();
 } );
