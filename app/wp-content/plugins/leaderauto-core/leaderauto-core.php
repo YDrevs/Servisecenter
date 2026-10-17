@@ -22,6 +22,7 @@ require LEADERAUTO_CORE_DIR . 'includes/class-settings.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-leads.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-make-webhook.php';
 require LEADERAUTO_CORE_DIR . 'includes/class-rest-contact.php';
+require LEADERAUTO_CORE_DIR . 'includes/class-rest-leads.php';
 require LEADERAUTO_CORE_DIR . 'includes/content/schema.php';
 require LEADERAUTO_CORE_DIR . 'includes/content/class-content-admin.php';
 
@@ -46,5 +47,6 @@ add_action( 'plugins_loaded', static function () {
 	( new \LeaderAuto\Core\Leads() )->hooks();
 	( new \LeaderAuto\Core\Make_Webhook() )->hooks();
 	( new \LeaderAuto\Core\Rest_Contact() )->hooks();
+	( new \LeaderAuto\Core\Rest_Leads() )->hooks();
 	( new \LeaderAuto\Core\Content\Admin() )->hooks();
 } );

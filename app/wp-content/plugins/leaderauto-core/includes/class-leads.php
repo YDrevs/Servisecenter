@@ -372,19 +372,26 @@ class Leads {
 		if ( ! $post || self::POST_TYPE !== $post->post_type ) {
 			return array();
 		}
-		$created = get_post_datetime( $post );
+		$created  = get_post_datetime( $post );
+		$modified = get_post_datetime( $post, 'modified' );
+		$labels   = self::statuses() + array( 'trash' => __( 'У кошику', 'leaderauto-core' ) );
+		// Stored text is entity-encoded (kses, sanitize_*); integrations get plain text.
+		$text = static function ( string $v ): string {
+			return html_entity_decode( $v, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+		};
 
 		return array(
 			'id'           => $post->ID,
 			'created_at'   => $created ? $created->format( DATE_ATOM ) : '',
-			'name'         => (string) get_post_meta( $post->ID, '_la_name', true ),
-			'phone'        => (string) get_post_meta( $post->ID, '_la_phone', true ),
+			'updated_at'   => $modified ? $modified->format( DATE_ATOM ) : '',
+			'name'         => $text( (string) get_post_meta( $post->ID, '_la_name', true ) ),
+			'phone'        => $text( (string) get_post_meta( $post->ID, '_la_phone', true ) ),
 			'phone_digits' => (string) get_post_meta( $post->ID, '_la_phone_digits', true ),
-			'car'          => (string) get_post_meta( $post->ID, '_la_car', true ),
-			'message'      => $post->post_content,
+			'car'          => $text( (string) get_post_meta( $post->ID, '_la_car', true ) ),
+			'message'      => $text( $post->post_content ),
 			'status'       => $post->post_status,
-			'status_label' => self::statuses()[ $post->post_status ] ?? $post->post_status,
-			'note'         => (string) get_post_meta( $post->ID, '_la_note', true ),
+			'status_label' => $labels[ $post->post_status ] ?? $post->post_status,
+			'note'         => $text( (string) get_post_meta( $post->ID, '_la_note', true ) ),
 			'admin_url'    => admin_url( 'post.php?post=' . $post->ID . '&action=edit' ),
 		);
 	}
