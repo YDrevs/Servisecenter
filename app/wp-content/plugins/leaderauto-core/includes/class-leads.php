@@ -352,9 +352,14 @@ class Leads {
 		return (int) $id;
 	}
 
-	public static function set_delivery( int $id, bool $mail, bool $tg ): void {
+	/**
+	 * Record per-channel delivery. Null = channel not configured, nothing is stored (shown as «—»).
+	 */
+	public static function set_delivery( int $id, bool $mail, ?bool $tg ): void {
 		update_post_meta( $id, '_la_delivered_mail', $mail ? '1' : '0' );
-		update_post_meta( $id, '_la_delivered_tg', $tg ? '1' : '0' );
+		if ( null !== $tg ) {
+			update_post_meta( $id, '_la_delivered_tg', $tg ? '1' : '0' );
+		}
 	}
 
 	/**

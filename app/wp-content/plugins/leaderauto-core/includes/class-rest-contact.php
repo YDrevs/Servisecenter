@@ -95,7 +95,8 @@ class Rest_Contact {
 		$sent_mail     = $this->send_email( $payload );
 		$sent_telegram = $this->send_telegram( $payload );
 		if ( $lead_id ) {
-			Leads::set_delivery( $lead_id, $sent_mail, $sent_telegram );
+			$tg_on = '' !== settings()['telegram_token'] && '' !== settings()['telegram_chat_id'];
+			Leads::set_delivery( $lead_id, $sent_mail, $tg_on ? $sent_telegram : null );
 			Make_Webhook::send( 'lead.created', $lead_id );
 		}
 
