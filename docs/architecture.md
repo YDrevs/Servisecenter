@@ -88,9 +88,31 @@ buttons. Encoded once in `theme.json` (editor + `--wp--preset--*`) and in
 ## leaderauto-core
 
 `POST /wp-json/leaderauto/v1/contact` — honeypot + per-IP throttle (120s) + field
-validation (`name`, `phone` required; `car`, `message` optional). On success: `wp_mail`
-to the configured address (falls back to `admin_email`) and Telegram `sendMessage` if a
-token + chat id are set; if both channels fail → `502`. Delivery targets come from
+validation (`name`, `phone` required; `car`, `message` optional). On success the
+submission is first **stored as a lead** (`la_lead` post, status `la_new`), then sent by
+`wp_mail` to the configured address (falls back to `admin_email`) and Telegram
+`sendMessage` if a token + chat id are set. `502` only if the lead couldn't be saved
+**and** both channels failed. Leads are managed in wp-admin → **Заявки**
+(`includes/class-leads.php`): statuses `la_new` / `la_progress` / `la_done` / `la_cancel`,
+manager note, search by phone, bulk status change. Spec and manager guide:
+`docs/documentation/`.
+
+**Make.com** (`includes/class-make-webhook.php`): if a webhook URL is set
+(`LEADERAUTO_MAKE_WEBHOOK_URL`, then Settings → LeaderAuto; optional
+`LEADERAUTO_MAKE_API_KEY` → `x-make-apikey` header), the site POSTs JSON events
+`lead.created` and `lead.status_changed` (with `previous_status`). Synchronous, 5 s timeout;
+on failure WP-Cron retries after 1 / 5 / 30 min (4 attempts total). Result per lead in
+`_la_make_status` / `_la_make_at`, shown in the lead's «Доставка» box. The lead object is
+`Leads::to_array()` — reuse it for the CRM API. Setup guide: `docs/documentation/make-setup-guide.md`.
+
+**CRM API** (`includes/class-rest-leads.php`): `GET /leaderauto/v1/leads`
+(`updated_since`, `status`, `page`, `per_page` ≤ 100; sorted by modified ↑, id ↑),
+`GET /leads/{id}`, `PATCH /leads/{id}` (`status` and/or `note`). Auth: `X-Api-Key` header,
+compared with `hash_equals` against `LEADERAUTO_CRM_API_KEY` / Settings → LeaderAuto
+(≥ 32 chars; empty = API off → `503`). `PATCH` writes the note before `wp_update_post`, so a
+status change fires `lead.status_changed` to Make with the fresh note. Lead JSON is
+`Leads::to_array()` (+ `updated_at`), entity-decoded to plain text. Developer guide:
+`docs/documentation/crm-api.md`. Delivery targets come from
 **env constants first** (`LEADERAUTO_CONTACT_EMAIL`, `LEADERAUTO_TELEGRAM_TOKEN`,
 `LEADERAUTO_TELEGRAM_CHAT_ID`), then the **Settings → LeaderAuto** screen.
 

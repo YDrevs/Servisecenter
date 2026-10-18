@@ -47,6 +47,9 @@ class Settings {
 			'telegram_chat_id' => __( 'Telegram chat ID', 'leaderauto-core' ),
 			'vapi_public_key'   => __( 'Vapi public key', 'leaderauto-core' ),
 			'vapi_assistant_id' => __( 'Vapi assistant ID', 'leaderauto-core' ),
+			'make_webhook_url'  => __( 'Make.com webhook URL', 'leaderauto-core' ),
+			'make_api_key'      => __( 'Make.com API key', 'leaderauto-core' ),
+			'crm_api_key'       => __( 'CRM API key', 'leaderauto-core' ),
 		);
 		foreach ( $fields as $key => $label ) {
 			add_settings_field(
@@ -73,7 +76,7 @@ class Settings {
 
 		printf(
 			'<input type="%s" name="%s[%s]" value="%s" class="regular-text" autocomplete="off" %s>',
-			'recipient_email' === $key ? 'email' : 'text',
+			'recipient_email' === $key ? 'email' : ( 'make_webhook_url' === $key ? 'url' : 'text' ),
 			esc_attr( OPTION_KEY ),
 			esc_attr( $key ),
 			esc_attr( $value ),
@@ -96,15 +99,37 @@ class Settings {
 			'telegram_chat_id' => sanitize_text_field( $input['telegram_chat_id'] ?? '' ),
 			'vapi_public_key'   => sanitize_text_field( $input['vapi_public_key'] ?? '' ),
 			'vapi_assistant_id' => sanitize_text_field( $input['vapi_assistant_id'] ?? '' ),
+			'make_webhook_url'  => $this->https_url( (string) ( $input['make_webhook_url'] ?? '' ) ),
+			'make_api_key'      => sanitize_text_field( $input['make_api_key'] ?? '' ),
+			'crm_api_key'       => $this->crm_key( sanitize_text_field( $input['crm_api_key'] ?? '' ) ),
 		);
+	}
+
+	/**
+	 * Too-short CRM keys are refused; the previous key stays.
+	 */
+	private function crm_key( string $key ): string {
+		if ( '' === $key || strlen( $key ) >= 32 ) {
+			return $key;
+		}
+		add_settings_error( OPTION_KEY, 'crm_api_key', __( 'CRM API key має бути щонайменше 32 символи — ключ не змінено.', 'leaderauto-core' ) );
+		$saved = (array) get_option( OPTION_KEY, array() );
+		return (string) ( $saved['crm_api_key'] ?? '' );
+	}
+
+	private function https_url( string $url ): string {
+		$url = esc_url_raw( trim( $url ), array( 'https' ) );
+		return 0 === strpos( $url, 'https://' ) ? $url : '';
 	}
 
 	public function render(): void {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'LeaderAuto — заявки з сайту', 'leaderauto-core' ); ?></h1>
+			<?php Make_Webhook::test_notice(); ?>
 			<p><?php esc_html_e( 'Куди надсилати повідомлення з контактної форми. Порожній e-mail = адреса адміністратора. Telegram працює, лише якщо заповнені токен і chat ID.', 'leaderauto-core' ); ?></p>
 			<p><?php esc_html_e( 'Голосовий ШІ-асистент на сторінці «Контакти» з’являється, лише якщо заповнені обидва поля Vapi. Ключ — саме публічний (Public Key), не приватний.', 'leaderauto-core' ); ?></p>
+			<p><?php esc_html_e( 'CRM API key відкриває API заявок (/wp-json/leaderauto/v1/leads) для вашої CRM. Порожньо = API вимкнено. Щонайменше 32 символи, напр. результат команди «openssl rand -hex 32».', 'leaderauto-core' ); ?></p>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'leaderauto_core' );
@@ -112,6 +137,7 @@ class Settings {
 				submit_button();
 				?>
 			</form>
+			<?php Make_Webhook::test_form(); ?>
 		</div>
 		<?php
 	}

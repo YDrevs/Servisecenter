@@ -2,7 +2,8 @@
 /**
  * POST /wp-json/leaderauto/v1/contact
  *
- * Validates the contact form, then delivers by e-mail and (if configured) Telegram.
+ * Validates the contact form, stores it as a lead, then delivers by e-mail and
+ * (if configured) Telegram.
  *
  * @package LeaderAuto\Core
  */
@@ -90,10 +91,17 @@ class Rest_Contact {
 		}
 
 		$payload = compact( 'name', 'phone', 'car', 'message' );
+		$lead_id       = Leads::create( $payload );
 		$sent_mail     = $this->send_email( $payload );
 		$sent_telegram = $this->send_telegram( $payload );
+		if ( $lead_id ) {
+			$tg_on = '' !== settings()['telegram_token'] && '' !== settings()['telegram_chat_id'];
+			Leads::set_delivery( $lead_id, $sent_mail, $tg_on ? $sent_telegram : null );
+			Make_Webhook::send( 'lead.created', $lead_id );
+		}
 
-		if ( ! $sent_mail && ! $sent_telegram ) {
+		// A saved lead is enough: the manager sees it in wp-admin even if delivery failed.
+		if ( ! $lead_id && ! $sent_mail && ! $sent_telegram ) {
 			return new WP_Error(
 				'leaderauto_delivery_failed',
 				__( 'Не вдалося надіслати заявку. Спробуйте пізніше або зателефонуйте.', 'leaderauto-core' ),

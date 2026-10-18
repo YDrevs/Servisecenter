@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 const OPTION_KEY = 'leaderauto_core_settings';
 
 /**
- * @return array{recipient_email:string,telegram_token:string,telegram_chat_id:string,vapi_public_key:string,vapi_assistant_id:string}
+ * @return array{recipient_email:string,telegram_token:string,telegram_chat_id:string,vapi_public_key:string,vapi_assistant_id:string,make_webhook_url:string,make_api_key:string,crm_api_key:string}
  */
 function settings(): array {
 	$saved = wp_parse_args(
@@ -26,6 +26,9 @@ function settings(): array {
 			'telegram_chat_id' => '',
 			'vapi_public_key'   => '',
 			'vapi_assistant_id' => '',
+			'make_webhook_url'  => '',
+			'make_api_key'      => '',
+			'crm_api_key'       => '',
 		)
 	);
 
@@ -45,5 +48,8 @@ function settings(): array {
 		'telegram_chat_id' => $env( 'LEADERAUTO_TELEGRAM_CHAT_ID' ) ?: $saved['telegram_chat_id'],
 		'vapi_public_key'   => $env( 'LEADERAUTO_VAPI_PUBLIC_KEY' ) ?: $saved['vapi_public_key'],
 		'vapi_assistant_id' => $env( 'LEADERAUTO_VAPI_ASSISTANT_ID' ) ?: $saved['vapi_assistant_id'],
+		'make_webhook_url'  => $env( 'LEADERAUTO_MAKE_WEBHOOK_URL' ) ?: $saved['make_webhook_url'],
+		'make_api_key'      => $env( 'LEADERAUTO_MAKE_API_KEY' ) ?: $saved['make_api_key'],
+		'crm_api_key'       => $env( 'LEADERAUTO_CRM_API_KEY' ) ?: $saved['crm_api_key'],
 	);
 }
