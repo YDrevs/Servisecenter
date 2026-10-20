@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p>
 				<a href="<?php echo esc_attr( leaderauto_phone_href() ); ?>"><?php echo esc_html( leaderauto_phone() ); ?></a><br>
 				<a href="<?php echo esc_attr( leaderauto_phone_alt_href() ); ?>"><?php echo esc_html( leaderauto_phone_alt() ); ?></a><br>
-				<?php echo esc_html( leaderauto_address() ); ?>
+				<?php leaderauto_address_link(); ?>
 			</p>
 			<p><?php printf( esc_html__( 'Viber: %s', 'leaderauto' ), esc_html( leaderauto_viber() ) ); ?></p>
 			<p><?php printf(

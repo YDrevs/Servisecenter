@@ -27,6 +27,21 @@
 	border-color: var(--c-brand);
 }
 
+/* Set by form.js. Covers the parts form's select too. */
+.contact-form [aria-invalid="true"] {
+	border-color: var(--c-error);
+	background: #fdf3f2;
+}
+.contact-form [aria-invalid="true"]:focus {
+	outline-color: var(--c-error);
+	border-color: var(--c-error);
+}
+.contact-form__error {
+	color: var(--c-error);
+	font-size: 0.85rem;
+	line-height: 1.4;
+}
+
 /* Honeypot — visually gone, still in the DOM for bots. */
 .contact-form__hp {
 	position: absolute !important;
@@ -42,7 +57,7 @@
 	border-left: 4px solid var(--c-brand);
 	background: var(--c-surface);
 }
-.contact-form__status.is-error { border-left-color: #c0392b; }
+.contact-form__status.is-error { border-left-color: var(--c-error); }
 .contact-form__status.is-ok { border-left-color: #2e7d32; }
 
 /* Reference (.et_pb_column_2): the info column is a blue panel cut diagonally at

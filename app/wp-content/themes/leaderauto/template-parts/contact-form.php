@@ -24,7 +24,7 @@ $la_id = isset( $args['id'] ) ? $args['id'] : 'leaderauto-contact-form';
 	</p>
 	<p class="contact-form__field">
 		<label for="<?php echo esc_attr( $la_id ); ?>-phone"><?php esc_html_e( 'Ваш телефон', 'leaderauto' ); ?></label>
-		<input type="tel" id="<?php echo esc_attr( $la_id ); ?>-phone" name="phone" autocomplete="tel" required>
+		<input type="tel" id="<?php echo esc_attr( $la_id ); ?>-phone" name="phone" autocomplete="tel" placeholder="+380" required>
 	</p>
 	<p class="contact-form__field">
 		<label for="<?php echo esc_attr( $la_id ); ?>-car"><?php esc_html_e( 'Ваш автомобіль', 'leaderauto' ); ?></label>
