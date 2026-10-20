@@ -102,6 +102,7 @@ function build_schema(): array {
 					'title'  => __( 'Адреса', 'leaderauto-core' ),
 					'fields' => array(
 						'address' => field( 'text', __( 'Адреса', 'leaderauto-core' ), 'вул. Коломийська, 1 «З», Чернівці, 58007' ),
+						'map_url' => field( 'url', __( 'Посилання на карту', 'leaderauto-core' ), 'https://www.google.com/maps/place/BYD-Center/@48.3267303,25.9155928,17z/data=!4m15!1m8!3m7!1s0x473407b903c9fc75:0xfa75ab3f2d7195da!2z0YPQuy4g0JrQvtC70L7QvNGL0LnRgdC60LDRjywgMdC3LCDQp9C10YDQvdC-0LLRhtGLLCDQp9C10YDQvdC-0LLQuNGG0LrQsNGPINC-0LHQu9Cw0YHRgtGMLCA1ODAwNw!3b1!8m2!3d48.3267303!4d25.9155928!16s%2Fg%2F11c4zv56b_!3m5!1s0x47340986aad843bd:0x208fd44277903a9b!8m2!3d48.3258792!4d25.9149778!16s%2Fg%2F11lnmzhr02?entry=ttu&g_ep=EgoyMDI2MTAxNC4wIKXMDSoASAFQAw%3D%3D', __( 'Google Maps → «Поділитися» → «Копіювати посилання». Адреса на сайті стане клікабельною. Порожнє — адреса просто текстом.', 'leaderauto-core' ) ),
 					),
 				),
 			),

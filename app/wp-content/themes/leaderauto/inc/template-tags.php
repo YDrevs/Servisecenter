@@ -113,6 +113,20 @@ function leaderauto_address(): string {
 	return leaderauto_field( 'contacts', 'address' );
 }
 
+/** Address as a link to the map (opens the Maps app on phones); plain text if no map URL is set. */
+function leaderauto_address_link(): void {
+	$map = leaderauto_field( 'contacts', 'map_url' );
+	if ( '' === $map ) {
+		echo esc_html( leaderauto_address() );
+		return;
+	}
+	printf(
+		'<a href="%1$s" target="_blank" rel="noopener">%2$s</a>',
+		esc_url( $map ),
+		esc_html( leaderauto_address() )
+	);
+}
+
 /**
  * Brands in order of prominence (CLAUDE.md).
  *
