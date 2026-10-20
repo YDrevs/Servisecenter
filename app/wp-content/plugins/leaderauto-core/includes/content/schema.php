@@ -85,6 +85,12 @@ function build_schema(): array {
 					),
 				),
 				array(
+					'title'  => __( 'Пошта', 'leaderauto-core' ),
+					'fields' => array(
+						'email' => field( 'text', __( 'E-mail', 'leaderauto-core' ), 'bydcenterinfo@gmail.com', __( 'Показується на сторінці «Контакти». Заявки з форми сюди не надходять — їхня адреса в Налаштуваннях плагіна.', 'leaderauto-core' ) ),
+					),
+				),
+				array(
 					'title'  => __( 'Месенджери та соцмережі', 'leaderauto-core' ),
 					'fields' => array(
 						'viber'     => field( 'text', __( 'Viber (номер)', 'leaderauto-core' ), '(095) 066 29 21' ),
@@ -510,6 +516,7 @@ function build_schema(): array {
 					'fields' => array(
 						'visit_title' => field( 'text', __( 'Заголовок над адресою', 'leaderauto-core' ), 'Завітайте' ),
 						'call_title'  => field( 'text', __( 'Заголовок над телефонами', 'leaderauto-core' ), 'Дзвоніть нам', __( 'Самі телефони й адреса — на екрані «Контакти».', 'leaderauto-core' ) ),
+						'mail_title'  => field( 'text', __( 'Заголовок над поштою', 'leaderauto-core' ), 'Пишіть нам' ),
 					),
 				),
 			),

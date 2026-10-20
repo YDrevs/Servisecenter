@@ -103,6 +103,12 @@ function leaderauto_instagram_href(): string {
 	return leaderauto_field( 'contacts', 'instagram' );
 }
 
+/** Public contact address; '' if the field holds something that isn't an e-mail. */
+function leaderauto_email(): string {
+	$email = sanitize_email( leaderauto_field( 'contacts', 'email' ) );
+	return is_email( $email ) ? $email : '';
+}
+
 function leaderauto_address(): string {
 	return leaderauto_field( 'contacts', 'address' );
 }
