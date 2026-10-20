@@ -24,6 +24,15 @@ class Rest_Contact {
 	private const ROUTE     = '/contact';
 	private const WINDOW    = 120; // seconds between submissions per IP
 
+	/** European calling codes (380 is handled separately). No +7 / +375. */
+	private const EUROPE_CODES = array(
+		'30', '31', '32', '33', '34', '36', '39', '40', '41', '43', '44', '45', '46', '47', '48', '49',
+		'350', '351', '352', '353', '354', '355', '356', '357', '358', '359',
+		'370', '371', '372', '373', '376', '377', '378',
+		'381', '382', '383', '385', '386', '387', '389',
+		'420', '421', '423',
+	);
+
 	public function hooks(): void {
 		add_action( 'rest_api_init', array( $this, 'register' ) );
 	}
@@ -75,9 +84,8 @@ class Rest_Contact {
 		if ( mb_strlen( $name ) < 2 || mb_strlen( $name ) > 100 ) {
 			$errors['name'] = __( 'Вкажіть ім’я.', 'leaderauto-core' );
 		}
-		$digits = preg_replace( '/\D+/', '', $phone );
-		if ( strlen( (string) $digits ) < 7 || strlen( (string) $digits ) > 15 ) {
-			$errors['phone'] = __( 'Вкажіть коректний номер телефону.', 'leaderauto-core' );
+		if ( ! $this->valid_phone( $phone ) ) {
+			$errors['phone'] = __( 'Вкажіть номер у форматі +380 XX XXX XX XX або європейський номер з кодом країни.', 'leaderauto-core' );
 		}
 		if ( mb_strlen( $message ) > 2000 ) {
 			$errors['message'] = __( 'Повідомлення задовге.', 'leaderauto-core' );
@@ -114,6 +122,37 @@ class Rest_Contact {
 		}
 
 		return new WP_REST_Response( array( 'ok' => true, 'message' => $this->thanks() ), 200 );
+	}
+
+	/**
+	 * Ukrainian or European number. Mirrors assets/src/js/phone.js in the theme.
+	 *
+	 * Ukraine: +380 / 380 / 0 followed by the 9-digit national number.
+	 * Europe: + or 00, a country code from EUROPE_CODES, then 6–12 digits.
+	 */
+	private function valid_phone( string $phone ): bool {
+		$phone = trim( $phone );
+		if ( ! preg_match( '/^\+?[\d\s().-]+$/', $phone ) ) {
+			return false;
+		}
+		$digits = preg_replace( '/\D+/', '', $phone );
+
+		if ( '+' !== $phone[0] && 0 !== strpos( $digits, '00' ) ) {
+			// No international prefix: only Ukrainian forms are accepted.
+			return (bool) preg_match( '/^(?:380|0)[1-9]\d{8}$/', $digits );
+		}
+
+		$digits = '+' === $phone[0] ? $digits : substr( $digits, 2 );
+		if ( 0 === strpos( $digits, '380' ) ) {
+			return (bool) preg_match( '/^380[1-9]\d{8}$/', $digits );
+		}
+		foreach ( array( 3, 2 ) as $len ) {
+			if ( in_array( substr( $digits, 0, $len ), self::EUROPE_CODES, true ) ) {
+				$rest = strlen( $digits ) - $len;
+				return $rest >= 6 && $rest <= 12;
+			}
+		}
+		return false;
 	}
 
 	private function thanks(): string {

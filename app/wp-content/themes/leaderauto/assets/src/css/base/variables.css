@@ -3,6 +3,7 @@
 	--c-brand: #137a1e;
 	--c-brand-bright: #66e338;
 	--c-accent: #ff6900;
+	--c-error: #c0392b;     /* invalid form fields and error status */
 
 	--c-ink: #1c1c22;
 	--c-body: #333333;
