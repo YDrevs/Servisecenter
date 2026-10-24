@@ -79,7 +79,7 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 		</div>
 	</section>
 
-	<section class="section section--dark cta-band">
+	<section class="section section--dark cta-band cta-band--photo" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'about', 'cta_bg' ) ); ?>');">
 		<div class="section__inner">
 			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'cta_title' ) ); ?></h2>
 			<p class="cta-band__row">

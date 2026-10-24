@@ -494,6 +494,7 @@ function build_schema(): array {
 				array(
 					'title'  => __( 'Заклик унизу сторінки', 'leaderauto-core' ),
 					'fields' => array(
+						'cta_bg'     => field( 'image', $bg, 'Golovna/cta-charging.webp' ),
 						'cta_title'  => field( 'text', $title, 'Потрібна діагностика або ремонт електромобіля?' ),
 						'cta_button' => field( 'text', $button, 'Залишити заявку' ),
 					),
