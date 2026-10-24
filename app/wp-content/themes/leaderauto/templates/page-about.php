@@ -23,6 +23,9 @@ $steps = leaderauto_lines( 'about', 'steps' );
  */
 $stats = leaderauto_rows( 'about', 'stats' );
 
+// «Наша команда» cards, editable in wp-admin → Контент сайту → Про нас.
+$team = leaderauto_rows( 'about', 'team' );
+
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
@@ -73,9 +76,19 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 	</section>
 
 	<section class="section">
-		<div class="section__inner media-pair">
-			<img src="<?php echo esc_url( leaderauto_field_img( 'about', 'image_1' ) ); ?>" alt="<?php esc_attr_e( 'Робота з електромобілем у сервісі', 'leaderauto' ); ?>" loading="lazy">
-			<img src="<?php echo esc_url( leaderauto_field_img( 'about', 'image_2' ) ); ?>" alt="<?php esc_attr_e( 'Обладнання сервісу LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+		<div class="section__inner">
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'team_title' ) ); ?></h2>
+			<div class="cards cards--4">
+				<?php foreach ( $team as $member ) : ?>
+					<article class="card">
+						<?php if ( '' !== $member['image'] ) : ?>
+							<img class="card__media" src="<?php echo esc_url( leaderauto_media_url( $member['image'] ) ); ?>" alt="<?php echo esc_attr( $member['name'] ); ?>" loading="lazy">
+						<?php endif; ?>
+						<h3 class="card__title"><?php echo esc_html( $member['name'] ); ?></h3>
+						<p><?php echo esc_html( $member['text'] ); ?></p>
+					</article>
+				<?php endforeach; ?>
+			</div>
 		</div>
 	</section>
 

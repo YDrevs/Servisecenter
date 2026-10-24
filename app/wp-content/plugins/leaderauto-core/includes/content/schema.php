@@ -485,10 +485,24 @@ function build_schema(): array {
 					),
 				),
 				array(
-					'title'  => __( 'Фото', 'leaderauto-core' ),
+					'title'  => __( 'Наша команда', 'leaderauto-core' ),
 					'fields' => array(
-						'image_1' => field( 'image', __( 'Фото 1', 'leaderauto-core' ), 'detailing-14.png' ),
-						'image_2' => field( 'image', __( 'Фото 2', 'leaderauto-core' ), 'detailing-15.png' ),
+						'team_title' => field( 'text', $title, 'Наша Команда' ),
+						'team'       => repeater(
+							__( 'Картки', 'leaderauto-core' ),
+							'name',
+							array(
+								'name'  => field( 'text', __( 'Ім’я', 'leaderauto-core' ), '' ),
+								'image' => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+								'text'  => field( 'textarea', $text, '' ),
+							),
+							array(
+								array( 'image' => 'About page images/Mehanik1.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+								array( 'image' => 'About page images/Mehanik2.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+								array( 'image' => 'About page images/Mehanik3.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+								array( 'image' => 'About page images/Mehanik4.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+							)
+						),
 					),
 				),
 				array(
