@@ -290,8 +290,9 @@ class Admin {
 						: str_starts_with( (string) get_post_mime_type( (int) $raw ), 'video/' );
 					return $ok ? $raw : '';
 				}
-				// A bundled default carried over from the shipped rows: a plain relative path.
-				return preg_match( '#^[A-Za-z0-9_-][A-Za-z0-9_./-]*$#', $raw ) && false === strpos( $raw, '..' ) ? $raw : '';
+				// A bundled default carried over from the shipped rows: a plain relative path
+				// (spaces allowed — the about page's photos live in "About page images/").
+				return preg_match( '#^[A-Za-z0-9_-][A-Za-z0-9_./ -]*$#', $raw ) && false === strpos( $raw, '..' ) ? $raw : '';
 			case 'checkbox':
 				return '1' === $raw ? '1' : '';
 			case 'textarea':

@@ -92,6 +92,23 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 		</div>
 	</section>
 
+	<section class="section">
+		<div class="section__inner">
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'work_title' ) ); ?></h2>
+			<div class="cards cards--4">
+				<?php for ( $i = 1; $i <= 8; $i++ ) : ?>
+					<?php $video = leaderauto_media_url( leaderauto_field( 'about', 'work_video_' . $i ) ); ?>
+					<?php if ( '' !== $video ) : ?>
+						<?php /* No type attribute: iPhone clips arrive as MOV as often as MP4. */ ?>
+						<video class="card__video" src="<?php echo esc_url( $video ); ?>" controls playsinline preload="metadata"></video>
+					<?php else : ?>
+						<div class="card__video card__video--empty" aria-hidden="true"><span><?php esc_html_e( 'Відео', 'leaderauto' ); ?></span></div>
+					<?php endif; ?>
+				<?php endfor; ?>
+			</div>
+		</div>
+	</section>
+
 	<section class="section section--dark cta-band cta-band--photo" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'about', 'cta_bg' ) ); ?>');">
 		<div class="section__inner">
 			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'cta_title' ) ); ?></h2>

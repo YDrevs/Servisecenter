@@ -88,6 +88,30 @@
 	margin-bottom: 1.25rem;
 }
 
+/* «Наші робочі будні» on the about page: vertical iPhone clips at 9:16. An empty
+   slot keeps the same box, striped like the showroom placeholder. */
+.card__video {
+	display: block;
+	width: 100%;
+	aspect-ratio: 9 / 16;
+	object-fit: cover;
+	border-radius: var(--radius-card);
+	background: var(--c-black);
+}
+.card__video--empty {
+	display: grid;
+	place-items: center;
+	background: repeating-linear-gradient(45deg, var(--c-surface) 0 12px, var(--c-line) 12px 24px);
+}
+.card__video--empty span {
+	padding: 0.35rem 0.75rem;
+	background: var(--c-white);
+	color: var(--c-muted);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.8125rem;
+	letter-spacing: 0.08em;
+}
+
 /* Service items are links to the contact form, but a card full of underlined
    links reads as noise — so they inherit the list's look until hover/focus. */
 .card__link {

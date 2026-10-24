@@ -506,6 +506,20 @@ function build_schema(): array {
 					),
 				),
 				array(
+					'title'  => __( 'Наші робочі будні', 'leaderauto-core' ),
+					'fields' => array(
+						'work_title'   => field( 'text', $title, 'Наші робочі будні' ),
+						'work_video_1' => field( 'video', __( 'Відео 1', 'leaderauto-core' ), '', __( 'Вертикальне відео з iPhone (9:16), MP4 або MOV. До 64 МБ. Порожнє поле — на сайті показується заглушка.', 'leaderauto-core' ) ),
+						'work_video_2' => field( 'video', __( 'Відео 2', 'leaderauto-core' ), '' ),
+						'work_video_3' => field( 'video', __( 'Відео 3', 'leaderauto-core' ), '' ),
+						'work_video_4' => field( 'video', __( 'Відео 4', 'leaderauto-core' ), '' ),
+						'work_video_5' => field( 'video', __( 'Відео 5', 'leaderauto-core' ), '' ),
+						'work_video_6' => field( 'video', __( 'Відео 6', 'leaderauto-core' ), '' ),
+						'work_video_7' => field( 'video', __( 'Відео 7', 'leaderauto-core' ), '' ),
+						'work_video_8' => field( 'video', __( 'Відео 8', 'leaderauto-core' ), '' ),
+					),
+				),
+				array(
 					'title'  => __( 'Заклик унизу сторінки', 'leaderauto-core' ),
 					'fields' => array(
 						'cta_bg'     => field( 'image', $bg, 'Golovna/cta-charging.webp' ),
