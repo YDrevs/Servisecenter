@@ -520,6 +520,32 @@ function build_schema(): array {
 					),
 				),
 				array(
+					'title'  => __( 'Наші задоволені клієнти', 'leaderauto-core' ),
+					'fields' => array(
+						'clients_title' => field( 'text', $title, 'Наші задоволені клієнти' ),
+						'clients'       => repeater(
+							__( 'Картки', 'leaderauto-core' ),
+							'caption',
+							array(
+								'caption' => field( 'text', __( 'Підпис', 'leaderauto-core' ), '', __( 'Необов’язково: ім’я клієнта чи авто. Показується під карткою.', 'leaderauto-core' ) ),
+								'video'   => field( 'video', __( 'Відео', 'leaderauto-core' ), '', __( 'Reels з Instagram (9:16), MP4. До 64 МБ. Якщо обрано і відео, і фото, показується відео.', 'leaderauto-core' ) ),
+								'image'   => field( 'image', __( 'Фото', 'leaderauto-core' ), '', __( 'Допис з Instagram, у своїй пропорції (4:5, 3:4 чи 1:1).', 'leaderauto-core' ) ),
+							),
+							array(
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Seagull1_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/seagull2_sold.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Audi_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/Ivan_Yuan.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Seagull3_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/song_sold.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Honda_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/Uahn_sold.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Seagull4_sold.webp' ),
+							)
+						),
+					),
+				),
+				array(
 					'title'  => __( 'Заклик унизу сторінки', 'leaderauto-core' ),
 					'fields' => array(
 						'cta_bg'     => field( 'image', $bg, 'Golovna/cta-charging.webp' ),

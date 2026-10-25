@@ -26,6 +26,12 @@ $stats = leaderauto_rows( 'about', 'stats' );
 // «Наша команда» cards, editable in wp-admin → Контент сайту → Про нас.
 $team = leaderauto_rows( 'about', 'team' );
 
+// «Наші задоволені клієнти» strip; a row with neither file picked is skipped.
+$clients = array_filter(
+	leaderauto_rows( 'about', 'clients' ),
+	static fn( $row ) => '' !== $row['video'] || '' !== $row['image']
+);
+
 $contacts = get_page_by_path( 'contacts' );
 $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 ?>
@@ -105,6 +111,39 @@ $cta_url  = $contacts ? get_permalink( $contacts ) : home_url( '/contacts/' );
 						<div class="card__video card__video--empty" aria-hidden="true"><span><?php esc_html_e( 'Відео', 'leaderauto' ); ?></span></div>
 					<?php endif; ?>
 				<?php endfor; ?>
+			</div>
+		</div>
+	</section>
+
+	<section class="section reel">
+		<div class="section__inner">
+			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'about', 'clients_title' ) ); ?></h2>
+			<div class="reel__frame">
+				<button class="reel__arrow reel__arrow--prev" type="button" data-reel-step="-1" aria-label="<?php esc_attr_e( 'Прокрутити назад', 'leaderauto' ); ?>" hidden><span aria-hidden="true">‹</span></button>
+				<ul class="reel__track">
+					<?php if ( $clients ) : ?>
+						<?php foreach ( $clients as $client ) : ?>
+							<li class="reel__item">
+								<?php if ( '' !== $client['video'] ) : ?>
+									<video class="reel__media reel__media--video" src="<?php echo esc_url( leaderauto_media_url( $client['video'] ) ); ?>" controls playsinline preload="metadata"></video>
+								<?php else : ?>
+									<img class="reel__media" src="<?php echo esc_url( leaderauto_media_url( $client['image'] ) ); ?>" alt="<?php echo esc_attr( $client['caption'] ); ?>" loading="lazy">
+								<?php endif; ?>
+								<?php if ( '' !== $client['caption'] ) : ?>
+									<p class="reel__caption"><?php echo esc_html( $client['caption'] ); ?></p>
+								<?php endif; ?>
+							</li>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<?php /* Nothing uploaded yet: striped slots, alternating Reels and post shapes. */ ?>
+						<?php for ( $i = 0; $i < 6; $i++ ) : ?>
+							<li class="reel__item" aria-hidden="true">
+								<div class="reel__media reel__media--empty<?php echo 0 === $i % 2 ? ' reel__media--video' : ''; ?>"><span><?php echo 0 === $i % 2 ? esc_html__( 'Відео', 'leaderauto' ) : esc_html__( 'Фото', 'leaderauto' ); ?></span></div>
+							</li>
+						<?php endfor; ?>
+					<?php endif; ?>
+				</ul>
+				<button class="reel__arrow reel__arrow--next" type="button" data-reel-step="1" aria-label="<?php esc_attr_e( 'Прокрутити вперед', 'leaderauto' ); ?>" hidden><span aria-hidden="true">›</span></button>
 			</div>
 		</div>
 	</section>
