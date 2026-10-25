@@ -25,19 +25,6 @@
 	height: auto;
 }
 
-.media-pair {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: clamp(1rem, 3vw, 1.75rem);
-}
-.media-pair img {
-	display: block;
-	width: 100%;
-	aspect-ratio: 4 / 3;
-	object-fit: cover;
-	border-radius: var(--radius-card);
-}
-
 /* Services row 1 on the reference: one wide still, then a narrower still with
    the debut clip under it. */
 .services__intro {

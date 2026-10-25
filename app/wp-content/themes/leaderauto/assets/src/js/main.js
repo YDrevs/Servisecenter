@@ -3,6 +3,7 @@ import { initMenu } from './menu.js';
 import { initContactForm } from './form.js';
 import { initCounters } from './counters.js';
 import { initShowroom } from './showroom.js';
+import { initReels } from './reel.js';
 import { initServiceModal } from './service-modal.js';
 import { initParts } from './parts.js';
 import { initVoiceAssistant } from './voice.js';
@@ -17,6 +18,7 @@ ready(() => {
 	initContactForm();
 	initCounters();
 	initShowroom();
+	initReels();
 	initServiceModal();
 	initParts();
 	initVoiceAssistant();

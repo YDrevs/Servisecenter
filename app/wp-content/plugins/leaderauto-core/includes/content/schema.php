@@ -485,15 +485,70 @@ function build_schema(): array {
 					),
 				),
 				array(
-					'title'  => __( 'Фото', 'leaderauto-core' ),
+					'title'  => __( 'Наша команда', 'leaderauto-core' ),
 					'fields' => array(
-						'image_1' => field( 'image', __( 'Фото 1', 'leaderauto-core' ), 'detailing-14.png' ),
-						'image_2' => field( 'image', __( 'Фото 2', 'leaderauto-core' ), 'detailing-15.png' ),
+						'team_title' => field( 'text', $title, 'Наша Команда' ),
+						'team'       => repeater(
+							__( 'Картки', 'leaderauto-core' ),
+							'name',
+							array(
+								'name'  => field( 'text', __( 'Ім’я', 'leaderauto-core' ), '' ),
+								'image' => field( 'image', __( 'Фото', 'leaderauto-core' ), '' ),
+								'text'  => field( 'textarea', $text, '' ),
+							),
+							array(
+								array( 'image' => 'About page images/Mehanik1.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+								array( 'image' => 'About page images/Mehanik2.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+								array( 'image' => 'About page images/Mehanik3.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+								array( 'image' => 'About page images/Mehanik4.webp', 'name' => 'Ім’я Прізвище', 'text' => 'Посада, досвід і спеціалізація.' ),
+							)
+						),
+					),
+				),
+				array(
+					'title'  => __( 'Наші робочі будні', 'leaderauto-core' ),
+					'fields' => array(
+						'work_title'   => field( 'text', $title, 'Наші робочі будні' ),
+						'work_video_1' => field( 'video', __( 'Відео 1', 'leaderauto-core' ), '', __( 'Вертикальне відео з iPhone (9:16), MP4 або MOV. До 64 МБ. Порожнє поле — на сайті показується заглушка.', 'leaderauto-core' ) ),
+						'work_video_2' => field( 'video', __( 'Відео 2', 'leaderauto-core' ), '' ),
+						'work_video_3' => field( 'video', __( 'Відео 3', 'leaderauto-core' ), '' ),
+						'work_video_4' => field( 'video', __( 'Відео 4', 'leaderauto-core' ), '' ),
+						'work_video_5' => field( 'video', __( 'Відео 5', 'leaderauto-core' ), '' ),
+						'work_video_6' => field( 'video', __( 'Відео 6', 'leaderauto-core' ), '' ),
+						'work_video_7' => field( 'video', __( 'Відео 7', 'leaderauto-core' ), '' ),
+						'work_video_8' => field( 'video', __( 'Відео 8', 'leaderauto-core' ), '' ),
+					),
+				),
+				array(
+					'title'  => __( 'Наші задоволені клієнти', 'leaderauto-core' ),
+					'fields' => array(
+						'clients_title' => field( 'text', $title, 'Наші задоволені клієнти' ),
+						'clients'       => repeater(
+							__( 'Картки', 'leaderauto-core' ),
+							'caption',
+							array(
+								'caption' => field( 'text', __( 'Підпис', 'leaderauto-core' ), '', __( 'Необов’язково: ім’я клієнта чи авто. Показується під карткою.', 'leaderauto-core' ) ),
+								'video'   => field( 'video', __( 'Відео', 'leaderauto-core' ), '', __( 'Reels з Instagram (9:16), MP4. До 64 МБ. Якщо обрано і відео, і фото, показується відео.', 'leaderauto-core' ) ),
+								'image'   => field( 'image', __( 'Фото', 'leaderauto-core' ), '', __( 'Допис з Instagram, у своїй пропорції (4:5, 3:4 чи 1:1).', 'leaderauto-core' ) ),
+							),
+							array(
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Seagull1_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/seagull2_sold.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Audi_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/Ivan_Yuan.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Seagull3_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/song_sold.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Honda_sold.webp' ),
+								array( 'caption' => '', 'video' => 'About page images/Vidguk/Uahn_sold.mp4', 'image' => '' ),
+								array( 'caption' => '', 'video' => '', 'image' => 'About page images/Vidguk/Seagull4_sold.webp' ),
+							)
+						),
 					),
 				),
 				array(
 					'title'  => __( 'Заклик унизу сторінки', 'leaderauto-core' ),
 					'fields' => array(
+						'cta_bg'     => field( 'image', $bg, 'Golovna/cta-charging.webp' ),
 						'cta_title'  => field( 'text', $title, 'Потрібна діагностика або ремонт електромобіля?' ),
 						'cta_button' => field( 'text', $button, 'Залишити заявку' ),
 					),

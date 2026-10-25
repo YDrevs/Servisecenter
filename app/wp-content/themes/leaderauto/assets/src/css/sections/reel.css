@@ -1,0 +1,84 @@
+/* About page «Наші задоволені клієнти»: one row of Instagram media that scrolls
+   sideways. Every card shares one height and takes its width from its format —
+   Reels 9:16, a post its own 4:5 / 3:4 / 1:1 — so nothing is cropped. Swipe/scroll works without JS;
+   reel.js reveals the ‹ › arrows, which scroll smoothly by most of a frame. */
+.reel__frame {
+	--reel-h: clamp(22rem, 60vh, 32rem);
+	position: relative;
+}
+
+.reel__track {
+	display: flex;
+	gap: clamp(1rem, 3vw, 1.75rem);
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-behavior: smooth;
+	overscroll-behavior-x: contain;
+	padding-bottom: 0.75rem;
+	scrollbar-width: thin;
+	scrollbar-color: var(--c-brand) transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+	.reel__track { scroll-behavior: auto; }
+}
+
+.reel__item {
+	flex: none;
+	scroll-snap-align: start;
+}
+
+.reel__media {
+	display: block;
+	height: var(--reel-h);
+	width: auto;
+	object-fit: cover;
+	border-radius: var(--radius-card);
+	background: var(--c-black);
+}
+
+.reel__media--empty {
+	aspect-ratio: 4 / 5;
+	display: grid;
+	place-items: center;
+	background: repeating-linear-gradient(45deg, var(--c-surface) 0 12px, var(--c-line) 12px 24px);
+}
+.reel__media--video { aspect-ratio: 9 / 16; }
+.reel__media--empty span {
+	padding: 0.35rem 0.75rem;
+	background: var(--c-white);
+	color: var(--c-muted);
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.8125rem;
+	letter-spacing: 0.08em;
+}
+
+.reel__caption {
+	margin-top: 0.75rem;
+	font-family: var(--font-heading);
+	font-weight: 600;
+}
+
+.reel__arrow {
+	position: absolute;
+	top: calc(var(--reel-h) / 2);
+	z-index: 1;
+	transform: translateY(-50%);
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 2px solid var(--c-brand);
+	border-radius: var(--radius);
+	background: var(--c-white);
+	color: var(--c-brand);
+	font-family: var(--font-heading);
+	font-size: 1.75rem;
+	line-height: 1;
+	transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+.reel__arrow--prev { left: 12px; }
+.reel__arrow--next { right: 12px; }
+.reel__arrow:hover { background: var(--c-brand); color: var(--c-white); }
+.reel__arrow:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 2px; }
+.reel__arrow:disabled { opacity: 0; pointer-events: none; }
