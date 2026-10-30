@@ -30,10 +30,11 @@ get_header();
 			<?php /* Reference: each block leads with a white-disc icon over a Kanit 24px
 			         heading, the whole column a blue panel cut diagonally bottom-right. */ ?>
 			<aside class="contacts__info">
-				<div class="contacts__block">
+				<div class="contacts__block contacts__block--visit">
 					<span class="contacts__badge" aria-hidden="true">
 						<svg viewBox="0 0 24 24" width="20" height="20" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
 					</span>
+					<?php get_template_part( 'template-parts/qr-card', null, array( 'url' => leaderauto_field( 'contacts_page', 'visit_qr_url' ), 'class' => 'contacts__qr', 'label' => false ) ); ?>
 					<h2 class="contacts__title"><?php echo esc_html( leaderauto_field( 'contacts_page', 'visit_title' ) ); ?></h2>
 					<p><?php leaderauto_address_link(); ?></p>
 				</div>

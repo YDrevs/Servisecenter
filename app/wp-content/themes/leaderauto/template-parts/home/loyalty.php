@@ -14,8 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'home', 'loyalty_title' ) ); ?></h2>
 			<p><?php echo esc_html( leaderauto_field( 'home', 'loyalty_text' ) ); ?></p>
 		</div>
-		<img class="band__qr" src="<?php echo esc_url( leaderauto_field_img( 'home', 'loyalty_qr' ) ); ?>"
-		     alt="<?php esc_attr_e( 'QR-код: скануй, щоб перейти на сайт', 'leaderauto' ); ?>"
-		     width="3000" height="3889" loading="lazy">
+		<?php get_template_part( 'template-parts/qr-card', null, array( 'url' => leaderauto_field( 'home', 'loyalty_qr_url' ), 'class' => 'band__qr' ) ); ?>
 	</div>
 </section>

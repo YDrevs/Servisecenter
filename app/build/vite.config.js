@@ -16,10 +16,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@vapi-ai/web': resolve(__dirname, 'node_modules/@vapi-ai/web'),
+      'qrcode-generator': resolve(__dirname, 'node_modules/qrcode-generator'),
     },
   },
-  // CommonJS package; pre-bundle it so the dev server serves it as ESM.
-  optimizeDeps: { include: ['@vapi-ai/web'] },
+  // CommonJS packages; pre-bundle them so the dev server serves them as ESM.
+  optimizeDeps: { include: ['@vapi-ai/web', 'qrcode-generator'] },
   build: {
     outDir: resolve(themeDir, 'assets/dist'),
     emptyOutDir: true,

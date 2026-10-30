@@ -7,6 +7,7 @@ import { initReels } from './reel.js';
 import { initServiceModal } from './service-modal.js';
 import { initParts } from './parts.js';
 import { initVoiceAssistant } from './voice.js';
+import { initQr } from './qr.js';
 
 const ready = (fn) =>
 	document.readyState !== 'loading'
@@ -22,4 +23,5 @@ ready(() => {
 	initServiceModal();
 	initParts();
 	initVoiceAssistant();
+	initQr();
 });
