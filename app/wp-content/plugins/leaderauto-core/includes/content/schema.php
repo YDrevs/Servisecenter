@@ -570,9 +570,10 @@ function build_schema(): array {
 				array(
 					'title'  => __( 'Блок контактів', 'leaderauto-core' ),
 					'fields' => array(
-						'visit_title' => field( 'text', __( 'Заголовок над адресою', 'leaderauto-core' ), 'Завітайте' ),
-						'call_title'  => field( 'text', __( 'Заголовок над телефонами', 'leaderauto-core' ), 'Дзвоніть нам', __( 'Самі телефони й адреса — на екрані «Контакти».', 'leaderauto-core' ) ),
-						'mail_title'  => field( 'text', __( 'Заголовок над поштою', 'leaderauto-core' ), 'Пишіть нам' ),
+						'visit_title'  => field( 'text', __( 'Заголовок над адресою', 'leaderauto-core' ), 'Завітайте' ),
+						'visit_qr_url' => field( 'url', __( 'Посилання в QR-коді біля адреси', 'leaderauto-core' ), 'https://maps.google.com/?cid=2346327312822188699', __( 'QR-код малюється з цього посилання автоматично. Що коротше посилання, то легше його сканувати.', 'leaderauto-core' ) ),
+						'call_title'   => field( 'text', __( 'Заголовок над телефонами', 'leaderauto-core' ), 'Дзвоніть нам', __( 'Самі телефони й адреса — на екрані «Контакти».', 'leaderauto-core' ) ),
+						'mail_title'   => field( 'text', __( 'Заголовок над поштою', 'leaderauto-core' ), 'Пишіть нам' ),
 					),
 				),
 			),
