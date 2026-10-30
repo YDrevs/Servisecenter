@@ -11,10 +11,7 @@
 .section--asphalt { background: var(--c-asphalt); }
 
 .band__body > * + * { margin-top: 0.5rem; }
-/* Pushed to the far end of the loyalty band, opposite the 10% figure. The PNG is
-   transparent around a black frame, which reads on this section's dark gradient;
-   the code (blue on light, static Google Drive URL) carries its own light quiet
-   zone, so it needs no plate behind it. */
+/* Pushed to the far end of the loyalty band, opposite the 10% figure. */
 .band__qr {
 	margin-left: auto;
 	/* Nudged in off the container's right edge. CSS cm is a fixed 37.8px, not a
@@ -22,8 +19,40 @@
 	margin-right: 2cm;
 	flex: none;
 	width: clamp(7rem, 11vw, 10rem);
-	height: auto;
 }
+
+/* The QR card, built in markup in place of the old qr.png and kept to its look:
+   a black frame round a light plate with the code in black, and a black «скануй»
+   pill under it. The plate is the code's quiet zone. */
+.qr-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	color: var(--c-white);
+	text-decoration: none;
+}
+.qr-card__code {
+	display: block;
+	aspect-ratio: 1;
+	padding: 12%;
+	border: 0.3rem solid var(--c-black);
+	border-radius: 0.5rem;
+	background: #f7f5f6;
+	color: var(--c-black);
+}
+.qr-card__code svg { display: block; width: 100%; height: 100%; }
+.qr-card__label {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5em;
+	padding: 0.2em 0.9em 0.2em 0.2em;
+	border-radius: 999px;
+	background: var(--c-black);
+	font-size: clamp(0.95rem, 1.4vw, 1.25rem);
+	line-height: 1.2;
+}
+.qr-card__icon { width: 1.6em; height: 1.6em; flex: none; }
 
 /* Services row 1 on the reference: one wide still, then a narrower still with
    the debut clip under it. */

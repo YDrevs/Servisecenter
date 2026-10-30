@@ -179,7 +179,7 @@ function build_schema(): array {
 						'loyalty_figure' => field( 'text', __( 'Велика цифра', 'leaderauto-core' ), '10%' ),
 						'loyalty_title'  => field( 'text', $title, 'Програма лояльності' ),
 						'loyalty_text'   => field( 'textarea', $text, 'Знижка 10% на замовлення будь-якої деталі.' ),
-						'loyalty_qr'     => field( 'image', __( 'QR-код', 'leaderauto-core' ), 'qr.png' ),
+						'loyalty_qr_url' => field( 'url', __( 'Посилання в QR-коді', 'leaderauto-core' ), 'https://www.instagram.com/lider_avto_/', __( 'QR-код малюється з цього посилання автоматично.', 'leaderauto-core' ) ),
 					),
 				),
 				array(
