@@ -24,13 +24,54 @@ class Rest_Contact {
 	private const ROUTE     = '/contact';
 	private const WINDOW    = 120; // seconds between submissions per IP
 
-	/** European calling codes (380 is handled separately). No +7 / +375. */
+	/**
+	 * European calling codes (380 is handled separately) → [min, max] digits of the
+	 * national number after the code, without the leading 0. No +7 / +375.
+	 */
 	private const EUROPE_CODES = array(
-		'30', '31', '32', '33', '34', '36', '39', '40', '41', '43', '44', '45', '46', '47', '48', '49',
-		'350', '351', '352', '353', '354', '355', '356', '357', '358', '359',
-		'370', '371', '372', '373', '376', '377', '378',
-		'381', '382', '383', '385', '386', '387', '389',
-		'420', '421', '423',
+		'30'  => array( 10, 10 ), // Greece
+		'31'  => array( 9, 9 ),   // Netherlands
+		'32'  => array( 8, 9 ),   // Belgium
+		'33'  => array( 9, 9 ),   // France
+		'34'  => array( 9, 9 ),   // Spain
+		'36'  => array( 8, 9 ),   // Hungary
+		'39'  => array( 6, 11 ),  // Italy
+		'40'  => array( 9, 9 ),   // Romania
+		'41'  => array( 9, 9 ),   // Switzerland
+		'43'  => array( 7, 13 ),  // Austria
+		'44'  => array( 9, 10 ),  // United Kingdom
+		'45'  => array( 8, 8 ),   // Denmark
+		'46'  => array( 7, 10 ),  // Sweden
+		'47'  => array( 8, 8 ),   // Norway
+		'48'  => array( 9, 9 ),   // Poland
+		'49'  => array( 6, 13 ),  // Germany
+		'350' => array( 8, 8 ),   // Gibraltar
+		'351' => array( 9, 9 ),   // Portugal
+		'352' => array( 6, 11 ),  // Luxembourg
+		'353' => array( 7, 9 ),   // Ireland
+		'354' => array( 7, 7 ),   // Iceland
+		'355' => array( 8, 9 ),   // Albania
+		'356' => array( 8, 8 ),   // Malta
+		'357' => array( 8, 8 ),   // Cyprus
+		'358' => array( 5, 12 ),  // Finland
+		'359' => array( 8, 9 ),   // Bulgaria
+		'370' => array( 8, 8 ),   // Lithuania
+		'371' => array( 8, 8 ),   // Latvia
+		'372' => array( 7, 8 ),   // Estonia
+		'373' => array( 8, 8 ),   // Moldova
+		'376' => array( 6, 9 ),   // Andorra
+		'377' => array( 8, 9 ),   // Monaco
+		'378' => array( 6, 10 ),  // San Marino
+		'381' => array( 7, 10 ),  // Serbia
+		'382' => array( 8, 8 ),   // Montenegro
+		'383' => array( 8, 9 ),   // Kosovo
+		'385' => array( 8, 9 ),   // Croatia
+		'386' => array( 8, 8 ),   // Slovenia
+		'387' => array( 8, 9 ),   // Bosnia and Herzegovina
+		'389' => array( 8, 8 ),   // North Macedonia
+		'420' => array( 9, 9 ),   // Czechia
+		'421' => array( 9, 9 ),   // Slovakia
+		'423' => array( 7, 9 ),   // Liechtenstein
 	);
 
 	public function hooks(): void {
@@ -128,7 +169,8 @@ class Rest_Contact {
 	 * Ukrainian or European number. Mirrors assets/src/js/phone.js in the theme.
 	 *
 	 * Ukraine: +380 / 380 / 0 followed by the 9-digit national number.
-	 * Europe: + or 00, a country code from EUROPE_CODES, then 6–12 digits.
+	 * Europe: + or 00, a country code from EUROPE_CODES, then that country's
+	 * national number length.
 	 */
 	private function valid_phone( string $phone ): bool {
 		$phone = trim( $phone );
@@ -147,9 +189,11 @@ class Rest_Contact {
 			return (bool) preg_match( '/^380[1-9]\d{8}$/', $digits );
 		}
 		foreach ( array( 3, 2 ) as $len ) {
-			if ( in_array( substr( $digits, 0, $len ), self::EUROPE_CODES, true ) ) {
+			$code = substr( $digits, 0, $len );
+			if ( isset( self::EUROPE_CODES[ $code ] ) ) {
+				list( $min, $max ) = self::EUROPE_CODES[ $code ];
 				$rest = strlen( $digits ) - $len;
-				return $rest >= 6 && $rest <= 12;
+				return $rest >= $min && $rest <= $max && '0' !== $digits[ $len ];
 			}
 		}
 		return false;
