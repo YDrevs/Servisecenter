@@ -39,9 +39,26 @@ COPY app/docker/php/uploads.ini         /usr/local/etc/php/conf.d/leaderauto-upl
 COPY --from=assets /repo/app/wp-content/themes/leaderauto/assets/dist \
                    /var/www/html/wp-content/themes/leaderauto/assets/dist
 
+# Ukrainian core translations. The site language (WPLANG) is already `uk` in the DB,
+# but the base image ships English only, so core strings ("Page not found", the
+# search title…) rendered in English. Only wp-content/uploads is on a volume, so
+# the files must be baked in. The API picks the newest translation for this core
+# version; the zip is flat (uk.mo, admin-uk.mo, …). No unzip in the image — PHP's zip ext does it.
+RUN set -eu; \
+    v="$(php -r 'include "/usr/src/wordpress/wp-includes/version.php"; echo $wp_version;')"; \
+    url="$(curl -fsS "https://api.wordpress.org/translations/core/1.0/?version=$v" \
+      | php -r 'foreach (json_decode(stream_get_contents(STDIN), true)["translations"] as $t) { if ("uk" === $t["language"]) { echo $t["package"]; } }')"; \
+    test -n "$url" || (echo "ERROR: no uk translation for WordPress $v" && exit 1); \
+    curl -fsSL "$url" -o /tmp/uk.zip; \
+    mkdir -p /var/www/html/wp-content/languages; \
+    php -r '$z = new ZipArchive(); exit( true === $z->open("/tmp/uk.zip") && $z->extractTo("/var/www/html/wp-content/languages") ? 0 : 1 );'; \
+    rm /tmp/uk.zip; \
+    test -f /var/www/html/wp-content/languages/uk.mo
+
 RUN chmod +x /usr/local/bin/leaderauto-postdeploy /usr/local/bin/leaderauto-entrypoint \
  && chown -R www-data:www-data /var/www/html/wp-content/themes/leaderauto \
-                               /var/www/html/wp-content/plugins/leaderauto-core
+                               /var/www/html/wp-content/plugins/leaderauto-core \
+                               /var/www/html/wp-content/languages
 
 # Sanity check that stage 1 actually produced a manifest for inc/enqueue.php to read.
 RUN test -f /var/www/html/wp-content/themes/leaderauto/assets/dist/.vite/manifest.json \

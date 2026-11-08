@@ -16,7 +16,6 @@ add_action(
 
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'automatic-feed-links' );
 		add_theme_support( 'responsive-embeds' );
 		add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script', 'navigation-widgets' ) );
 		add_theme_support( 'custom-logo', array(
@@ -36,16 +35,27 @@ add_action(
 );
 
 /**
- * The front page's tab title. WP builds it from blogname + blogdescription, and both
- * options still read "LeaderAuto" in the DB, so it renders "LeaderAuto – LeaderAuto".
- * Home only; the rest of the site keeps the DB values.
+ * Favicon and home-screen icons. A Site Icon set in the Customizer wins — WP prints
+ * its own tags then. /favicon.ico is answered from the same file so crawlers that
+ * ask for it directly don't get redirected to the WordPress logo.
  */
-add_filter( 'document_title_parts', static function ( $parts ) {
-	if ( is_front_page() ) {
-		$parts = array( 'title' => 'BYD-Center' );
+add_action( 'wp_head', static function () {
+	if ( has_site_icon() ) {
+		return;
 	}
+	printf( '<link rel="icon" href="%s" sizes="48x48">' . "\n", esc_url( leaderauto_img( 'icons/favicon.ico' ) ) );
+	printf( '<link rel="icon" href="%s" type="image/png" sizes="192x192">' . "\n", esc_url( leaderauto_img( 'icons/icon-192.png' ) ) );
+	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( leaderauto_img( 'icons/apple-touch-icon.png' ) ) );
+} );
 
-	return $parts;
+add_action( 'do_faviconico', static function () {
+	if ( has_site_icon() ) {
+		return;
+	}
+	header( 'Content-Type: image/x-icon' );
+	header( 'Cache-Control: public, max-age=2592000' );
+	readfile( LEADERAUTO_DIR . '/assets/images/icons/favicon.ico' );
+	exit;
 } );
 
 /**

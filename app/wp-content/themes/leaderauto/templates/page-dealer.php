@@ -131,7 +131,7 @@ foreach ( leaderauto_rows( 'dealer', 'models' ) as $row ) {
 	<section class="section section--guarantee" style="--sec-bg: url('<?php echo esc_url( leaderauto_field_img( 'dealer', 'guarantee_bg' ) ); ?>');">
 		<div class="section__inner media-split">
 			<div class="media-split__media">
-				<img src="<?php echo esc_url( leaderauto_field_img( 'dealer', 'guarantee_image' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+				<img src="<?php echo esc_url( leaderauto_field_img( 'dealer', 'guarantee_image' ) ); ?>" alt="<?php esc_attr_e( 'Гарантія на роботи BYD-Center', 'leaderauto' ); ?>" loading="lazy">
 			</div>
 			<div class="media-split__body">
 				<h2 class="section__title"><?php echo esc_html( leaderauto_field( 'dealer', 'guarantee_title' ) ); ?></h2>

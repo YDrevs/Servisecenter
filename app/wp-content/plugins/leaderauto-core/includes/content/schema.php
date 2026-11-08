@@ -578,6 +578,53 @@ function build_schema(): array {
 				),
 			),
 		),
+
+		'seo'           => array(
+			'title'    => __( 'SEO', 'leaderauto-core' ),
+			'sections' => array(
+				seo_section( 'home', __( 'Головна', 'leaderauto-core' ),
+					'СТО електромобілів у Чернівцях — ремонт і діагностика BYD | BYD-Center',
+					'Ремонт, діагностика та ТО електромобілів і гібридів BYD, Zeekr, VW ID, Nissan Leaf у Чернівцях. Оновлення ПЗ, високовольтні батареї, запчастини.'
+				),
+				seo_section( 'parts', __( 'Запчастини', 'leaderauto-core' ),
+					'Запчастини BYD та для електромобілів у Чернівцях | BYD-Center',
+					'Оригінальні запчастини й аналоги для BYD та інших EV: підбір, замовлення з Китаю, доставка по Україні, встановлення на нашому СТО.'
+				),
+				seo_section( 'dealer', __( 'Автодилер', 'leaderauto-core' ),
+					'Купити BYD у Чернівцях — авто в наявності та під замовлення | BYD-Center',
+					'BYD Seal, Sealion 7, Song+, Seagull, Dolphin, Leopard у наявності та під замовлення. Підбір, тест-драйв, оформлення й сервіс після покупки.'
+				),
+				seo_section( 'about', __( 'Про нас', 'leaderauto-core' ),
+					'Про BYD-Center — сервіс електромобілів у Чернівцях',
+					'Команда, що спеціалізується саме на електромобілях: як ми працюємо, наші робочі будні та відгуки клієнтів BYD-Center.'
+				),
+				seo_section( 'contacts', __( 'Контакти', 'leaderauto-core' ),
+					'Контакти BYD-Center — вул. Коломийська, 1 «З», Чернівці',
+					'Адреса, телефони, Viber і Telegram BYD-Center у Чернівцях. Залиште заявку на діагностику чи ремонт електромобіля.'
+				),
+				array(
+					'title'  => __( 'Прев’ю в соцмережах', 'leaderauto-core' ),
+					'fields' => array(
+						'og_image' => field( 'image', __( 'Картинка для прев’ю', 'leaderauto-core' ), 'og-default.jpg', __( 'Показується, коли посиланням на сайт діляться у Viber, Telegram, Facebook. Найкраще 1200×630, JPG.', 'leaderauto-core' ) ),
+					),
+				),
+			),
+		),
+	);
+}
+
+/**
+ * Title + description fields for one page on the SEO screen.
+ *
+ * @return array{title:string,fields:array<string,array<string,string>>}
+ */
+function seo_section( string $page, string $label, string $title, string $description ): array {
+	return array(
+		'title'  => $label,
+		'fields' => array(
+			$page . '_title'       => field( 'text', __( 'Заголовок у пошуку (title)', 'leaderauto-core' ), $title, __( 'Синє посилання у видачі Google. До ~60 символів, головне — на початку.', 'leaderauto-core' ) ),
+			$page . '_description' => field( 'textarea', __( 'Опис у пошуку (description)', 'leaderauto-core' ), $description, __( 'Сірий текст під посиланням. 120–160 символів.', 'leaderauto-core' ) ),
+		),
 	);
 }
 
