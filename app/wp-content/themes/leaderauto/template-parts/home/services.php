@@ -40,7 +40,7 @@ foreach ( leaderauto_rows( 'home', 'services_groups' ) as $row ) {
 	<div class="section__inner">
 		<?php /* Reference row 1: two stills on the left, the debut clip on the right. */ ?>
 		<div class="services__intro">
-			<img class="services__shot" src="<?php echo esc_url( leaderauto_field_img( 'home', 'services_shot' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів LeaderAuto', 'leaderauto' ); ?>" loading="lazy">
+			<img class="services__shot" src="<?php echo esc_url( leaderauto_field_img( 'home', 'services_shot' ) ); ?>" alt="<?php esc_attr_e( 'Сервіс електромобілів BYD-Center', 'leaderauto' ); ?>" loading="lazy">
 			<span class="services__shot-over"><img src="<?php echo esc_url( leaderauto_field_img( 'home', 'services_shot_over' ) ); ?>" alt="<?php esc_attr_e( 'Електромобіль BYD', 'leaderauto' ); ?>" width="1230" height="615" loading="lazy"></span>
 			<div class="services__aside">
 				<?php /* Portrait 720x1280 clip — no poster, the first frame stands in. */ ?>

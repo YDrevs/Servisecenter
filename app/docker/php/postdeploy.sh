@@ -12,7 +12,7 @@ WP=(wp --allow-root)
 if ! "${WP[@]}" core is-installed 2>/dev/null; then
   echo "WordPress is not installed yet."
   # WP_HOME is a PHP constant from WORDPRESS_CONFIG_EXTRA, not a shell variable — pass the URL literally.
-  echo "Run once:  wp --allow-root core install --url='https://your-domain' --title='LeaderAuto' \\"
+  echo "Run once:  wp --allow-root core install --url='https://your-domain' --title='BYD-Center' \\"
   echo "             --admin_user=admin --admin_password=<pw> --admin_email=<you@example.com>"
   echo "…or import a prepared dump:  wp --allow-root db import dump.sql"
   exit 1
